@@ -25,7 +25,7 @@ const DARK_THEME: Theme = {
 };
 
 export const unstable_settings = {
-  initialRouteName: "(main)",
+  initialRouteName: "(drawer)",
 };
 
 export default function RootLayout() {
