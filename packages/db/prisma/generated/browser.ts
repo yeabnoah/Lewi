@@ -36,3 +36,23 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
+/**
+ * Model wardrobe_item
+ * 
+ */
+export type wardrobe_item = Prisma.wardrobe_itemModel
+/**
+ * Model outfit_suggestions
+ * 
+ */
+export type outfit_suggestions = Prisma.outfit_suggestionsModel
+/**
+ * Model style_request
+ * 
+ */
+export type style_request = Prisma.style_requestModel
+/**
+ * Model virtual_tryon
+ * 
+ */
+export type virtual_tryon = Prisma.virtual_tryonModel

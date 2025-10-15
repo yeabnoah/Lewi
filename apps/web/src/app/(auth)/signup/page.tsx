@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { authClient } from "../lib/auth-client";
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -30,7 +30,7 @@ export default function SignupPage() {
         password,
         name: `${firstName} ${lastName}`,
       });
-      router.push("/workspaces");
+      router.push("/dashboard");
     } catch (err) {
       console.error(err);
     } finally {
@@ -50,7 +50,7 @@ export default function SignupPage() {
         window.location.href = response.data.url;
       } else {
         // Fallback to client-side redirect
-        router.push("/workspaces");
+        router.push("/dashboard");
       }
     } catch (error) {
       console.error("Google login error:", error);
@@ -193,7 +193,7 @@ export default function SignupPage() {
       <div className=" w-1/3 bg-muted/50 flex items-center justify-center">
         <div className="relative w-full h-full">
           <Image
-            src="/focus12.jpeg"
+            src="/auth/auth-image-lewi.jpg"
             alt="Focus"
             fill
             className="object-cover object-center"

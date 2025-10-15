@@ -42,20 +42,6 @@ export default function Home() {
           ) : null}
           <View className="mb-6 rounded-lg border border-border p-4">
             <Text className="mb-3 font-medium text-foreground">API Status</Text>
-            <View className="flex-row items-center gap-2">
-              <View
-                className={`h-3 w-3 rounded-full ${
-                  healthCheck.data ? "bg-green-500" : "bg-red-500"
-                }`}
-              />
-              <Text className="text-muted-foreground">
-                {healthCheck.isLoading
-                  ? "Checking..."
-                  : healthCheck.data
-                  ? "Connected to API"
-                  : "API Disconnected"}
-              </Text>
-            </View>
           </View>
 
           {!session?.user && (

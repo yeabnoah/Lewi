@@ -3,13 +3,13 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { authClient } from "@/lib/auth-client";
 import { Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FaGoogle } from "react-icons/fa";
-import { authClient } from "../lib/auth-client";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -28,7 +28,7 @@ export default function LoginPage() {
         password,
       });
       // Redirect to workspaces on successful login
-      router.push("/workspaces");
+      router.push("/dashboard");
     } catch (err) {
       console.error(err);
     } finally {
@@ -48,7 +48,7 @@ export default function LoginPage() {
         window.location.href = response.data.url;
       } else {
         // Fallback to client-side redirect
-        router.push("/workspaces");
+        router.push("/dashboard");
       }
     } catch (error) {
       console.error("Google login error:", error);
@@ -61,7 +61,7 @@ export default function LoginPage() {
       <div className=" w-1/3 bg-muted/50 flex items-center justify-center">
         <div className="relative w-full h-full">
           <Image
-            src="/focus12.jpeg"
+            src="/auth/auth-image-lewi.jpg"
             alt="Focus"
             fill
             className="object-cover object-center"

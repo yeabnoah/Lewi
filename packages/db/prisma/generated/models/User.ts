@@ -197,6 +197,10 @@ export type UserWhereInput = {
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  wardrobe_items?: Prisma.Wardrobe_itemListRelationFilter
+  outfit_suggestions?: Prisma.Outfit_suggestionsListRelationFilter
+  style_requests?: Prisma.Style_requestListRelationFilter
+  virtual_tryons?: Prisma.Virtual_tryonListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
 }
@@ -209,6 +213,10 @@ export type UserOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  wardrobe_items?: Prisma.wardrobe_itemOrderByRelationAggregateInput
+  outfit_suggestions?: Prisma.outfit_suggestionsOrderByRelationAggregateInput
+  style_requests?: Prisma.style_requestOrderByRelationAggregateInput
+  virtual_tryons?: Prisma.virtual_tryonOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   accounts?: Prisma.AccountOrderByRelationAggregateInput
 }
@@ -224,6 +232,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   image?: Prisma.StringNullableFilter<"User"> | string | null
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  wardrobe_items?: Prisma.Wardrobe_itemListRelationFilter
+  outfit_suggestions?: Prisma.Outfit_suggestionsListRelationFilter
+  style_requests?: Prisma.Style_requestListRelationFilter
+  virtual_tryons?: Prisma.Virtual_tryonListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   accounts?: Prisma.AccountListRelationFilter
 }, "id" | "email">
@@ -262,6 +274,10 @@ export type UserCreateInput = {
   image?: string | null
   createdAt: Date | string
   updatedAt: Date | string
+  wardrobe_items?: Prisma.wardrobe_itemCreateNestedManyWithoutUserInput
+  outfit_suggestions?: Prisma.outfit_suggestionsCreateNestedManyWithoutUserInput
+  style_requests?: Prisma.style_requestCreateNestedManyWithoutUserInput
+  virtual_tryons?: Prisma.virtual_tryonCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
@@ -274,6 +290,10 @@ export type UserUncheckedCreateInput = {
   image?: string | null
   createdAt: Date | string
   updatedAt: Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUncheckedCreateNestedManyWithoutUserInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUncheckedCreateNestedManyWithoutUserInput
+  style_requests?: Prisma.style_requestUncheckedCreateNestedManyWithoutUserInput
+  virtual_tryons?: Prisma.virtual_tryonUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
@@ -286,6 +306,10 @@ export type UserUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUpdateManyWithoutUserNestedInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUpdateManyWithoutUserNestedInput
+  style_requests?: Prisma.style_requestUpdateManyWithoutUserNestedInput
+  virtual_tryons?: Prisma.virtual_tryonUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
@@ -298,6 +322,10 @@ export type UserUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUncheckedUpdateManyWithoutUserNestedInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUncheckedUpdateManyWithoutUserNestedInput
+  style_requests?: Prisma.style_requestUncheckedUpdateManyWithoutUserNestedInput
+  virtual_tryons?: Prisma.virtual_tryonUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -411,6 +439,62 @@ export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAccountsInput, Prisma.UserUpdateWithoutAccountsInput>, Prisma.UserUncheckedUpdateWithoutAccountsInput>
 }
 
+export type UserCreateNestedOneWithoutWardrobe_itemsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWardrobe_itemsInput, Prisma.UserUncheckedCreateWithoutWardrobe_itemsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWardrobe_itemsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutWardrobe_itemsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWardrobe_itemsInput, Prisma.UserUncheckedCreateWithoutWardrobe_itemsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWardrobe_itemsInput
+  upsert?: Prisma.UserUpsertWithoutWardrobe_itemsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutWardrobe_itemsInput, Prisma.UserUpdateWithoutWardrobe_itemsInput>, Prisma.UserUncheckedUpdateWithoutWardrobe_itemsInput>
+}
+
+export type UserCreateNestedOneWithoutOutfit_suggestionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOutfit_suggestionsInput, Prisma.UserUncheckedCreateWithoutOutfit_suggestionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOutfit_suggestionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutOutfit_suggestionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOutfit_suggestionsInput, Prisma.UserUncheckedCreateWithoutOutfit_suggestionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOutfit_suggestionsInput
+  upsert?: Prisma.UserUpsertWithoutOutfit_suggestionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOutfit_suggestionsInput, Prisma.UserUpdateWithoutOutfit_suggestionsInput>, Prisma.UserUncheckedUpdateWithoutOutfit_suggestionsInput>
+}
+
+export type UserCreateNestedOneWithoutStyle_requestsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStyle_requestsInput, Prisma.UserUncheckedCreateWithoutStyle_requestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStyle_requestsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutStyle_requestsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutStyle_requestsInput, Prisma.UserUncheckedCreateWithoutStyle_requestsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutStyle_requestsInput
+  upsert?: Prisma.UserUpsertWithoutStyle_requestsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutStyle_requestsInput, Prisma.UserUpdateWithoutStyle_requestsInput>, Prisma.UserUncheckedUpdateWithoutStyle_requestsInput>
+}
+
+export type UserCreateNestedOneWithoutVirtual_tryonsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVirtual_tryonsInput, Prisma.UserUncheckedCreateWithoutVirtual_tryonsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVirtual_tryonsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutVirtual_tryonsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutVirtual_tryonsInput, Prisma.UserUncheckedCreateWithoutVirtual_tryonsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutVirtual_tryonsInput
+  upsert?: Prisma.UserUpsertWithoutVirtual_tryonsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutVirtual_tryonsInput, Prisma.UserUpdateWithoutVirtual_tryonsInput>, Prisma.UserUncheckedUpdateWithoutVirtual_tryonsInput>
+}
+
 export type UserCreateWithoutSessionsInput = {
   id: string
   name: string
@@ -419,6 +503,10 @@ export type UserCreateWithoutSessionsInput = {
   image?: string | null
   createdAt: Date | string
   updatedAt: Date | string
+  wardrobe_items?: Prisma.wardrobe_itemCreateNestedManyWithoutUserInput
+  outfit_suggestions?: Prisma.outfit_suggestionsCreateNestedManyWithoutUserInput
+  style_requests?: Prisma.style_requestCreateNestedManyWithoutUserInput
+  virtual_tryons?: Prisma.virtual_tryonCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
 }
 
@@ -430,6 +518,10 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   image?: string | null
   createdAt: Date | string
   updatedAt: Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUncheckedCreateNestedManyWithoutUserInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUncheckedCreateNestedManyWithoutUserInput
+  style_requests?: Prisma.style_requestUncheckedCreateNestedManyWithoutUserInput
+  virtual_tryons?: Prisma.virtual_tryonUncheckedCreateNestedManyWithoutUserInput
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -457,6 +549,10 @@ export type UserUpdateWithoutSessionsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUpdateManyWithoutUserNestedInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUpdateManyWithoutUserNestedInput
+  style_requests?: Prisma.style_requestUpdateManyWithoutUserNestedInput
+  virtual_tryons?: Prisma.virtual_tryonUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
 }
 
@@ -468,6 +564,10 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUncheckedUpdateManyWithoutUserNestedInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUncheckedUpdateManyWithoutUserNestedInput
+  style_requests?: Prisma.style_requestUncheckedUpdateManyWithoutUserNestedInput
+  virtual_tryons?: Prisma.virtual_tryonUncheckedUpdateManyWithoutUserNestedInput
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
 
@@ -479,6 +579,10 @@ export type UserCreateWithoutAccountsInput = {
   image?: string | null
   createdAt: Date | string
   updatedAt: Date | string
+  wardrobe_items?: Prisma.wardrobe_itemCreateNestedManyWithoutUserInput
+  outfit_suggestions?: Prisma.outfit_suggestionsCreateNestedManyWithoutUserInput
+  style_requests?: Prisma.style_requestCreateNestedManyWithoutUserInput
+  virtual_tryons?: Prisma.virtual_tryonCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
 }
 
@@ -490,6 +594,10 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   image?: string | null
   createdAt: Date | string
   updatedAt: Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUncheckedCreateNestedManyWithoutUserInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUncheckedCreateNestedManyWithoutUserInput
+  style_requests?: Prisma.style_requestUncheckedCreateNestedManyWithoutUserInput
+  virtual_tryons?: Prisma.virtual_tryonUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
 }
 
@@ -517,6 +625,10 @@ export type UserUpdateWithoutAccountsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUpdateManyWithoutUserNestedInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUpdateManyWithoutUserNestedInput
+  style_requests?: Prisma.style_requestUpdateManyWithoutUserNestedInput
+  virtual_tryons?: Prisma.virtual_tryonUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
 }
 
@@ -528,7 +640,315 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUncheckedUpdateManyWithoutUserNestedInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUncheckedUpdateManyWithoutUserNestedInput
+  style_requests?: Prisma.style_requestUncheckedUpdateManyWithoutUserNestedInput
+  virtual_tryons?: Prisma.virtual_tryonUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutWardrobe_itemsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified: boolean
+  image?: string | null
+  createdAt: Date | string
+  updatedAt: Date | string
+  outfit_suggestions?: Prisma.outfit_suggestionsCreateNestedManyWithoutUserInput
+  style_requests?: Prisma.style_requestCreateNestedManyWithoutUserInput
+  virtual_tryons?: Prisma.virtual_tryonCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutWardrobe_itemsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified: boolean
+  image?: string | null
+  createdAt: Date | string
+  updatedAt: Date | string
+  outfit_suggestions?: Prisma.outfit_suggestionsUncheckedCreateNestedManyWithoutUserInput
+  style_requests?: Prisma.style_requestUncheckedCreateNestedManyWithoutUserInput
+  virtual_tryons?: Prisma.virtual_tryonUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutWardrobe_itemsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutWardrobe_itemsInput, Prisma.UserUncheckedCreateWithoutWardrobe_itemsInput>
+}
+
+export type UserUpsertWithoutWardrobe_itemsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutWardrobe_itemsInput, Prisma.UserUncheckedUpdateWithoutWardrobe_itemsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutWardrobe_itemsInput, Prisma.UserUncheckedCreateWithoutWardrobe_itemsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutWardrobe_itemsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutWardrobe_itemsInput, Prisma.UserUncheckedUpdateWithoutWardrobe_itemsInput>
+}
+
+export type UserUpdateWithoutWardrobe_itemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  outfit_suggestions?: Prisma.outfit_suggestionsUpdateManyWithoutUserNestedInput
+  style_requests?: Prisma.style_requestUpdateManyWithoutUserNestedInput
+  virtual_tryons?: Prisma.virtual_tryonUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutWardrobe_itemsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  outfit_suggestions?: Prisma.outfit_suggestionsUncheckedUpdateManyWithoutUserNestedInput
+  style_requests?: Prisma.style_requestUncheckedUpdateManyWithoutUserNestedInput
+  virtual_tryons?: Prisma.virtual_tryonUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutOutfit_suggestionsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified: boolean
+  image?: string | null
+  createdAt: Date | string
+  updatedAt: Date | string
+  wardrobe_items?: Prisma.wardrobe_itemCreateNestedManyWithoutUserInput
+  style_requests?: Prisma.style_requestCreateNestedManyWithoutUserInput
+  virtual_tryons?: Prisma.virtual_tryonCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutOutfit_suggestionsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified: boolean
+  image?: string | null
+  createdAt: Date | string
+  updatedAt: Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUncheckedCreateNestedManyWithoutUserInput
+  style_requests?: Prisma.style_requestUncheckedCreateNestedManyWithoutUserInput
+  virtual_tryons?: Prisma.virtual_tryonUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutOutfit_suggestionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOutfit_suggestionsInput, Prisma.UserUncheckedCreateWithoutOutfit_suggestionsInput>
+}
+
+export type UserUpsertWithoutOutfit_suggestionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOutfit_suggestionsInput, Prisma.UserUncheckedUpdateWithoutOutfit_suggestionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOutfit_suggestionsInput, Prisma.UserUncheckedCreateWithoutOutfit_suggestionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOutfit_suggestionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOutfit_suggestionsInput, Prisma.UserUncheckedUpdateWithoutOutfit_suggestionsInput>
+}
+
+export type UserUpdateWithoutOutfit_suggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUpdateManyWithoutUserNestedInput
+  style_requests?: Prisma.style_requestUpdateManyWithoutUserNestedInput
+  virtual_tryons?: Prisma.virtual_tryonUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOutfit_suggestionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUncheckedUpdateManyWithoutUserNestedInput
+  style_requests?: Prisma.style_requestUncheckedUpdateManyWithoutUserNestedInput
+  virtual_tryons?: Prisma.virtual_tryonUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutStyle_requestsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified: boolean
+  image?: string | null
+  createdAt: Date | string
+  updatedAt: Date | string
+  wardrobe_items?: Prisma.wardrobe_itemCreateNestedManyWithoutUserInput
+  outfit_suggestions?: Prisma.outfit_suggestionsCreateNestedManyWithoutUserInput
+  virtual_tryons?: Prisma.virtual_tryonCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutStyle_requestsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified: boolean
+  image?: string | null
+  createdAt: Date | string
+  updatedAt: Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUncheckedCreateNestedManyWithoutUserInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUncheckedCreateNestedManyWithoutUserInput
+  virtual_tryons?: Prisma.virtual_tryonUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutStyle_requestsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutStyle_requestsInput, Prisma.UserUncheckedCreateWithoutStyle_requestsInput>
+}
+
+export type UserUpsertWithoutStyle_requestsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutStyle_requestsInput, Prisma.UserUncheckedUpdateWithoutStyle_requestsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutStyle_requestsInput, Prisma.UserUncheckedCreateWithoutStyle_requestsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutStyle_requestsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutStyle_requestsInput, Prisma.UserUncheckedUpdateWithoutStyle_requestsInput>
+}
+
+export type UserUpdateWithoutStyle_requestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUpdateManyWithoutUserNestedInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUpdateManyWithoutUserNestedInput
+  virtual_tryons?: Prisma.virtual_tryonUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutStyle_requestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUncheckedUpdateManyWithoutUserNestedInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUncheckedUpdateManyWithoutUserNestedInput
+  virtual_tryons?: Prisma.virtual_tryonUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutVirtual_tryonsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified: boolean
+  image?: string | null
+  createdAt: Date | string
+  updatedAt: Date | string
+  wardrobe_items?: Prisma.wardrobe_itemCreateNestedManyWithoutUserInput
+  outfit_suggestions?: Prisma.outfit_suggestionsCreateNestedManyWithoutUserInput
+  style_requests?: Prisma.style_requestCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutVirtual_tryonsInput = {
+  id: string
+  name: string
+  email: string
+  emailVerified: boolean
+  image?: string | null
+  createdAt: Date | string
+  updatedAt: Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUncheckedCreateNestedManyWithoutUserInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUncheckedCreateNestedManyWithoutUserInput
+  style_requests?: Prisma.style_requestUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutVirtual_tryonsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutVirtual_tryonsInput, Prisma.UserUncheckedCreateWithoutVirtual_tryonsInput>
+}
+
+export type UserUpsertWithoutVirtual_tryonsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutVirtual_tryonsInput, Prisma.UserUncheckedUpdateWithoutVirtual_tryonsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutVirtual_tryonsInput, Prisma.UserUncheckedCreateWithoutVirtual_tryonsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutVirtual_tryonsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutVirtual_tryonsInput, Prisma.UserUncheckedUpdateWithoutVirtual_tryonsInput>
+}
+
+export type UserUpdateWithoutVirtual_tryonsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUpdateManyWithoutUserNestedInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUpdateManyWithoutUserNestedInput
+  style_requests?: Prisma.style_requestUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutVirtual_tryonsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  wardrobe_items?: Prisma.wardrobe_itemUncheckedUpdateManyWithoutUserNestedInput
+  outfit_suggestions?: Prisma.outfit_suggestionsUncheckedUpdateManyWithoutUserNestedInput
+  style_requests?: Prisma.style_requestUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
 }
 
 
@@ -537,11 +957,19 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
  */
 
 export type UserCountOutputType = {
+  wardrobe_items: number
+  outfit_suggestions: number
+  style_requests: number
+  virtual_tryons: number
   sessions: number
   accounts: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  wardrobe_items?: boolean | UserCountOutputTypeCountWardrobe_itemsArgs
+  outfit_suggestions?: boolean | UserCountOutputTypeCountOutfit_suggestionsArgs
+  style_requests?: boolean | UserCountOutputTypeCountStyle_requestsArgs
+  virtual_tryons?: boolean | UserCountOutputTypeCountVirtual_tryonsArgs
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs
 }
@@ -554,6 +982,34 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
    * Select specific fields to fetch from the UserCountOutputType
    */
   select?: Prisma.UserCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountWardrobe_itemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.wardrobe_itemWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOutfit_suggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.outfit_suggestionsWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountStyle_requestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.style_requestWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountVirtual_tryonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.virtual_tryonWhereInput
 }
 
 /**
@@ -579,6 +1035,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   image?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  wardrobe_items?: boolean | Prisma.User$wardrobe_itemsArgs<ExtArgs>
+  outfit_suggestions?: boolean | Prisma.User$outfit_suggestionsArgs<ExtArgs>
+  style_requests?: boolean | Prisma.User$style_requestsArgs<ExtArgs>
+  virtual_tryons?: boolean | Prisma.User$virtual_tryonsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -616,6 +1076,10 @@ export type UserSelectScalar = {
 
 export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  wardrobe_items?: boolean | Prisma.User$wardrobe_itemsArgs<ExtArgs>
+  outfit_suggestions?: boolean | Prisma.User$outfit_suggestionsArgs<ExtArgs>
+  style_requests?: boolean | Prisma.User$style_requestsArgs<ExtArgs>
+  virtual_tryons?: boolean | Prisma.User$virtual_tryonsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -626,6 +1090,10 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
+    wardrobe_items: Prisma.$wardrobe_itemPayload<ExtArgs>[]
+    outfit_suggestions: Prisma.$outfit_suggestionsPayload<ExtArgs>[]
+    style_requests: Prisma.$style_requestPayload<ExtArgs>[]
+    virtual_tryons: Prisma.$virtual_tryonPayload<ExtArgs>[]
     sessions: Prisma.$SessionPayload<ExtArgs>[]
     accounts: Prisma.$AccountPayload<ExtArgs>[]
   }
@@ -1031,6 +1499,10 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  wardrobe_items<T extends Prisma.User$wardrobe_itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$wardrobe_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$wardrobe_itemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  outfit_suggestions<T extends Prisma.User$outfit_suggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$outfit_suggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$outfit_suggestionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  style_requests<T extends Prisma.User$style_requestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$style_requestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$style_requestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  virtual_tryons<T extends Prisma.User$virtual_tryonsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$virtual_tryonsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$virtual_tryonPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   sessions<T extends Prisma.User$sessionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   accounts<T extends Prisma.User$accountsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1454,6 +1926,102 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Users to delete.
    */
   limit?: number
+}
+
+/**
+ * User.wardrobe_items
+ */
+export type User$wardrobe_itemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the wardrobe_item
+   */
+  select?: Prisma.wardrobe_itemSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the wardrobe_item
+   */
+  omit?: Prisma.wardrobe_itemOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.wardrobe_itemInclude<ExtArgs> | null
+  where?: Prisma.wardrobe_itemWhereInput
+  orderBy?: Prisma.wardrobe_itemOrderByWithRelationInput | Prisma.wardrobe_itemOrderByWithRelationInput[]
+  cursor?: Prisma.wardrobe_itemWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Wardrobe_itemScalarFieldEnum | Prisma.Wardrobe_itemScalarFieldEnum[]
+}
+
+/**
+ * User.outfit_suggestions
+ */
+export type User$outfit_suggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the outfit_suggestions
+   */
+  select?: Prisma.outfit_suggestionsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the outfit_suggestions
+   */
+  omit?: Prisma.outfit_suggestionsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.outfit_suggestionsInclude<ExtArgs> | null
+  where?: Prisma.outfit_suggestionsWhereInput
+  orderBy?: Prisma.outfit_suggestionsOrderByWithRelationInput | Prisma.outfit_suggestionsOrderByWithRelationInput[]
+  cursor?: Prisma.outfit_suggestionsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Outfit_suggestionsScalarFieldEnum | Prisma.Outfit_suggestionsScalarFieldEnum[]
+}
+
+/**
+ * User.style_requests
+ */
+export type User$style_requestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the style_request
+   */
+  select?: Prisma.style_requestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the style_request
+   */
+  omit?: Prisma.style_requestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.style_requestInclude<ExtArgs> | null
+  where?: Prisma.style_requestWhereInput
+  orderBy?: Prisma.style_requestOrderByWithRelationInput | Prisma.style_requestOrderByWithRelationInput[]
+  cursor?: Prisma.style_requestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Style_requestScalarFieldEnum | Prisma.Style_requestScalarFieldEnum[]
+}
+
+/**
+ * User.virtual_tryons
+ */
+export type User$virtual_tryonsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the virtual_tryon
+   */
+  select?: Prisma.virtual_tryonSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the virtual_tryon
+   */
+  omit?: Prisma.virtual_tryonOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.virtual_tryonInclude<ExtArgs> | null
+  where?: Prisma.virtual_tryonWhereInput
+  orderBy?: Prisma.virtual_tryonOrderByWithRelationInput | Prisma.virtual_tryonOrderByWithRelationInput[]
+  cursor?: Prisma.virtual_tryonWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.Virtual_tryonScalarFieldEnum | Prisma.Virtual_tryonScalarFieldEnum[]
 }
 
 /**

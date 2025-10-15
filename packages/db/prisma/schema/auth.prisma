@@ -6,6 +6,10 @@ model User {
   image         String?
   createdAt     DateTime
   updatedAt     DateTime
+  wardrobe_items wardrobe_item[]
+  outfit_suggestions outfit_suggestions[]
+  style_requests style_request[]
+  virtual_tryons virtual_tryon[]
   sessions      Session[]
   accounts      Account[]
 
@@ -57,3 +61,5 @@ model Verification {
 
   @@map("verification")
 }
+
+

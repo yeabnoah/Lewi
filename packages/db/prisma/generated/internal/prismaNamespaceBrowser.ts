@@ -51,7 +51,11 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification'
+  Verification: 'Verification',
+  wardrobe_item: 'wardrobe_item',
+  outfit_suggestions: 'outfit_suggestions',
+  style_request: 'style_request',
+  virtual_tryon: 'virtual_tryon'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -126,6 +130,55 @@ export const VerificationScalarFieldEnum = {
 } as const
 
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
+
+
+export const Wardrobe_itemScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  imageUrl: 'imageUrl',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  outfit_suggestionsId: 'outfit_suggestionsId'
+} as const
+
+export type Wardrobe_itemScalarFieldEnum = (typeof Wardrobe_itemScalarFieldEnum)[keyof typeof Wardrobe_itemScalarFieldEnum]
+
+
+export const Outfit_suggestionsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Outfit_suggestionsScalarFieldEnum = (typeof Outfit_suggestionsScalarFieldEnum)[keyof typeof Outfit_suggestionsScalarFieldEnum]
+
+
+export const Style_requestScalarFieldEnum = {
+  id: 'id',
+  requestDescription: 'requestDescription',
+  style_request_type: 'style_request_type',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Style_requestScalarFieldEnum = (typeof Style_requestScalarFieldEnum)[keyof typeof Style_requestScalarFieldEnum]
+
+
+export const Virtual_tryonScalarFieldEnum = {
+  id: 'id',
+  userImageUrl: 'userImageUrl',
+  userId: 'userId',
+  outfitImageUrl: 'outfitImageUrl',
+  generatedImageUrl: 'generatedImageUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type Virtual_tryonScalarFieldEnum = (typeof Virtual_tryonScalarFieldEnum)[keyof typeof Virtual_tryonScalarFieldEnum]
 
 
 export const SortOrder = {

@@ -1,0 +1,43 @@
+model wardrobe_item {
+    id                   String              @id @default(uuid())
+    name                 String
+    description          String
+    imageUrl             String
+    userId String  
+    user                 User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+    createdAt            DateTime            @default(now())
+    updatedAt            DateTime            @updatedAt
+    outfit_suggestions   outfit_suggestions? @relation(fields: [outfit_suggestionsId], references: [id])
+    outfit_suggestionsId String?
+}
+
+model outfit_suggestions {
+    id          String          @id @default(uuid())
+    suggestions wardrobe_item[]
+    userId String              
+    user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+    createdAt   DateTime        @default(now())
+    updatedAt   DateTime        @updatedAt
+}
+
+model style_request {
+    id          String          @id @default(uuid())
+    requestDescription String
+    style_request_type String
+    userId String              
+    user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+    createdAt   DateTime        @default(now())
+    updatedAt   DateTime        @updatedAt
+}
+
+
+model virtual_tryon {
+    id          String          @id @default(uuid())
+    userImageUrl String         
+    user           User              @relation(fields: [userId], references: [id], onDelete: Cascade)
+    userId String
+    outfitImageUrl String
+    generatedImageUrl String
+    createdAt   DateTime        @default(now())
+    updatedAt   DateTime        @updatedAt
+}
