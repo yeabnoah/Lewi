@@ -10,6 +10,7 @@ export const presets = [require("nativewind/preset")];
 export const theme = {
 	extend: {
 		colors: {
+			lewi: "#DBFE01",
 			background: "hsl(var(--background))",
 			foreground: "hsl(var(--foreground))",
 			card: {

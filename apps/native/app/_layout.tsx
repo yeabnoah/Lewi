@@ -1,20 +1,21 @@
-import { Stack } from "expo-router";
+import { setAndroidNavigationBar } from "@/lib/android-navigation-bar";
+import { NAV_THEME } from "@/lib/constants";
+import { useColorScheme } from "@/lib/use-color-scheme";
+import TanStackQueryProvider from "@/providers/query-provider";
 import {
   DarkTheme,
   DefaultTheme,
   type Theme,
   ThemeProvider,
 } from "@react-navigation/native";
+import { Redirect, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import React, { useRef } from "react";
+import { Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "../global.css";
-import { NAV_THEME } from "@/lib/constants";
-import React, { useRef } from "react";
-import { useColorScheme } from "@/lib/use-color-scheme";
-import { Platform } from "react-native";
-import { setAndroidNavigationBar } from "@/lib/android-navigation-bar";
-import TanStackQueryProvider from "@/providers/query-provider";
 import { authClient } from "@/lib/auth-client";
+
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
   colors: NAV_THEME.light,
@@ -32,6 +33,7 @@ export default function RootLayout() {
   const hasMounted = useRef(false);
   const { colorScheme, isDarkColorScheme } = useColorScheme();
   const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
+  const { data: session } = authClient.useSession();
 
   useIsomorphicLayoutEffect(() => {
     if (hasMounted.current) {
@@ -48,6 +50,21 @@ export default function RootLayout() {
 
   if (!isColorSchemeLoaded) {
     return null;
+  }
+
+  if (!session) {
+    return (
+      <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+        <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <TanStackQueryProvider>
+            <Stack>
+              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+            </Stack>
+          </TanStackQueryProvider>
+        </GestureHandlerRootView>
+      </ThemeProvider>
+    );
   }
 
   return (
