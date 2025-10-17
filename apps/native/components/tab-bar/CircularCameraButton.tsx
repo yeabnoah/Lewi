@@ -1,4 +1,4 @@
-import { Camera01Icon } from "@hugeicons/core-free-icons";
+import { AiGenerativeIcon, Camera01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
 import { useEffect, useRef, useState } from "react";
 import { Animated, Modal, Text, TouchableOpacity, View } from "react-native";
@@ -102,7 +102,7 @@ export function CircularCameraButton({
                 transform: [{ scale: pulseAnim }],
               }}
             >
-              <HugeiconsIcon icon={Camera01Icon} color="#000" size={24} />
+              <HugeiconsIcon icon={AiGenerativeIcon} color="#000" size={24} />
             </Animated.View>
           </TouchableOpacity>
         </Animated.View>

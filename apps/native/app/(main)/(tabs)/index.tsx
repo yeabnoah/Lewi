@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   ArrowDown01Icon,
@@ -13,6 +14,12 @@ import {
   SunIcon,
   ThermometerIcon,
   WinkIcon,
+  Camera01Icon,
+  UserIcon,
+  SentIcon,
+  ClosedCaptionIcon,
+  Cancel01Icon,
+  AiGenerativeIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
 import * as Haptic from "expo-haptics";
@@ -176,7 +183,7 @@ export default function TabOne() {
           {item.title}
         </Text>
         <Text className="text-white/60 text-sm mb-2">{item.time}</Text>
-        <Text className="text-lewi text-sm font-medium">
+        <Text className="text-white/80 text-sm font-medium">
           Suggested: {item.dressCode}
         </Text>
       </View>
@@ -198,49 +205,38 @@ export default function TabOne() {
           <Text className=" dark:text-white/40 text-black/40">
             Good Morning
           </Text>
-          <Text className=" text-2xl font-bold text-lewi">John Doe</Text>
+          <Text className=" text-2xl font-bold text-white">John Doe</Text>
         </View>
 
-        <View className=" bg-secondary/50 rounded-full p-3">
+        <View className=" bg-white/5 rounded-full p-3">
           <HugeiconsIcon icon={Notification02Icon} color="#DBFE01" size={20} />
         </View>
       </View>
       {/* Expandable Weather Card */}
-      <View className="mt-6 relative overflow-hidden">
-        {/* Background Gradient */}
-        <View className="absolute inset-0 bg-gradient-to-br from-lewi/10 via-lewi/5 to-transparent rounded-xl" />
-
+      <View className="mt-6 relative overflow-hidden rounded-xl">
         {/* Main Card */}
-        <View className="bg-zinc-900/60 backdrop-blur-sm rounded-xl border border-white/5">
-          {/* Header - Always Visible - Larger */}
+        <View className="bg-zinc-900/60 rounded-2xl ">
           <Pressable
             onPress={() => {
               Haptic.selectionAsync();
               setIsWeatherExpanded(!isWeatherExpanded);
             }}
-            className="p-6"
+            className="px-5 py-4"
           >
             <View className="flex-row items-center justify-between">
               <View className="flex-row items-center flex-1">
-                <View className="w-12 h-12 bg-lewi/20 rounded-full items-center justify-center mr-4">
-                  <HugeiconsIcon icon={SunIcon} color="#DBFE01" size={20} />
+                <View className="w-10 h-10 bg-white/40 rounded-full items-center justify-center mr-4">
+                  <HugeiconsIcon icon={SunIcon} color="white" size={20} />
                 </View>
                 <View className="flex-1">
                   <Text className="text-white/60 text-sm font-medium mb-1">
                     Current Weather
                   </Text>
-                  <Text className="text-white text-lg font-semibold">
-                    72°F Sunny
-                  </Text>
+                  <Text className="text-white font-semibold">72°F Sunny</Text>
                 </View>
               </View>
 
               <View className="flex-row items-center">
-                <View className="bg-white/10 rounded-full px-3 py-2 mr-3">
-                  <Text className="text-white/80 text-sm font-medium">
-                    Live
-                  </Text>
-                </View>
                 <HugeiconsIcon
                   icon={isWeatherExpanded ? ArrowUp01Icon : ArrowDown01Icon}
                   color="#9CA3AF"
@@ -250,80 +246,68 @@ export default function TabOne() {
             </View>
           </Pressable>
 
-          {/* Expanded Content - Conditional */}
+          {/* Expanded Content - Conditional - Compact */}
           {isWeatherExpanded && (
-            <View className="px-4 pb-4 border-t border-white/10">
-              {/* Location and Main Weather */}
-              <View className="pt-4 mb-4">
-                <Text className="text-white text-sm font-medium mb-1">
-                  San Francisco, CA
-                </Text>
-                <View className="flex-row items-center justify-between">
+            <View className="px-6 pb-4">
+              {/* Compact Weather Info */}
+              <View className="">
+                <View className="flex-row items-center justify-between mb-3">
                   <View className="flex-1">
+                    <Text className="text-white/60 text-xs mb-1">
+                      San Francisco, CA
+                    </Text>
                     <View className="flex-row items-baseline">
-                      <Text className="text-white text-3xl font-light">72</Text>
-                      <Text className="text-white/60 text-lg ml-1">°F</Text>
+                      <Text className="text-white text-2xl font-light">72</Text>
+                      <Text className="text-white/60 text-sm ml-1">°F</Text>
+                      <Text className="text-white/50 text-xs ml-2">
+                        Feels like 75°F
+                      </Text>
                     </View>
-                    <Text className="text-white/80 text-base font-medium">
-                      Sunny & Clear
+                  </View>
+                  <View className="w-10 h-10 bg-gradient-to-br from-yellow-400/20 to-orange-400/20 rounded-full items-center justify-center">
+                    <HugeiconsIcon icon={SunIcon} color="#FCD34D" size={20} />
+                  </View>
+                </View>
+
+                {/* Compact Details Row */}
+                <View className="flex-row justify-between mb-3">
+                  <View className="flex-row items-center">
+                    <HugeiconsIcon icon={WinkIcon} color="#9CA3AF" size={14} />
+                    <Text className="text-white/60 text-xs ml-1">Wind</Text>
+                    <Text className="text-white text-xs ml-1 font-medium">
+                      8 mph
                     </Text>
-                    <Text className="text-white/50 text-sm">
-                      Feels like 75°F
+                  </View>
+                  <View className="flex-row items-center">
+                    <HugeiconsIcon icon={EyeIcon} color="#9CA3AF" size={14} />
+                    <Text className="text-white/60 text-xs ml-1">
+                      Visibility
+                    </Text>
+                    <Text className="text-white text-xs ml-1 font-medium">
+                      10 mi
                     </Text>
                   </View>
-
-                  {/* Weather Icon */}
-                  <View className="w-16 h-16 bg-gradient-to-br from-yellow-400/20 to-orange-400/20 rounded-full items-center justify-center">
-                    <HugeiconsIcon icon={SunIcon} color="#FCD34D" size={32} />
-                  </View>
-                </View>
-              </View>
-
-              {/* Weather Details Grid */}
-              <View className="flex-row justify-between mb-4">
-                <View className="items-center flex-1">
-                  <View className="w-8 h-8 bg-white/10 rounded-full items-center justify-center mb-2">
-                    <HugeiconsIcon icon={WinkIcon} color="#9CA3AF" size={16} />
-                  </View>
-                  <Text className="text-white/60 text-xs mb-1">Wind</Text>
-                  <Text className="text-white text-sm font-medium">8 mph</Text>
-                </View>
-
-                <View className="items-center flex-1">
-                  <View className="w-8 h-8 bg-white/10 rounded-full items-center justify-center mb-2">
-                    <HugeiconsIcon icon={EyeIcon} color="#9CA3AF" size={16} />
-                  </View>
-                  <Text className="text-white/60 text-xs mb-1">Visibility</Text>
-                  <Text className="text-white text-sm font-medium">10 mi</Text>
-                </View>
-
-                <View className="items-center flex-1">
-                  <View className="w-8 h-8 bg-white/10 rounded-full items-center justify-center mb-2">
+                  <View className="flex-row items-center">
                     <HugeiconsIcon
                       icon={ThermometerIcon}
                       color="#9CA3AF"
-                      size={16}
+                      size={14}
                     />
+                    <Text className="text-white/60 text-xs ml-1">Humidity</Text>
+                    <Text className="text-white text-xs ml-1 font-medium">
+                      65%
+                    </Text>
                   </View>
-                  <Text className="text-white/60 text-xs mb-1">Humidity</Text>
-                  <Text className="text-white text-sm font-medium">65%</Text>
                 </View>
-              </View>
 
-              {/* Style Recommendation */}
-              <View className="pt-3 border-t border-white/10">
-                <View className="flex-row items-center">
-                  <View className="w-6 h-6 bg-lewi rounded-full items-center justify-center mr-3">
-                    <Text className="text-black text-xs font-bold">L</Text>
+                {/* Compact Style Recommendation */}
+                <View className="flex-row items-center pt-2 border-t border-white/10">
+                  <View className="w-5 h-5 bg-white/40 rounded-full items-center justify-center mr-2">
+                    <Text className="text-white text-xs font-bold">L</Text>
                   </View>
-                  <View className="flex-1">
-                    <Text className="text-white/80 text-sm font-medium">
-                      Perfect day for your style goals
-                    </Text>
-                    <Text className="text-lewi text-xs">
-                      Light layers recommended
-                    </Text>
-                  </View>
+                  <Text className="text-white/80 text-xs flex-1">
+                    Light layers recommended
+                  </Text>
                 </View>
               </View>
             </View>
@@ -331,132 +315,141 @@ export default function TabOne() {
         </View>
       </View>
 
-      <View className=" flex-col gap-5 items-center justify-between mt-6">
-        <View className=" flex-row items-center mx-2 justify-between w-full">
-          <Text className="text-white text-xl font-semibold">Todays Pick</Text>
-          <HugeiconsIcon icon={Share01Icon} color="#DBFE01" size={20} />
+      {/* Today's Pick Section - New Layout */}
+      <View className="mt-6">
+        <View className="flex-row items-center mx-2 justify-between mb-1">
+          <Text className="text-white text-lg font-semibold">Today's Pick</Text>
         </View>
-        <View className="w-full max-w-sm mx-0 ">
-          <Card className=" bg-zinc-900/50 border-0 pt-3 pb-5 ">
-            <CardContent className="mx-0 px-3">
+
+        {/* Main Layout Container */}
+        <View className="bg-zinc-900/50 rounded-2xl px-2 pt-2 pb-4 ">
+          {/* Image and Side Squares Row */}
+          <View className="flex-row mb-4">
+            {/* Main Image Area */}
+            <View className="flex-1 mr-3">
               <Pressable
                 onPress={() => {
                   Haptic.selectionAsync();
                   openImageModal(require("@/assets/images/outfit.jpg"));
                 }}
+                className="bg-black rounded-xl overflow-hidden"
+                style={{ height: 200 }}
               >
                 <Image
-                  className="w-full h-full rounded-2xl"
-                  style={{ width: "100%", height: 200, borderRadius: 10 }}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: 12,
+                  }}
                   source={require("@/assets/images/outfit.jpg")}
                   placeholder={{ blurhash: "LEHV6nWB2yk8pyo0adR*.7kCMdnj" }}
                   contentFit="cover"
                   transition={1000}
                 />
               </Pressable>
-              <View className="flex-row mx-1 mt-5 items-center justify-between">
-                <View>
-                  <Text className="text-white text-2xl font-medium">
-                    Casual Friday Vibes
+            </View>
+
+            {/* Side Content Areas - Right Side */}
+            <View className="w-20 justify-between space-y-3">
+              {/* Square 1 */}
+              <Pressable
+                onPress={() => {
+                  Haptic.selectionAsync();
+                  openImageModal(require("@/assets/images/shirt.jpg"));
+                }}
+                className="bg-black rounded-xl overflow-hidden"
+                style={{ height: 60 }}
+              >
+                <Image
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: 12,
+                  }}
+                  source={require("@/assets/images/shirt.jpg")}
+                  placeholder={{ blurhash: "LEHV6nWB2yk8pyo0adR*.7kCMdnj" }}
+                  contentFit="cover"
+                  transition={1000}
+                />
+              </Pressable>
+
+              {/* Square 2 */}
+              <Pressable
+                onPress={() => {
+                  Haptic.selectionAsync();
+                  openImageModal(require("@/assets/images/jeans1.jpg"));
+                }}
+                className="bg-black rounded-xl overflow-hidden"
+                style={{ height: 60 }}
+              >
+                <Image
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: 12,
+                  }}
+                  source={require("@/assets/images/jeans1.jpg")}
+                  placeholder={{ blurhash: "LEHV6nWB2yk8pyo0adR*.7kCMdnj" }}
+                  contentFit="cover"
+                  transition={1000}
+                />
+              </Pressable>
+
+              {/* Square 3 */}
+              <Pressable
+                onPress={() => {
+                  Haptic.selectionAsync();
+                  openImageModal(require("@/assets/images/shoes2.jpg"));
+                }}
+                className="bg-black rounded-xl overflow-hidden"
+                style={{ height: 60 }}
+              >
+                <Image
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: 12,
+                  }}
+                  source={require("@/assets/images/shoes2.jpg")}
+                  placeholder={{ blurhash: "LEHV6nWB2yk8pyo0adR*.7kCMdnj" }}
+                  contentFit="cover"
+                  transition={1000}
+                />
+              </Pressable>
+            </View>
+          </View>
+
+          {/* Full Width Text Content */}
+          <View className="space-y-3 mx-2">
+            {/* Main Title with Creative Styling */}
+            <View className="flex-row items-baseline justify-between">
+              <View className="flex-1">
+                <Text className="text-white text-xl font-bold tracking-tight">
+                  Casual Friday Vibes
+                </Text>
+                <View className="flex-row items-center mt-1">
+                  <View className="w-2 h-2 bg-white/40 rounded-full mr-2" />
+                  <Text className="text-white/80 text-sm font-medium">
+                    Perfect for Work
                   </Text>
-                  <Text className="text-white/40 text-sm">Work Outfit</Text>
-                </View>
-
-                <View className="flex-row items-center gap-2 bg-lewi rounded-full p-2">
-                  <HugeiconsIcon icon={StarIcon} color="black" size={12} />
-                  <Text className="text-black text-sm">Ai Pick</Text>
                 </View>
               </View>
 
-              <View className="flex-col items-center mt-3 justify-between">
-                <View className="flex-row mt-2 items-center gap-2 w-full">
-                  <Pressable
-                    className="flex-1"
-                    onPress={() => {
-                      Haptic.selectionAsync();
-                      openImageModal(require("@/assets/images/shirt.jpg"));
-                    }}
-                  >
-                    <Image
-                      style={{
-                        width: "100%",
-                        aspectRatio: 1,
-                        borderRadius: 10,
-                      }}
-                      className="rounded-2xl"
-                      source={require("@/assets/images/shirt.jpg")}
-                      placeholder={{ blurhash: "LEHV6nWB2yk8pyo0adR*.7kCMdnj" }}
-                      contentFit="cover"
-                      transition={1000}
-                    />
-                    <Text className="text-white/50 text-sm mt-2 text-center">
-                      Green Olive Shirt
-                    </Text>
-                    <Text className="text-white/20 text-sm text-center">
-                      Tops
-                    </Text>
-                  </Pressable>
-                  <Pressable
-                    className="flex-1"
-                    onPress={() => {
-                      Haptic.selectionAsync();
-                      openImageModal(require("@/assets/images/jeans1.jpg"));
-                    }}
-                  >
-                    <Image
-                      style={{
-                        width: "100%",
-                        aspectRatio: 1,
-                        borderRadius: 10,
-                      }}
-                      className="rounded-2xl"
-                      source={require("@/assets/images/jeans1.jpg")}
-                      placeholder={{ blurhash: "LEHV6nWB2yk8pyo0adR*.7kCMdnj" }}
-                      contentFit="cover"
-                      transition={1000}
-                    />
-                    <Text className="text-white/50 text-sm mt-2 text-center">
-                      white jeans
-                    </Text>
-                    <Text className="text-white/20 text-sm text-center">
-                      Bottoms
-                    </Text>
-                  </Pressable>
-                  <Pressable
-                    className="flex-1"
-                    onPress={() => {
-                      Haptic.selectionAsync();
-                      openImageModal(require("@/assets/images/shoes2.jpg"));
-                    }}
-                  >
-                    <Image
-                      style={{
-                        width: "100%",
-                        aspectRatio: 1,
-                        borderRadius: 10,
-                      }}
-                      className="rounded-2xl"
-                      source={require("@/assets/images/shoes2.jpg")}
-                      placeholder={{ blurhash: "LEHV6nWB2yk8pyo0adR*.7kCMdnj" }}
-                      contentFit="cover"
-                      transition={1000}
-                    />
-                    <Text className="text-white/50 text-sm mt-2 text-center">
-                      white Jordan Shoes
-                    </Text>
-                    <Text className="text-white/20 text-sm text-center">
-                      Shoes
-                    </Text>
-                  </Pressable>
-                </View>
-              </View>
-            </CardContent>
-          </Card>
+              <Pressable
+                onPress={() => {
+                  Haptic.selectionAsync();
+                }}
+                className="bg-white/5 rounded-full p-2"
+              >
+                <HugeiconsIcon icon={SentIcon} color="white" size={20} />
+              </Pressable>
+            </View>
+          </View>
         </View>
       </View>
 
       <View className="mt-8 mb-4">
-        <View className="flex-row justify-between items-center mb-4">
+        <View className="flex-row justify-between items-center mx-2 mb-4">
           <Text className="text-white text-lg font-semibold">
             Upcoming Events
           </Text>
@@ -465,7 +458,7 @@ export default function TabOne() {
               Haptic.selectionAsync();
             }}
           >
-            <Text className="text-lewi text-sm font-medium">See All</Text>
+            <Text className="text-white/80 text-sm font-medium">See All</Text>
           </Pressable>
         </View>
 
@@ -478,7 +471,7 @@ export default function TabOne() {
         />
       </View>
 
-      <View className=" mx-1 mb-4">
+      <View className=" ml-1  mb-4">
         <Text className="text-white text-lg font-semibold mb-4">
           Trending Now
         </Text>
@@ -495,6 +488,87 @@ export default function TabOne() {
         />
       </View>
 
+      {/* Quick Actions Section */}
+      <View className="mx-1 mb-4">
+        <Text className="text-white text-lg font-semibold mb-4">
+          Quick Actions
+        </Text>
+
+        <View className="flex-row justify-between">
+          {/* Add to Wardrobe Card */}
+          <Pressable
+            onPress={() => {
+              Haptic.selectionAsync();
+              // Navigate to add to wardrobe
+            }}
+            className="flex-1 mr-2 bg-zinc-900/50 rounded-2xl p-4 border border-white/5"
+          >
+            <View className="items-center">
+              {/* Gradient Icon Background */}
+              <View
+                className="w-12 h-12 rounded-full items-center justify-center mb-3"
+                style={{
+                  backgroundColor: "linear-gradient(135deg, #3B82F6, #8B5CF6)",
+                }}
+              >
+                <View
+                  className="w-12 h-12 rounded-full items-center justify-center"
+                  style={{
+                    backgroundColor:
+                      "linear-gradient(135deg, #3B82F6, #8B5CF6)",
+                  }}
+                >
+                  <HugeiconsIcon icon={Camera01Icon} color="white" size={24} />
+                </View>
+              </View>
+
+              <Text className="text-white text-sm font-semibold mb-1 text-center">
+                Add to Wardrobe
+              </Text>
+              <Text className="text-white/60 text-xs text-center">
+                Snap & organize
+              </Text>
+            </View>
+          </Pressable>
+
+          {/* Style Match Card */}
+          <Pressable
+            onPress={() => {
+              Haptic.selectionAsync();
+              // Navigate to style match
+            }}
+            className="flex-1 ml-2 bg-zinc-900/50 rounded-2xl p-4 border border-white/5"
+          >
+            <View className="items-center">
+              {/* Gradient Icon Background */}
+              <View
+                className="w-12 h-12 rounded-full items-center justify-center mb-3"
+                style={{
+                  backgroundColor: "linear-gradient(135deg, #F59E0B, #FCD34D)",
+                }}
+              >
+                <View
+                  className="w-12 h-12 rounded-full items-center justify-center"
+                  style={{
+                    backgroundColor:
+                      "linear-gradient(135deg, #F59E0B, #FCD34D)",
+                  }}
+                >
+                  <HugeiconsIcon icon={UserIcon} color="white" size={24} />
+                </View>
+              </View>
+
+              <Text className="text-white text-sm font-semibold mb-1 text-center">
+                Style Match
+              </Text>
+              <Text className="text-white/60 text-xs text-center">
+                Find similar looks
+              </Text>
+            </View>
+          </Pressable>
+        </View>
+      </View>
+
       <Modal
         visible={modalVisible}
         transparent={true}
@@ -503,13 +577,13 @@ export default function TabOne() {
       >
         <View className="flex-1 bg-black/90 justify-center items-center">
           <Pressable
-            className="absolute top-12 right-6 z-10 bg-white/20 rounded-full p-2"
+            className="absolute top-12 right-6 z-10 bg-white size-8 items-center justify-center rounded-full"
             onPress={() => {
               Haptic.selectionAsync();
               closeImageModal();
             }}
           >
-            <Text className="text-white text-lg font-bold">×</Text>
+            <HugeiconsIcon icon={Cancel01Icon} color="black" size={20} />
           </Pressable>
 
           {selectedImage && (
