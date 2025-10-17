@@ -1,10 +1,8 @@
 import { expo } from "@better-auth/expo";
-import { nextCookies } from "better-auth/next-js";
+import prisma from "@lewi/db";
 import { betterAuth } from "better-auth";
 import { prismaAdapter } from "better-auth/adapters/prisma";
-import { polar, checkout, portal } from "@polar-sh/better-auth";
-import { polarClient } from "./lib/payments";
-import prisma from "@lewi/db";
+import { nextCookies } from "better-auth/next-js";
 
 export const auth = betterAuth({
   database: prismaAdapter(prisma, {
@@ -29,23 +27,23 @@ export const auth = betterAuth({
   plugins: [
     nextCookies(),
     expo(),
-    polar({
-      client: polarClient,
-      createCustomerOnSignUp: true,
-      enableCustomerPortal: true,
-      use: [
-        checkout({
-          products: [
-            {
-              productId: "your-product-id",
-              slug: "pro",
-            },
-          ],
-          successUrl: process.env.POLAR_SUCCESS_URL,
-          authenticatedUsersOnly: true,
-        }),
-        portal(),
-      ],
-    }),
+    // polar({
+    //   client: polarClient,
+    //   createCustomerOnSignUp: true,
+    //   enableCustomerPortal: true,
+    //   use: [
+    //     checkout({
+    //       products: [
+    //         {
+    //           productId: process.env.LWEI_PRO_PRODUCT_ID!,
+    //           slug: "pro",
+    //         },
+    //       ],
+    //       successUrl: process.env.POLAR_SUCCESS_URL,
+    //       authenticatedUsersOnly: true,
+    //     }),
+    //     portal(),
+    //   ],
+    // }),
   ],
 });

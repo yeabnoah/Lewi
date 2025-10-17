@@ -1,98 +1,214 @@
 import { authClient } from "@/lib/auth-client";
 import { useState } from "react";
 import {
-	ActivityIndicator,
-	Text,
-	TextInput,
-	TouchableOpacity,
-	View,
+  ActivityIndicator,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+  useColorScheme,
 } from "react-native";
+import { router } from "expo-router";
 
 export function SignUp() {
-	const [name, setName] = useState("");
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState<string | null>(null);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-	const handleSignUp = async () => {
-		setIsLoading(true);
-		setError(null);
+  const scheme = useColorScheme();
+  const isDark = scheme === "dark";
 
-		await authClient.signUp.email(
-			{
-				name,
-				email,
-				password,
-			},
-			{
-				onError: (error) => {
-					setError(error.error?.message || "Failed to sign up");
-					setIsLoading(false);
-				},
-				onSuccess: () => {
-					setName("");
-					setEmail("");
-					setPassword("");
-					queryClient.refetchQueries();
-				},
-				onFinished: () => {
-					setIsLoading(false);
-				},
-			},
-		);
-	};
+  const handleSignUp = async () => {
+    setIsLoading(true);
+    setError(null);
 
-	return (
-		<View className="mt-6 p-4 bg-card rounded-lg border border-border">
-			<Text className="text-lg font-semibold text-foreground mb-4">
-				Create Account
-			</Text>
+    await authClient.signUp.email(
+      { name, email, password },
+      {
+        onError: (error) => {
+          setError(error.error?.message || "Failed to sign up");
+          setIsLoading(false);
+        },
+        onSuccess: () => {
+          setName("");
+          setEmail("");
+          setPassword("");
+          router.push("/(auth)/login");
+        },
+        onFinished: () => {
+          setIsLoading(false);
+        },
+      }
+    );
+  };
 
-			{error && (
-				<View className="mb-4 p-3 bg-destructive/10 rounded-md">
-					<Text className="text-destructive text-sm">{error}</Text>
-				</View>
-			)}
+  return (
+    <View
+      className={`flex-1 items-center justify-center px-6 ${
+        isDark ? "bg-black" : "bg-white"
+      }`}
+    >
+      {/* Main Card */}
+      <View
+        className={`w-full max-w-md rounded-3xl p-8 shadow-xl border ${
+          isDark ? "bg-zinc-900 border-zinc-800" : "bg-white border-gray-100"
+        }`}
+      >
+        {/* Header */}
+        <View className="mb-8">
+          <Text
+            className={`text-3xl font-extrabold text-center ${
+              isDark ? "text-white" : "text-black"
+            }`}
+          >
+            Create Account
+          </Text>
+          <Text
+            className={`text-center mt-2 ${
+              isDark ? "text-gray-400" : "text-gray-500"
+            }`}
+          >
+            Join Lewi and start your style journey today
+          </Text>
+        </View>
 
-			<TextInput
-				className="mb-3 p-4 rounded-md bg-input text-foreground border border-input"
-				placeholder="Name"
-				value={name}
-				onChangeText={setName}
-				placeholderTextColor="#9CA3AF"
-			/>
+        {/* Inputs */}
+        <View className="space-y-5">
+          <View>
+            <Text
+              className={`font-semibold mb-2 text-base ${
+                isDark ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              Name
+            </Text>
+            <TextInput
+              className={`p-4 rounded-2xl border text-base ${
+                isDark
+                  ? "bg-zinc-800 text-white border-zinc-700 focus:border-lewi"
+                  : "bg-gray-50 text-gray-900 border-gray-200 focus:border-lewi focus:bg-white"
+              }`}
+              placeholder="Your name"
+              placeholderTextColor="#9CA3AF"
+              value={name}
+              onChangeText={setName}
+            />
+          </View>
 
-			<TextInput
-				className="mb-3 p-4 rounded-md bg-input text-foreground border border-input"
-				placeholder="Email"
-				value={email}
-				onChangeText={setEmail}
-				placeholderTextColor="#9CA3AF"
-				keyboardType="email-address"
-				autoCapitalize="none"
-			/>
+          <View>
+            <Text
+              className={`font-semibold mb-2 text-base ${
+                isDark ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              Email
+            </Text>
+            <TextInput
+              className={`p-4 rounded-2xl border text-base ${
+                isDark
+                  ? "bg-zinc-800 text-white border-zinc-700 focus:border-lewi"
+                  : "bg-gray-50 text-gray-900 border-gray-200 focus:border-lewi focus:bg-white"
+              }`}
+              placeholder="Your email"
+              placeholderTextColor="#9CA3AF"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              value={email}
+              onChangeText={setEmail}
+            />
+          </View>
 
-			<TextInput
-				className="mb-4 p-4 rounded-md bg-input text-foreground border border-input"
-				placeholder="Password"
-				value={password}
-				onChangeText={setPassword}
-				placeholderTextColor="#9CA3AF"
-				secureTextEntry
-			/>
+          <View>
+            <Text
+              className={`font-semibold mb-2 text-base ${
+                isDark ? "text-gray-300" : "text-gray-700"
+              }`}
+            >
+              Password
+            </Text>
+            <TextInput
+              className={`p-4 rounded-2xl border text-base ${
+                isDark
+                  ? "bg-zinc-800 text-white border-zinc-700 focus:border-lewi"
+                  : "bg-gray-50 text-gray-900 border-gray-200 focus:border-lewi focus:bg-white"
+              }`}
+              placeholder="Create a password"
+              placeholderTextColor="#9CA3AF"
+              secureTextEntry
+              value={password}
+              onChangeText={setPassword}
+            />
+          </View>
 
-			<TouchableOpacity
-				onPress={handleSignUp}
-				disabled={isLoading}
-				className="bg-primary p-4 rounded-md flex-row justify-center items-center"
-			>
-				{isLoading ? (
-					<ActivityIndicator size="small" color="#fff" />
-				) : (
-					<Text className="text-primary-foreground font-medium">Sign Up</Text>
-				)}
-			</TouchableOpacity>
-		</View>
-	);
+          {error && (
+            <Text className="text-red-500 text-sm text-center">{error}</Text>
+          )}
+
+          {/* Sign Up Button */}
+          <TouchableOpacity
+            onPress={handleSignUp}
+            disabled={isLoading}
+            className="bg-lewi rounded-2xl py-4 shadow-md flex-row justify-center items-center mt-2"
+          >
+            {isLoading ? (
+              <ActivityIndicator size="small" color="#000" />
+            ) : (
+              <Text className="text-black font-bold text-lg">Sign Up</Text>
+            )}
+          </TouchableOpacity>
+        </View>
+
+        {/* Divider */}
+        <View className="flex-row items-center my-8">
+          <View
+            className={`flex-1 h-px ${isDark ? "bg-zinc-700" : "bg-gray-200"}`}
+          />
+          <Text
+            className={`mx-4 font-medium ${
+              isDark ? "text-gray-400" : "text-gray-500"
+            }`}
+          >
+            or
+          </Text>
+          <View
+            className={`flex-1 h-px ${isDark ? "bg-zinc-700" : "bg-gray-200"}`}
+          />
+        </View>
+
+        {/* Social Buttons */}
+        <View className="space-y-3">
+          <TouchableOpacity
+            className={`rounded-2xl py-4 flex-row justify-center items-center border ${
+              isDark
+                ? "bg-zinc-900 border-zinc-700"
+                : "bg-gray-50 border-gray-200"
+            }`}
+          >
+            <Text
+              className={`font-semibold text-base ${
+                isDark ? "text-white" : "text-gray-800"
+              }`}
+            >
+              Continue with Google
+            </Text>
+          </TouchableOpacity>
+        </View>
+
+        <View className="items-center mt-10">
+          <Text
+            className={`text-base ${
+              isDark ? "text-gray-400" : "text-gray-600"
+            }`}
+          >
+            Already have an account?{" "}
+            <TouchableOpacity onPress={() => router.push("/(auth)/login")}>
+              <Text className="text-lewi font-semibold">Sign In</Text>
+            </TouchableOpacity>
+          </Text>
+        </View>
+      </View>
+    </View>
+  );
 }

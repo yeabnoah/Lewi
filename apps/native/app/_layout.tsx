@@ -33,7 +33,7 @@ export default function RootLayout() {
   const hasMounted = useRef(false);
   const { colorScheme, isDarkColorScheme } = useColorScheme();
   const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
-  const { data: session } = authClient.useSession();
+  const session = authClient.useSession();
 
   useIsomorphicLayoutEffect(() => {
     if (hasMounted.current) {

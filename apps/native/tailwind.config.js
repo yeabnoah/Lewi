@@ -12,7 +12,7 @@ export const theme = {
 		colors: {
 			lewi: "#DBFE01",
 			background: "hsl(var(--background))",
-			foreground: "hsl(var(--foreground))",
+			foreground: "#DBFE01",
 			card: {
 				DEFAULT: "hsl(var(--card))",
 				foreground: "hsl(var(--card-foreground))",

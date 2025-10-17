@@ -3,7 +3,7 @@ import { View } from "react-native";
 
 const Login = () => {
   return (
-    <View className="flex h-screen justify-center items-center">
+    <View className="flex-1 justify-center items-center w-full!">
       <SignIn />
     </View>
   );
