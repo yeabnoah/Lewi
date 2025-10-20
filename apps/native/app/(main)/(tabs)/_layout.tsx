@@ -49,15 +49,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="favorites"
+        name="wardrobe"
         options={{
-          title: "Favorites",
+          title: "Wardrobe",
           tabBarIcon: ({ color, focused }) => (
             <AnimatedTabIcon
-              icon={FavouriteIcon}
+              icon={ClothesIcon}
               color={color}
               focused={focused}
-              label="Favorites"
+              label="Wardrobe"
             />
           ),
         }}
@@ -76,15 +76,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="wardrobe"
+        name="favorites"
         options={{
-          title: "Wardrobe",
+          title: "Favorites",
           tabBarIcon: ({ color, focused }) => (
             <AnimatedTabIcon
-              icon={ClothesIcon}
+              icon={FavouriteIcon}
               color={color}
               focused={focused}
-              label="Wardrobe"
+              label="Favorites"
             />
           ),
         }}
