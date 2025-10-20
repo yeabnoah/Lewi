@@ -2,7 +2,7 @@ import { AnimatedTabIcon, CircularCameraButton } from "@/components/tab-bar";
 import { useColorScheme } from "@/lib/use-color-scheme";
 import {
   ClothesIcon,
-  FavouriteIcon,
+  Calendar01Icon,
   Home05Icon,
   User02Icon,
 } from "@hugeicons/core-free-icons";
@@ -76,15 +76,15 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="favorites"
+        name="event"
         options={{
-          title: "Favorites",
+          title: "events",
           tabBarIcon: ({ color, focused }) => (
             <AnimatedTabIcon
-              icon={FavouriteIcon}
+              icon={Calendar01Icon}
               color={color}
               focused={focused}
-              label="Favorites"
+              label="Events"
             />
           ),
         }}
