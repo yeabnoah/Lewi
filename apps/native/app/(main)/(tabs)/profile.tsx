@@ -41,20 +41,9 @@ export default function Profile() {
 
   return (
     <View className="flex-1">
-      {/* Sticky Header */}
-      <View className="px-4 pt-[12%] backdrop-blur-sm">
+      <View className="px-4 py-3 pt-[12%] backdrop-blur-sm">
         <View className="flex-row items-center justify-between">
           <Text className="text-2xl font-bold text-white">Profile</Text>
-          <Pressable
-            accessibilityLabel="Open settings"
-            className="bg-white/5 rounded-full p-3 w-12 h-12 items-center justify-center"
-          >
-            <Ionicons
-              name="settings-outline"
-              size={22}
-              color={isDarkColorScheme ? "#FFFFFF" : "#0A0A0A"}
-            />
-          </Pressable>
         </View>
       </View>
 

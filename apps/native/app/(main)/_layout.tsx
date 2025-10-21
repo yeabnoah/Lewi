@@ -6,24 +6,24 @@ export default function MainLayout() {
       <Stack.Screen name="(tabs)" />
       <Stack.Screen
         name="add-meeting"
-        options={{ headerShown: true, title: "Add Event" }}
+        options={{ headerShown: false, title: "Add Event" }}
       />
       <Stack.Screen
         name="account-settings"
-        options={{ headerShown: true, title: "Account Settings" }}
+        options={{ headerShown: false, title: "Account Settings" }}
       />
       <Stack.Screen
         name="profile-stats"
-        options={{ headerShown: true, title: "Profile Stats" }}
+        options={{ headerShown: false, title: "Profile Stats" }}
       />
       <Stack.Screen name="notifications" options={{ title: "Notifications" }} />
       <Stack.Screen
         name="privacy-security"
-        options={{ headerShown: true, title: "Privacy & Security" }}
+        options={{ headerShown: false, title: "Privacy & Security" }}
       />
       <Stack.Screen
         name="help-support"
-        options={{ headerShown: true, title: "Help & Support" }}
+        options={{ headerShown: false, title: "Help & Support" }}
       />
     </Stack>
   );
