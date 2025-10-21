@@ -2,7 +2,7 @@ import { useColorScheme } from "@/lib/use-color-scheme";
 import { AiGenerativeIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
 import { Link } from "expo-router";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Pressable, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 const Index = () => {
@@ -42,19 +42,19 @@ const Index = () => {
         {/* Buttons */}
         <View className="gap-4">
           <Link href="/login" asChild>
-            <TouchableOpacity className="bg-lewi rounded-2xl py-4 shadow-lg shadow-black/20 active:bg-lewi/90">
+            <Pressable className="bg-white rounded-2xl py-4 shadow-lg shadow-black/20">
               <Text className="text-center font-semibold text-lg text-black">
                 Sign In
               </Text>
-            </TouchableOpacity>
+            </Pressable>
           </Link>
 
           <Link href="/signup" asChild>
-            <TouchableOpacity className="bg-zinc-700 rounded-2xl py-4 shadow-lg shadow-black/20 active:bg-zinc-600 ">
+            <Pressable className="bg-zinc-700 rounded-2xl py-4 shadow-lg shadow-black/20">
               <Text className="text-center font-semibold text-lg text-white">
                 Create Account
               </Text>
-            </TouchableOpacity>
+            </Pressable>
           </Link>
         </View>
 
@@ -62,8 +62,8 @@ const Index = () => {
         <View className="mt-8 pt-6 border-t border-zinc-700">
           <Text className="text-center text-xs text-white/60">
             By continuing, you agree to our{" "}
-            <Text className="text-lewi underline">Terms</Text> and{" "}
-            <Text className="text-lewi underline">Privacy Policy</Text>
+            <Text className="text-white underline">Terms</Text> and{" "}
+            <Text className="text-white underline">Privacy Policy</Text>
           </Text>
         </View>
       </View>

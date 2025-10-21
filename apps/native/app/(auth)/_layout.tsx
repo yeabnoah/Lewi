@@ -3,17 +3,35 @@ import { Stack } from "expo-router";
 export default function AuthLayout() {
   return (
     <Stack
-      screenOptions={{ headerShown: false, animation: "ios_from_right" }}
+      screenOptions={{
+        // headerShown: false,
+        animation: "ios_from_right",
+        title: "Auth",
+      }}
       initialRouteName="index"
     >
-      <Stack.Screen options={{ headerShown: false }} name="index" />
       <Stack.Screen
-        options={{ headerShown: false, animation: "ios_from_right" }}
-        name="signup"
+        name="index"
+        options={{
+          headerShown: false,
+          title: "Auth",
+        }}
       />
       <Stack.Screen
-        options={{ headerShown: false, animation: "ios_from_right" }}
+        name="signup"
+        options={{
+          headerShown: false,
+          animation: "ios_from_right",
+          title: "Auth",
+        }}
+      />
+      <Stack.Screen
         name="login"
+        options={{
+          headerShown: false,
+          animation: "ios_from_right",
+          title: "Auth",
+        }}
       />
     </Stack>
   );
