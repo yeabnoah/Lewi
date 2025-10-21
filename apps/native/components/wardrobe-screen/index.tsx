@@ -5,9 +5,11 @@ import {
   FilterHorizontalIcon,
   HeartAddIcon,
   SearchIcon,
+  AddIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
 import * as Haptic from "expo-haptics";
+import { router } from "expo-router";
 import { useMemo, useState } from "react";
 import {
   FlatList,
@@ -33,6 +35,11 @@ export default function WardrobeScreen() {
   const openImageModal = (imageSource: any) => {
     setSelectedImage(imageSource);
     setModalVisible(true);
+  };
+
+  const handleAddCloth = () => {
+    Haptic.impactAsync(Haptic.ImpactFeedbackStyle.Medium);
+    router.push("/(main)/add-cloth");
   };
 
   // Calculate statistics
@@ -217,6 +224,21 @@ export default function WardrobeScreen() {
           onClose={() => setModalVisible(false)}
         />
       </ScrollView>
+
+      {/* Floating Add Button */}
+      <Pressable
+        onPress={handleAddCloth}
+        className="absolute bottom-6 right-5 w-14 h-14 bg-white rounded-full items-center justify-center shadow-lg active:scale-95"
+        style={{
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 4 },
+          shadowOpacity: 0.3,
+          shadowRadius: 8,
+          elevation: 8,
+        }}
+      >
+        <HugeiconsIcon icon={AddIcon} size={24} color="#000" />
+      </Pressable>
     </View>
   );
 }

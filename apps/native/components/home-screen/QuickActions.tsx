@@ -1,7 +1,8 @@
-import { Pressable, Text, View } from "react-native";
+import { Calendar01Icon, Camera01Icon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
-import { Camera01Icon, UserIcon } from "@hugeicons/core-free-icons";
 import * as Haptic from "expo-haptics";
+import { router } from "expo-router";
+import { Pressable, Text, View } from "react-native";
 
 export default function QuickActions() {
   return (
@@ -15,7 +16,7 @@ export default function QuickActions() {
         <Pressable
           onPress={() => {
             Haptic.selectionAsync();
-            // Navigate to add to wardrobe
+            router.push("/(main)/(tabs)/wardrobe");
           }}
           className="flex-1 mr-2 bg-zinc-900/50 rounded-2xl p-4 border border-white/5"
         >
@@ -50,7 +51,7 @@ export default function QuickActions() {
         <Pressable
           onPress={() => {
             Haptic.selectionAsync();
-            // Navigate to style match
+            router.push("/(main)/(tabs)/event");
           }}
           className="flex-1 ml-2 bg-zinc-900/50 rounded-2xl p-4 border border-white/5"
         >
@@ -68,15 +69,15 @@ export default function QuickActions() {
                   backgroundColor: "linear-gradient(135deg, #F59E0B, #FCD34D)",
                 }}
               >
-                <HugeiconsIcon icon={UserIcon} color="white" size={24} />
+                <HugeiconsIcon icon={Calendar01Icon} color="white" size={24} />
               </View>
             </View>
 
             <Text className="text-white text-sm font-semibold mb-1 text-center">
-              Style Match
+              Style Planner
             </Text>
             <Text className="text-white/60 text-xs text-center">
-              Find similar looks
+              Plan your events
             </Text>
           </View>
         </Pressable>
