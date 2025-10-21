@@ -99,9 +99,10 @@ export default function WardrobeScreen() {
   );
 
   return (
-    <ScrollView className="flex-1 px-5 py-4 pt-[14%]">
-      <View className="pb-6">
-        <View className="flex-row items-center justify-between mb-6">
+    <View className="flex-1">
+      {/* Sticky Header */}
+      <View className="px-5 py-4 pt-[14%] backdrop-blur-sm">
+        <View className="flex-row items-center justify-between ">
           <View>
             <Text className="text-white/60 text-sm font-medium mb-1">
               My Collection
@@ -119,12 +120,18 @@ export default function WardrobeScreen() {
             />
           </Pressable>
         </View>
+      </View>
 
+      {/* Scrollable Content */}
+      <ScrollView
+        className="flex-1 px-5"
+        contentContainerStyle={{ paddingBottom: 20 }}
+      >
         <View className="flex flex-row bg-zinc-900/60 rounded-2xl items-center px-4 mb-6">
           <HugeiconsIcon icon={SearchIcon} size={20} color="white" />
           <Input
             placeholder="Search your wardrobe..."
-            className="h-16 flex-1 pl-3 text-white border-none border-0 text-lg"
+            className="h-14 flex-1 pl-3 text-white border-none border-0 text-lg"
             placeholderClassName="text-white/60 text-lg"
             style={{ backgroundColor: "transparent" }}
           />
@@ -163,51 +170,53 @@ export default function WardrobeScreen() {
           </View>
         </ScrollView>
 
-        {/* Statistics Cards */}
-        <View className="flex-row justify-between mb-8">
-          <View className="bg-zinc-900/60 rounded-2xl p-5 flex-1 mr-2">
-            <Text className="text-3xl font-bold text-white text-center mb-1">
-              {totalItems}
-            </Text>
-            <Text className="text-xs text-white/60 text-center font-medium">
-              Total Items
-            </Text>
+        <View className="pb-6">
+          {/* Statistics Cards */}
+          <View className="flex-row justify-between mb-8">
+            <View className="bg-zinc-900/60 rounded-2xl p-5 flex-1 mr-2">
+              <Text className="text-3xl font-bold text-white text-center mb-1">
+                {totalItems}
+              </Text>
+              <Text className="text-xs text-white/60 text-center font-medium">
+                Total Items
+              </Text>
+            </View>
+            <View className="bg-zinc-900/60 rounded-2xl p-5 flex-1 mx-1">
+              <Text className="text-3xl font-bold text-white text-center mb-1">
+                {outfitsCreated}
+              </Text>
+              <Text className="text-xs text-white/60 text-center font-medium">
+                Outfits Created
+              </Text>
+            </View>
+            <View className="bg-zinc-900/60 rounded-2xl p-5 flex-1 ml-2">
+              <Text className="text-3xl font-bold text-white text-center mb-1">
+                {mostWorn}
+              </Text>
+              <Text className="text-xs text-white/60 text-center font-medium">
+                Most Worn
+              </Text>
+            </View>
           </View>
-          <View className="bg-zinc-900/60 rounded-2xl p-5 flex-1 mx-1">
-            <Text className="text-3xl font-bold text-white text-center mb-1">
-              {outfitsCreated}
-            </Text>
-            <Text className="text-xs text-white/60 text-center font-medium">
-              Outfits Created
-            </Text>
-          </View>
-          <View className="bg-zinc-900/60 rounded-2xl p-5 flex-1 ml-2">
-            <Text className="text-3xl font-bold text-white text-center mb-1">
-              {mostWorn}
-            </Text>
-            <Text className="text-xs text-white/60 text-center font-medium">
-              Most Worn
-            </Text>
-          </View>
+
+          {/* Wardrobe Items Grid */}
+          <FlatList
+            data={filteredItems}
+            renderItem={renderWardrobeItem}
+            keyExtractor={(item) => item.id.toString()}
+            numColumns={2}
+            scrollEnabled={false}
+            contentContainerStyle={{ paddingBottom: 20 }}
+            columnWrapperStyle={{ justifyContent: "space-between" }}
+          />
         </View>
 
-        {/* Wardrobe Items Grid */}
-        <FlatList
-          data={filteredItems}
-          renderItem={renderWardrobeItem}
-          keyExtractor={(item) => item.id.toString()}
-          numColumns={2}
-          scrollEnabled={false}
-          contentContainerStyle={{ paddingBottom: 20 }}
-          columnWrapperStyle={{ justifyContent: "space-between" }}
+        <ImageModal
+          visible={modalVisible}
+          selectedImage={selectedImage}
+          onClose={() => setModalVisible(false)}
         />
-      </View>
-
-      <ImageModal
-        visible={modalVisible}
-        selectedImage={selectedImage}
-        onClose={() => setModalVisible(false)}
-      />
-    </ScrollView>
+      </ScrollView>
+    </View>
   );
 }

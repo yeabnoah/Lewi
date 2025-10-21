@@ -16,10 +16,7 @@ export default function MainLayout() {
         name="profile-stats"
         options={{ headerShown: true, title: "Profile Stats" }}
       />
-      <Stack.Screen
-        name="notifications"
-        options={{ headerShown: true, title: "Notifications" }}
-      />
+      <Stack.Screen name="notifications" options={{ title: "Notifications" }} />
       <Stack.Screen
         name="privacy-security"
         options={{ headerShown: true, title: "Privacy & Security" }}

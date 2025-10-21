@@ -15,7 +15,7 @@ export default function WeatherCard() {
   const [isWeatherExpanded, setIsWeatherExpanded] = useState(false);
 
   return (
-    <View className="mt-6 relative overflow-hidden rounded-xl">
+    <View className="mt-3 relative overflow-hidden rounded-xl">
       {/* Main Card */}
       <View className="bg-zinc-900/60 rounded-2xl">
         <Pressable
