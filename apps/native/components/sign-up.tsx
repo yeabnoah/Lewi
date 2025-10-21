@@ -1,4 +1,5 @@
 import { authClient } from "@/lib/auth-client";
+import { useColorScheme } from "@/lib/use-color-scheme";
 import { useState } from "react";
 import {
   ActivityIndicator,
@@ -6,7 +7,6 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  useColorScheme,
 } from "react-native";
 import { router } from "expo-router";
 
@@ -17,8 +17,7 @@ export function SignUp() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  const scheme = useColorScheme();
-  const isDark = scheme === "dark";
+  const { isDarkColorScheme } = useColorScheme();
 
   const handleSignUp = async () => {
     setIsLoading(true);
@@ -45,31 +44,15 @@ export function SignUp() {
   };
 
   return (
-    <View
-      className={`flex-1 items-center justify-center px-6 ${
-        isDark ? "bg-black" : "bg-white"
-      }`}
-    >
-      {/* Main Card */}
-      <View
-        className={`w-full max-w-md rounded-3xl p-8 shadow-xl border ${
-          isDark ? "bg-zinc-900 border-zinc-800" : "bg-white border-gray-100"
-        }`}
-      >
+    <View className="flex-1 items-center justify-center px-6">
+      {/* Main content */}
+      <View className="w-full max-w-md">
         {/* Header */}
         <View className="mb-8">
-          <Text
-            className={`text-3xl font-extrabold text-center ${
-              isDark ? "text-white" : "text-black"
-            }`}
-          >
+          <Text className="text-3xl font-bold text-center text-white">
             Create Account
           </Text>
-          <Text
-            className={`text-center mt-2 ${
-              isDark ? "text-gray-400" : "text-gray-500"
-            }`}
-          >
+          <Text className="text-center mt-2 text-white/70">
             Join Lewi and start your style journey today
           </Text>
         </View>
@@ -77,19 +60,11 @@ export function SignUp() {
         {/* Inputs */}
         <View className="space-y-5">
           <View>
-            <Text
-              className={`font-semibold mb-2 text-base ${
-                isDark ? "text-gray-300" : "text-gray-700"
-              }`}
-            >
+            <Text className="font-semibold mb-2 text-base text-white">
               Name
             </Text>
             <TextInput
-              className={`p-4 rounded-2xl border text-base ${
-                isDark
-                  ? "bg-zinc-800 text-white border-zinc-700 focus:border-lewi"
-                  : "bg-gray-50 text-gray-900 border-gray-200 focus:border-lewi focus:bg-white"
-              }`}
+              className="p-4 rounded-2xl border text-base bg-zinc-700/50 text-white border-zinc-600 focus:border-lewi"
               placeholder="Your name"
               placeholderTextColor="#9CA3AF"
               value={name}
@@ -98,19 +73,11 @@ export function SignUp() {
           </View>
 
           <View>
-            <Text
-              className={`font-semibold mb-2 text-base ${
-                isDark ? "text-gray-300" : "text-gray-700"
-              }`}
-            >
+            <Text className="font-semibold mb-2 text-base text-white">
               Email
             </Text>
             <TextInput
-              className={`p-4 rounded-2xl border text-base ${
-                isDark
-                  ? "bg-zinc-800 text-white border-zinc-700 focus:border-lewi"
-                  : "bg-gray-50 text-gray-900 border-gray-200 focus:border-lewi focus:bg-white"
-              }`}
+              className="p-4 rounded-2xl border text-base bg-zinc-700/50 text-white border-zinc-600 focus:border-lewi"
               placeholder="Your email"
               placeholderTextColor="#9CA3AF"
               keyboardType="email-address"
@@ -121,19 +88,11 @@ export function SignUp() {
           </View>
 
           <View>
-            <Text
-              className={`font-semibold mb-2 text-base ${
-                isDark ? "text-gray-300" : "text-gray-700"
-              }`}
-            >
+            <Text className="font-semibold mb-2 text-base text-white">
               Password
             </Text>
             <TextInput
-              className={`p-4 rounded-2xl border text-base ${
-                isDark
-                  ? "bg-zinc-800 text-white border-zinc-700 focus:border-lewi"
-                  : "bg-gray-50 text-gray-900 border-gray-200 focus:border-lewi focus:bg-white"
-              }`}
+              className="p-4 rounded-2xl border text-base bg-zinc-700/50 text-white border-zinc-600 focus:border-lewi"
               placeholder="Create a password"
               placeholderTextColor="#9CA3AF"
               secureTextEntry
@@ -162,46 +121,22 @@ export function SignUp() {
 
         {/* Divider */}
         <View className="flex-row items-center my-8">
-          <View
-            className={`flex-1 h-px ${isDark ? "bg-zinc-700" : "bg-gray-200"}`}
-          />
-          <Text
-            className={`mx-4 font-medium ${
-              isDark ? "text-gray-400" : "text-gray-500"
-            }`}
-          >
-            or
-          </Text>
-          <View
-            className={`flex-1 h-px ${isDark ? "bg-zinc-700" : "bg-gray-200"}`}
-          />
+          <View className="flex-1 h-px bg-zinc-600" />
+          <Text className="mx-4 font-medium text-white/50">or</Text>
+          <View className="flex-1 h-px bg-zinc-600" />
         </View>
 
         {/* Social Buttons */}
         <View className="space-y-3">
-          <TouchableOpacity
-            className={`rounded-2xl py-4 flex-row justify-center items-center border ${
-              isDark
-                ? "bg-zinc-900 border-zinc-700"
-                : "bg-gray-50 border-gray-200"
-            }`}
-          >
-            <Text
-              className={`font-semibold text-base ${
-                isDark ? "text-white" : "text-gray-800"
-              }`}
-            >
+          <TouchableOpacity className="rounded-2xl py-4 flex-row justify-center items-center border bg-zinc-700/30 border-zinc-600">
+            <Text className="font-semibold text-base text-white">
               Continue with Google
             </Text>
           </TouchableOpacity>
         </View>
 
         <View className="items-center mt-10">
-          <Text
-            className={`text-base ${
-              isDark ? "text-gray-400" : "text-gray-600"
-            }`}
-          >
+          <Text className="text-base text-white/70">
             Already have an account?{" "}
             <TouchableOpacity onPress={() => router.push("/(auth)/login")}>
               <Text className="text-lewi font-semibold">Sign In</Text>

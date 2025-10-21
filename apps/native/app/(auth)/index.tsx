@@ -1,93 +1,56 @@
+import { useColorScheme } from "@/lib/use-color-scheme";
+import { AiGenerativeIcon } from "@hugeicons/core-free-icons";
+import { HugeiconsIcon } from "@hugeicons/react-native";
 import { Link } from "expo-router";
-import { Text, TouchableOpacity, View, useColorScheme } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 
 const Index = () => {
-  const colorScheme = useColorScheme();
-  const isDark = colorScheme === "dark";
-
-  const theme = {
-    lewi: "#DBFE01",
-    bg: isDark ? "#0D0D0D" : "#FFFFFF",
-    text: isDark ? "#F9FAFB" : "#111827",
-    subtext: isDark ? "#9CA3AF" : "#4B5563",
-    card: isDark ? "#1A1A1A" : "#F9FAFB",
-    button: isDark ? "#F9FAFB" : "#000000",
-    buttonText: isDark ? "#000000" : "#FFFFFF",
-  };
+  const { isDarkColorScheme } = useColorScheme();
 
   return (
-    <View style={{ flex: 1, backgroundColor: theme.bg }}>
-      {/* Center Section */}
-      <View className="flex-1 justify-center items-center px-8">
+    <View className="flex-1 bg-zinc-900">
+      {/* Header Section */}
+      <View className="flex-1 justify-center items-center px-6">
         {/* Logo / Brand */}
         <View className="items-center mb-8">
-          <View
-            className="w-20 h-20 rounded-2xl mb-6 items-center justify-center shadow-2xl"
-            style={{ backgroundColor: theme.lewi }}
-          >
-            <Text className="text-3xl font-bold" style={{ color: "#000" }}>
-              L
-            </Text>
+          <View className="w-20 h-20 rounded-2xl mb-6 items-center justify-center shadow-xl shadow-black/20 bg-lewi">
+            <HugeiconsIcon icon={AiGenerativeIcon} size={32} color="#0A0A0A" />
           </View>
 
-          <Text
-            className="text-4xl font-bold tracking-tight"
-            style={{ color: theme.lewi }}
-          >
+          <Text className="text-4xl font-bold tracking-tight text-lewi mb-3">
             lewi.ai
           </Text>
-        </View>
 
-        <Text
-          className="text-base text-center leading-6 max-w-xs"
-          style={{ color: theme.subtext }}
-        >
-          Your personal AI stylist — discover, plan, and perfect your look with
-          Lewi.
-        </Text>
+          <Text className="text-base text-center leading-6 max-w-xs text-white/80">
+            Your personal AI stylist
+          </Text>
+        </View>
       </View>
 
       {/* Bottom Section */}
-      <View
-        className="rounded-t-3xl px-8 py-10 shadow-2xl"
-        style={{
-          backgroundColor: theme.lewi,
-        }}
-      >
+      <View className="bg-zinc-800/50 rounded-t-3xl px-6 py-10 shadow-2xl shadow-black/20">
         <View className="items-center mb-8">
-          <Text className="text-3xl font-bold mb-2" style={{ color: "#000" }}>
+          <Text className="text-3xl font-bold mb-2 text-white">
             Welcome Back
           </Text>
-          <Text className="text-center leading-6 text-gray-800">
-            Discover your perfect style with AI.
+          <Text className="text-center text-white/70 text-base">
+            Discover your perfect style with AI
           </Text>
         </View>
 
         {/* Buttons */}
-        <View style={{ gap: 14 }}>
+        <View className="gap-4">
           <Link href="/login" asChild>
-            <TouchableOpacity
-              className="rounded-2xl py-4 shadow-lg"
-              style={{ backgroundColor: theme.button }}
-            >
-              <Text
-                className="text-center font-semibold text-lg"
-                style={{ color: theme.buttonText }}
-              >
+            <TouchableOpacity className="bg-lewi rounded-2xl py-4 shadow-lg shadow-black/20 active:bg-lewi/90">
+              <Text className="text-center font-semibold text-lg text-black">
                 Sign In
               </Text>
             </TouchableOpacity>
           </Link>
 
           <Link href="/signup" asChild>
-            <TouchableOpacity
-              className="rounded-2xl py-4 shadow-lg"
-              style={{ backgroundColor: theme.button }}
-            >
-              <Text
-                className="text-center font-semibold text-lg"
-                style={{ color: theme.buttonText }}
-              >
+            <TouchableOpacity className="bg-zinc-700 rounded-2xl py-4 shadow-lg shadow-black/20 active:bg-zinc-600 border border-zinc-600">
+              <Text className="text-center font-semibold text-lg text-white">
                 Create Account
               </Text>
             </TouchableOpacity>
@@ -95,16 +58,11 @@ const Index = () => {
         </View>
 
         {/* Terms */}
-        <View className="mt-8 pt-6">
-          <Text className="text-center text-xs" style={{ color: "#1F2937" }}>
+        <View className="mt-8 pt-6 border-t border-zinc-700">
+          <Text className="text-center text-xs text-white/60">
             By continuing, you agree to our{" "}
-            <Text style={{ textDecorationLine: "underline" }}>
-              Terms of Service
-            </Text>{" "}
-            and{" "}
-            <Text style={{ textDecorationLine: "underline" }}>
-              Privacy Policy
-            </Text>
+            <Text className="text-lewi underline">Terms</Text> and{" "}
+            <Text className="text-lewi underline">Privacy Policy</Text>
           </Text>
         </View>
       </View>
