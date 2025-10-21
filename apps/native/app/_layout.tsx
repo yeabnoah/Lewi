@@ -11,7 +11,7 @@ import {
 import { Redirect, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React, { useRef } from "react";
-import { Platform } from "react-native";
+import { ActivityIndicator, Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "../global.css";
 import { authClient } from "@/lib/auth-client";
@@ -33,7 +33,7 @@ export default function RootLayout() {
   const hasMounted = useRef(false);
   const { colorScheme, isDarkColorScheme } = useColorScheme();
   const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
-  const session = authClient.useSession();
+  const { data: session, isPending } = authClient.useSession();
 
   useIsomorphicLayoutEffect(() => {
     if (hasMounted.current) {
@@ -48,8 +48,8 @@ export default function RootLayout() {
     hasMounted.current = true;
   }, []);
 
-  if (!isColorSchemeLoaded) {
-    return null;
+  if (!isColorSchemeLoaded || isPending) {
+    return <ActivityIndicator size="large" color="#0000ff" />;
   }
 
   if (!session) {
