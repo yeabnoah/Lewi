@@ -7,6 +7,7 @@ import {
   AiGenerativeIcon,
   ArrowRight01Icon,
   Chart01Icon,
+  Edit01Icon,
   FunctionCircleIcon,
   LogoutIcon,
   Notification01Icon,
@@ -55,10 +56,7 @@ export default function Profile() {
         bounces={true}
       >
         <View className="bg-zinc-900/60 rounded-2xl p-5 mb-6">
-          {/* Card header */}
-
-          {/* Avatar + details */}
-          <View className="flex-row items-center gap-4">
+          <View className="flex-row gap-4">
             <View className="relative h-20 w-20">
               <Image
                 source={require("@/assets/images/outfit.jpg")}
@@ -84,14 +82,20 @@ export default function Profile() {
                 Joined September 2024
               </Text>
             </View>
+            <Pressable
+              className="h-8 w-8 items-center justify-center rounded-full bg-white/10"
+              onPress={() => {
+                // TODO: Navigate to edit profile screen
+                console.log("Edit profile pressed");
+              }}
+            >
+              <HugeiconsIcon
+                icon={Edit01Icon}
+                size={16}
+                color={isDarkColorScheme ? "#FFFFFF" : "#0A0A0A"}
+              />
+            </Pressable>
           </View>
-          <Button
-            variant="default"
-            className="mt-5 self-start flex-row items-center gap-2 rounded-full px-6 py-3 bg-lewi active:bg-lewi/90 shadow-lg shadow-black/20"
-          >
-            <Ionicons name="pencil" size={16} color="#0A0A0A" />
-            <Text className="text-black font-semibold">Edit Profile</Text>
-          </Button>
         </View>
 
         <View className="-mx-1 flex-row flex-wrap">

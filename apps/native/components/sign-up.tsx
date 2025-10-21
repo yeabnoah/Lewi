@@ -45,9 +45,7 @@ export function SignUp() {
 
   return (
     <View className="flex-1 items-center justify-center px-6">
-      {/* Main content */}
       <View className="w-full max-w-md">
-        {/* Header */}
         <View className="mb-8">
           <Text className="text-3xl font-bold text-center text-white">
             Create Account
@@ -58,13 +56,21 @@ export function SignUp() {
         </View>
 
         {/* Inputs */}
-        <View className="space-y-5">
+        <View className="space-y-6">
           <View>
-            <Text className="font-semibold mb-2 text-base text-white">
+            <Text className="font-semibold mb-3 text-base text-white">
               Name
             </Text>
             <TextInput
-              className="p-4 rounded-2xl border text-base bg-zinc-700/50 text-white border-zinc-600 focus:border-lewi"
+              style={{
+                paddingHorizontal: 16,
+                paddingVertical: 16,
+                borderRadius: 16,
+                fontSize: 14,
+                marginBottom: 8,
+                backgroundColor: "rgba(63, 63, 70, 0.5)",
+                color: "white",
+              }}
               placeholder="Your name"
               placeholderTextColor="#9CA3AF"
               value={name}
@@ -73,11 +79,19 @@ export function SignUp() {
           </View>
 
           <View>
-            <Text className="font-semibold mb-2 text-base text-white">
+            <Text className="font-semibold mb-3 text-base text-white">
               Email
             </Text>
             <TextInput
-              className="p-4 rounded-2xl border text-base bg-zinc-700/50 text-white border-zinc-600 focus:border-lewi"
+              style={{
+                paddingHorizontal: 16,
+                paddingVertical: 16,
+                borderRadius: 16,
+                fontSize: 14,
+                marginBottom: 8,
+                backgroundColor: "rgba(63, 63, 70, 0.5)",
+                color: "white",
+              }}
               placeholder="Your email"
               placeholderTextColor="#9CA3AF"
               keyboardType="email-address"
@@ -92,7 +106,15 @@ export function SignUp() {
               Password
             </Text>
             <TextInput
-              className="p-4 rounded-2xl border text-base bg-zinc-700/50 text-white border-zinc-600 focus:border-lewi"
+              style={{
+                paddingHorizontal: 16,
+                paddingVertical: 16,
+                borderRadius: 16,
+                fontSize: 14,
+                marginBottom: 8,
+                backgroundColor: "rgba(63, 63, 70, 0.5)",
+                color: "white",
+              }}
               placeholder="Create a password"
               placeholderTextColor="#9CA3AF"
               secureTextEntry
@@ -109,7 +131,7 @@ export function SignUp() {
           <TouchableOpacity
             onPress={handleSignUp}
             disabled={isLoading}
-            className="bg-lewi rounded-2xl py-4 shadow-md flex-row justify-center items-center mt-2"
+            className="bg-lewi mt-5 rounded-2xl py-4 shadow-md flex-row justify-center items-center "
           >
             {isLoading ? (
               <ActivityIndicator size="small" color="#000" />
@@ -128,7 +150,7 @@ export function SignUp() {
 
         {/* Social Buttons */}
         <View className="space-y-3">
-          <TouchableOpacity className="rounded-2xl py-4 flex-row justify-center items-center border bg-zinc-700/30 border-zinc-600">
+          <TouchableOpacity className="rounded-2xl py-4 flex-row justify-center items-center  bg-zinc-700/30  ">
             <Text className="font-semibold text-base text-white">
               Continue with Google
             </Text>

@@ -10,11 +10,12 @@ import {
 } from "@react-navigation/native";
 import { Redirect, Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { ActivityIndicator, Platform } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import "../global.css";
 import { authClient } from "@/lib/auth-client";
+import { OnboardingUtils } from "@/lib/onboarding-utils";
 
 const LIGHT_THEME: Theme = {
   ...DefaultTheme,
@@ -33,6 +34,9 @@ export default function RootLayout() {
   const hasMounted = useRef(false);
   const { colorScheme, isDarkColorScheme } = useColorScheme();
   const [isColorSchemeLoaded, setIsColorSchemeLoaded] = React.useState(false);
+  const [hasSeenOnboarding, setHasSeenOnboarding] = useState<boolean | null>(
+    null
+  );
   const { data: session, isPending } = authClient.useSession();
 
   useIsomorphicLayoutEffect(() => {
@@ -48,8 +52,37 @@ export default function RootLayout() {
     hasMounted.current = true;
   }, []);
 
-  if (!isColorSchemeLoaded || isPending) {
+  // Check if user has seen onboarding
+  useEffect(() => {
+    const checkOnboardingStatus = async () => {
+      const hasCompleted = await OnboardingUtils.hasCompletedOnboarding();
+      setHasSeenOnboarding(hasCompleted);
+    };
+
+    checkOnboardingStatus();
+  }, []);
+
+  if (!isColorSchemeLoaded || isPending || hasSeenOnboarding === null) {
     return <ActivityIndicator size="large" color="#0000ff" />;
+  }
+
+  // Show onboarding for first-time users
+  if (!hasSeenOnboarding && !session) {
+    return (
+      <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
+        <StatusBar style={isDarkColorScheme ? "light" : "dark"} />
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <TanStackQueryProvider>
+            <Stack>
+              <Stack.Screen
+                name="(onboarding)"
+                options={{ headerShown: false }}
+              />
+            </Stack>
+          </TanStackQueryProvider>
+        </GestureHandlerRootView>
+      </ThemeProvider>
+    );
   }
 
   if (!session) {

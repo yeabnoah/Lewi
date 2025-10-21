@@ -6,9 +6,15 @@ export default function AuthLayout() {
       screenOptions={{ headerShown: false, animation: "ios_from_right" }}
       initialRouteName="index"
     >
-      <Stack.Screen name="index" />
-      <Stack.Screen name="signup" />
-      <Stack.Screen name="login" />
+      <Stack.Screen options={{ headerShown: false }} name="index" />
+      <Stack.Screen
+        options={{ headerShown: false, animation: "ios_from_right" }}
+        name="signup"
+      />
+      <Stack.Screen
+        options={{ headerShown: false, animation: "ios_from_right" }}
+        name="login"
+      />
     </Stack>
   );
 }

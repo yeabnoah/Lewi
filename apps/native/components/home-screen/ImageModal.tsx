@@ -23,7 +23,7 @@ export default function ImageModal({
       presentationStyle="overFullScreen"
       onRequestClose={onClose}
     >
-      <View className="flex-1 bg-black/90 justify-center items-center">
+      <View className="flex-1 bg-black justify-center items-center">
         <Pressable
           className="absolute top-12 right-6 z-10 bg-white size-8 items-center justify-center rounded-full"
           onPress={() => {

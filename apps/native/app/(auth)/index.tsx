@@ -3,12 +3,13 @@ import { AiGenerativeIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
 import { Link } from "expo-router";
 import { Text, TouchableOpacity, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Index = () => {
   const { isDarkColorScheme } = useColorScheme();
 
   return (
-    <View className="flex-1 bg-zinc-900">
+    <SafeAreaView className="flex-1 bg-zinc-900">
       {/* Header Section */}
       <View className="flex-1 justify-center items-center px-6">
         {/* Logo / Brand */}
@@ -49,7 +50,7 @@ const Index = () => {
           </Link>
 
           <Link href="/signup" asChild>
-            <TouchableOpacity className="bg-zinc-700 rounded-2xl py-4 shadow-lg shadow-black/20 active:bg-zinc-600 border border-zinc-600">
+            <TouchableOpacity className="bg-zinc-700 rounded-2xl py-4 shadow-lg shadow-black/20 active:bg-zinc-600 ">
               <Text className="text-center font-semibold text-lg text-white">
                 Create Account
               </Text>
@@ -66,7 +67,7 @@ const Index = () => {
           </Text>
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
