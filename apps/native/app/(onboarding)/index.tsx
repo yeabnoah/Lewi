@@ -60,7 +60,7 @@ const OnboardingScreen = () => {
       subtitle: "AI-Powered Fashion",
       description:
         "Get personalized outfit recommendations that match your unique style and preferences",
-      image: require("@/assets/images/outfit.jpg"),
+      image: require("@/assets/2.png"),
       gradient: ["#667eea", "#764ba2"] as const,
       icon: "👗",
     },
@@ -70,7 +70,7 @@ const OnboardingScreen = () => {
       subtitle: "Organize & Mix",
       description:
         "Digitally organize your clothes and discover endless outfit combinations",
-      image: require("@/assets/images/jeans.jpg"),
+      image: require("@/assets/1.png"),
       gradient: ["#f093fb", "#f5576c"] as const,
       icon: "✨",
     },
@@ -95,14 +95,7 @@ const OnboardingScreen = () => {
         colors={["#0a0a0a", "#1a1a1a", "#2a2a2a"] as const}
         className="absolute inset-0"
       />
-
-      {/* Floating Background Elements */}
-      <View className="absolute inset-0">
-        <View className="absolute top-20 left-10 w-32 h-32 bg-lewi/10 rounded-full blur-xl" />
-        <View className="absolute top-40 right-8 w-24 h-24 bg-purple-500/10 rounded-full blur-lg" />
-        <View className="absolute bottom-40 left-6 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl" />
-      </View>
-
+      
       <SafeAreaView className="flex-1">
         {/* Header */}
         <View className="flex-row justify-end items-center px-6 py-4 z-10">

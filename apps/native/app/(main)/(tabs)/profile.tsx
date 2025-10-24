@@ -18,6 +18,7 @@ import { HugeiconsIcon } from "@hugeicons/react-native";
 import { useRouter } from "expo-router";
 import { useState } from "react";
 import { Image, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Profile() {
   const { isDarkColorScheme } = useColorScheme();
@@ -41,8 +42,8 @@ export default function Profile() {
   };
 
   return (
-    <View className="flex-1">
-      <View className="px-4 py-3 pt-[12%] backdrop-blur-sm">
+    <SafeAreaView className="flex-1 mx-[2vw]">
+      <View className="px-4 py-3 pt-[3%] backdrop-blur-sm">
         <View className="flex-row items-center justify-between">
           <Text className="text-2xl font-bold text-white">Profile</Text>
         </View>
@@ -323,6 +324,6 @@ export default function Profile() {
           </View>
         </Modal>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }

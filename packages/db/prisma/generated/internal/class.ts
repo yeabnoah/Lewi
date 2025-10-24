@@ -22,7 +22,7 @@ const config: runtime.GetPrismaClientConfig = {
       "value": "prisma-client"
     },
     "output": {
-      "value": "/home/technerd/Documents/projects/SAAS_projects/lewi/packages/db/prisma/generated",
+      "value": "/Users/mac/Documents/projects/mobile/Lewi/packages/db/prisma/generated",
       "fromEnvVar": null
     },
     "config": {
@@ -32,12 +32,12 @@ const config: runtime.GetPrismaClientConfig = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/technerd/Documents/projects/SAAS_projects/lewi/packages/db/prisma/schema/schema.prisma",
+    "sourceFilePath": "/Users/mac/Documents/projects/mobile/Lewi/packages/db/prisma/schema/schema.prisma",
     "isCustomOutput": true
   },
   "relativePath": "../schema",
@@ -47,17 +47,16 @@ const config: runtime.GetPrismaClientConfig = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "DATABASE_URL",
-        "value": null
+        "fromEnvVar": null,
+        "value": "postgresql://mac:nerd123@localhost:5432/lewi?schema=public"
       }
     }
   },
-  "inlineSchema": "model User {\n  id                 String               @id @map(\"_id\")\n  name               String\n  email              String\n  emailVerified      Boolean\n  image              String?\n  createdAt          DateTime\n  updatedAt          DateTime\n  wardrobe_items     wardrobe_item[]\n  outfit_suggestions outfit_suggestions[]\n  style_requests     style_request[]\n  virtual_tryons     virtual_tryon[]\n  sessions           Session[]\n  accounts           Account[]\n\n  @@unique([email])\n  @@map(\"user\")\n}\n\nmodel Session {\n  id        String   @id @map(\"_id\")\n  expiresAt DateTime\n  token     String\n  createdAt DateTime\n  updatedAt DateTime\n  ipAddress String?\n  userAgent String?\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([token])\n  @@map(\"session\")\n}\n\nmodel Account {\n  id                    String    @id @map(\"_id\")\n  accountId             String\n  providerId            String\n  userId                String\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  accessToken           String?\n  refreshToken          String?\n  idToken               String?\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String?\n  password              String?\n  createdAt             DateTime\n  updatedAt             DateTime\n\n  @@map(\"account\")\n}\n\nmodel Verification {\n  id         String    @id @map(\"_id\")\n  identifier String\n  value      String\n  expiresAt  DateTime\n  createdAt  DateTime?\n  updatedAt  DateTime?\n\n  @@map(\"verification\")\n}\n\nmodel wardrobe_item {\n  id                   String              @id @default(uuid())\n  name                 String\n  description          String\n  imageUrl             String\n  userId               String\n  user                 User                @relation(fields: [userId], references: [id], onDelete: Cascade)\n  createdAt            DateTime            @default(now())\n  updatedAt            DateTime            @updatedAt\n  outfit_suggestions   outfit_suggestions? @relation(fields: [outfit_suggestionsId], references: [id])\n  outfit_suggestionsId String?\n}\n\nmodel outfit_suggestions {\n  id          String          @id @default(uuid())\n  suggestions wardrobe_item[]\n  userId      String\n  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)\n  createdAt   DateTime        @default(now())\n  updatedAt   DateTime        @updatedAt\n}\n\nmodel style_request {\n  id                 String   @id @default(uuid())\n  requestDescription String\n  style_request_type String\n  userId             String\n  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  createdAt          DateTime @default(now())\n  updatedAt          DateTime @updatedAt\n}\n\nmodel virtual_tryon {\n  id                String   @id @default(uuid())\n  userImageUrl      String\n  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId            String\n  outfitImageUrl    String\n  generatedImageUrl String\n  createdAt         DateTime @default(now())\n  updatedAt         DateTime @updatedAt\n}\n\ngenerator client {\n  provider     = \"prisma-client\"\n  output       = \"../generated\"\n  moduleFormat = \"esm\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n",
-  "inlineSchemaHash": "81372e3e9e4653d85f0302895729e6f585923b31be8bdb46bc83ac455cfb8133",
+  "inlineSchema": "model User {\n  id                 String               @id @map(\"_id\")\n  name               String\n  email              String\n  emailVerified      Boolean\n  image              String?\n  createdAt          DateTime\n  updatedAt          DateTime\n  wardrobe_items     wardrobe_item[]\n  outfit_suggestions outfit_suggestions[]\n  style_requests     style_request[]\n  virtual_tryons     virtual_tryon[]\n  sessions           Session[]\n  accounts           Account[]\n\n  @@unique([email])\n  @@map(\"user\")\n}\n\nmodel Session {\n  id        String   @id @map(\"_id\")\n  expiresAt DateTime\n  token     String\n  createdAt DateTime\n  updatedAt DateTime\n  ipAddress String?\n  userAgent String?\n  userId    String\n  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  @@unique([token])\n  @@map(\"session\")\n}\n\nmodel Account {\n  id                    String    @id @map(\"_id\")\n  accountId             String\n  providerId            String\n  userId                String\n  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)\n  accessToken           String?\n  refreshToken          String?\n  idToken               String?\n  accessTokenExpiresAt  DateTime?\n  refreshTokenExpiresAt DateTime?\n  scope                 String?\n  password              String?\n  createdAt             DateTime\n  updatedAt             DateTime\n\n  @@map(\"account\")\n}\n\nmodel Verification {\n  id         String    @id @map(\"_id\")\n  identifier String\n  value      String\n  expiresAt  DateTime\n  createdAt  DateTime?\n  updatedAt  DateTime?\n\n  @@map(\"verification\")\n}\n\nmodel wardrobe_item {\n  id                   String              @id @default(uuid())\n  name                 String\n  description          String\n  imageUrl             String\n  userId               String\n  user                 User                @relation(fields: [userId], references: [id], onDelete: Cascade)\n  createdAt            DateTime            @default(now())\n  updatedAt            DateTime            @updatedAt\n  outfit_suggestions   outfit_suggestions? @relation(fields: [outfit_suggestionsId], references: [id])\n  outfit_suggestionsId String?\n}\n\nmodel outfit_suggestions {\n  id          String          @id @default(uuid())\n  suggestions wardrobe_item[]\n  userId      String\n  user        User            @relation(fields: [userId], references: [id], onDelete: Cascade)\n  createdAt   DateTime        @default(now())\n  updatedAt   DateTime        @updatedAt\n}\n\nmodel style_request {\n  id                 String   @id @default(uuid())\n  requestDescription String\n  style_request_type String\n  userId             String\n  user               User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  createdAt          DateTime @default(now())\n  updatedAt          DateTime @updatedAt\n}\n\nmodel virtual_tryon {\n  id                String   @id @default(uuid())\n  userImageUrl      String\n  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId            String\n  outfitImageUrl    String\n  generatedImageUrl String\n  createdAt         DateTime @default(now())\n  updatedAt         DateTime @updatedAt\n}\n\ngenerator client {\n  provider     = \"prisma-client\"\n  output       = \"../generated\"\n  moduleFormat = \"esm\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = \"postgresql://mac:nerd123@localhost:5432/lewi?schema=public\"\n}\n",
+  "inlineSchemaHash": "ef9279ec82fe01c5a1e207b222bbfb4609fc205a7b4512f5cc3dd8dbc5095819",
   "copyEngine": true,
   "runtimeDataModel": {
     "models": {},

@@ -4,7 +4,7 @@ export default function AuthLayout() {
   return (
     <Stack
       screenOptions={{
-        // headerShown: false,
+        headerShown: false,
         animation: "ios_from_right",
         title: "Auth",
       }}

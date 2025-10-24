@@ -19,6 +19,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function WardrobeScreen() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -106,9 +107,9 @@ export default function WardrobeScreen() {
   );
 
   return (
-    <View className="flex-1">
+    <SafeAreaView className="flex-1 mx-[2vw]">
       {/* Sticky Header */}
-      <View className="px-5 py-4 pt-[14%] backdrop-blur-sm">
+      <View className="px-5 py-4 pt-[3%] backdrop-blur-sm">
         <View className="flex-row items-center justify-between ">
           <View>
             <Text className="text-white/60 text-sm font-medium mb-1">
@@ -239,6 +240,6 @@ export default function WardrobeScreen() {
       >
         <HugeiconsIcon icon={AddIcon} size={24} color="#000" />
       </Pressable>
-    </View>
+    </SafeAreaView>
   );
 }

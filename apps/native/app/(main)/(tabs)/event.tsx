@@ -12,6 +12,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import dummyEvents from "@/components/dummy-data/dummy-events";
 import dummyPastEvents from "@/components/dummy-data/dummy-past-events";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Events() {
   const [activeTab, setActiveTab] = useState<"upcoming" | "past">("upcoming");
@@ -25,9 +26,9 @@ export default function Events() {
   };
 
   return (
-    <View className="flex-1">
+    <SafeAreaView className="flex-1 mx-[2vw]">
       {/* Sticky Header */}
-      <View className="px-4 pt-[14%] backdrop-blur-sm">
+      <View className="px-4 pt-[3%] backdrop-blur-sm">
         <View className="flex-row items-center justify-between mb-3">
           <View>
             {/* <Text className="text-white/60 text-sm font-medium ">Planner</Text> */}
@@ -218,6 +219,6 @@ export default function Events() {
           )}
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }

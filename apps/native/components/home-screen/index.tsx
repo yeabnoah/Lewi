@@ -8,11 +8,12 @@ import TodaysPick from "./TodaysPick";
 import TrendingCategories from "./TrendingCategories";
 import UpcomingEvents from "./UpcomingEvents";
 import WeatherCard from "./WeatherCard";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreen() {
   return (
-    <View className="flex-1">
-      <View className="px-4 pt-[14%] pb-2 backdrop-blur-sm">
+    <SafeAreaView className="flex-1 mx-[2vw]">
+      <View className="px-4 pt-[3%] pb-2 backdrop-blur-sm">
         <View className="flex-row justify-between items-center">
           <View>
             <Text className="dark:text-white/40 text-black/40">
@@ -57,6 +58,6 @@ export default function HomeScreen() {
         {/* Quick Actions */}
         <QuickActions />
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 }

@@ -4,7 +4,7 @@ import * as SecureStore from "expo-secure-store";
 
 export const authClient = createAuthClient({
   baseURL:
-    process.env.EXPO_PUBLIC_SERVER_URL || "http://localhost:3000/api/auth",
+    process.env.EXPO_PUBLIC_SERVER_URL || "http://localhost:3001/api/auth",
   plugins: [
     expoClient({
       scheme: "http",

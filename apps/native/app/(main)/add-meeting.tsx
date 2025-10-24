@@ -26,9 +26,9 @@ export default function AddMeeting() {
   const router = useRouter();
 
   return (
-    <SafeAreaView className="flex-1">
+    <SafeAreaView className="flex-1 mx-[2vw]">
       {/* Header */}
-      <View className="px-4 pt-[4%] pb-4">
+      <View className="px-4 pt-[3%] pb-4">
         <View className="flex-row items-center justify-between">
           <TouchableOpacity
             onPress={() => router.back()}
