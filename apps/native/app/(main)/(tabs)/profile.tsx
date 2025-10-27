@@ -3,6 +3,8 @@ import { Card } from "@/components/ui/card";
 import { authClient } from "@/lib/auth-client";
 import { useColorScheme } from "@/lib/use-color-scheme";
 import { Ionicons } from "@expo/vector-icons";
+
+
 import {
   AiGenerativeIcon,
   ArrowRight01Icon,
@@ -15,15 +17,18 @@ import {
   User02Icon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Image, Modal, Pressable, ScrollView, Text, View } from "react-native";
+import { ActivityIndicator, Image, Modal, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Profile() {
   const { isDarkColorScheme } = useColorScheme();
   const router = useRouter();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
+  const { data: session } = authClient.useSession();
 
   const handleLogout = async () => {
     setShowLogoutModal(false);
@@ -41,6 +46,8 @@ export default function Profile() {
     }
   };
 
+ 
+
   return (
     <SafeAreaView className="flex-1 mx-[2vw]">
       <View className="px-4 py-3 pt-[3%] backdrop-blur-sm">
@@ -56,6 +63,7 @@ export default function Profile() {
         showsVerticalScrollIndicator={true}
         bounces={true}
       >
+      
         <View className="bg-zinc-900/60 rounded-2xl p-5 mb-6">
           <View className="flex-row gap-4">
             <View className="relative h-20 w-20">
@@ -74,13 +82,13 @@ export default function Profile() {
             </View>
             <View className="flex-1">
               <Text className="text-lg font-semibold text-white">
-                Sarah Johnson
+                {session?.user?.name}
               </Text>
               <Text className="mt-1 text-white/70">
-                sarah.johnson@email.com
+                {session?.user?.email}
               </Text>
               <Text className="mt-1 text-white/70 text-sm">
-                Joined September 2024
+                Joined since {new Date(session?.user?.createdAt as Date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
               </Text>
             </View>
             <Pressable
