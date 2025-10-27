@@ -9,17 +9,22 @@ import TrendingCategories from "./TrendingCategories";
 import UpcomingEvents from "./UpcomingEvents";
 import WeatherCard from "./WeatherCard";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { authClient } from "@/lib/auth-client";
+import { getGreeting } from "@/utils/time-func";
 
 export default function HomeScreen() {
+
+  const { data: session } = authClient.useSession();
+  const greeting = getGreeting();
   return (
     <SafeAreaView className="flex-1 mx-[2vw]">
       <View className="px-4 pt-[3%] pb-2 backdrop-blur-sm">
         <View className="flex-row justify-between items-center">
           <View>
             <Text className="dark:text-white/40 text-black/40">
-              Good Morning
+              {greeting}
             </Text>
-            <Text className="text-2xl font-bold text-white">John Doe</Text>
+            <Text className="text-2xl font-bold text-white">{session?.user?.name}</Text>
           </View>
 
           <TouchableOpacity
