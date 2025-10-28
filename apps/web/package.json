@@ -8,6 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@langchain/core": "^1.0.2",
+    "@langchain/google-genai": "^1.0.0",
     "@lewi/auth": "workspace:*",
     "@lewi/db": "workspace:*",
     "@polar-sh/better-auth": "catalog:",

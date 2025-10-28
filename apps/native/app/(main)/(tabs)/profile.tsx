@@ -1,3 +1,4 @@
+import ImageProcessor from "@/components/image-processer";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { authClient } from "@/lib/auth-client";
@@ -65,13 +66,12 @@ export default function Profile() {
 
   return (
     <SafeAreaView className="flex-1 mx-[2vw]">
-      <View className="px-4 py-3 pt-[3%] backdrop-blur-sm">
+      {/* <View className="px-4 py-3 pt-[3%] backdrop-blur-sm">
         <View className="flex-row items-center justify-between">
           <Text className="text-2xl font-bold text-white">Profile</Text>
         </View>
       </View>
 
-      {/* Scrollable Content */}
       <ScrollView
         className="flex-1 px-4 mt-1"
         contentContainerStyle={{ paddingBottom: 100 }}
@@ -181,7 +181,6 @@ export default function Profile() {
           </View>
         </View>
 
-        {/* Settings Section */}
 
         <Text className="mt-4 text-white/90 text-lg font-semibold mb-3">
           Settings
@@ -307,7 +306,7 @@ export default function Profile() {
           </Pressable>
         </View>
 
-        {/* Logout Confirmation Modal */}
+
         <Modal
           visible={showLogoutModal}
           transparent={true}
@@ -347,7 +346,10 @@ export default function Profile() {
             </View>
           </View>
         </Modal>
-      </ScrollView>
+      </ScrollView> */}
+
+
+    <ImageProcessor />
     </SafeAreaView>
   );
 }

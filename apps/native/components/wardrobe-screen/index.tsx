@@ -1,29 +1,28 @@
-import { dummyWardrobe } from "@/components/dummy-data/dummy-wardrobe";
 import ImageModal from "@/components/home-screen/ImageModal";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import {
+  AddIcon,
   FilterHorizontalIcon,
   HeartAddIcon,
   SearchIcon,
-  AddIcon,
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import * as Haptic from "expo-haptics";
 import { router } from "expo-router";
 import { useMemo, useState } from "react";
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   Pressable,
   ScrollView,
   Text,
   View,
-  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
 
 export default function WardrobeScreen() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -37,7 +36,6 @@ export default function WardrobeScreen() {
     { id: "DRESS", name: "Dresses" },
   ];
 
-  // Fetch wardrobe data using TanStack Query
   const {
     data: wardrobeItems = [],
     isLoading,
@@ -63,7 +61,7 @@ export default function WardrobeScreen() {
       return response.data?.wardrobe || [];
     },
     retry: 1,
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 5 * 60 * 1000, 
   });
 
   const openImageModal = (imageSource: any) => {
@@ -76,12 +74,10 @@ export default function WardrobeScreen() {
     router.push("/(main)/add-cloth");
   };
 
-  // Calculate statistics
   const totalItems = wardrobeItems.length;
-  const outfitsCreated = 42; // This would come from actual data
-  const mostWorn = 8; // This would be calculated from actual usage data
+  const outfitsCreated = 42; 
+  const mostWorn = 8; 
 
-  // Filter items based on selected category
   const filteredItems = useMemo(() => {
     if (selectedCategory === "all") {
       return wardrobeItems;
@@ -89,7 +85,6 @@ export default function WardrobeScreen() {
     return wardrobeItems.filter((item: any) => item.wardrobeCategory === selectedCategory);
   }, [selectedCategory, wardrobeItems]);
 
-  // Render individual wardrobe item
   const renderWardrobeItem = ({ item }: { item: any }) => (
     <View className="flex-1 mx-1 mb-4">
       <Pressable
@@ -105,11 +100,9 @@ export default function WardrobeScreen() {
             className="w-full h-48"
             resizeMode="cover"
           />
-          {/* Heart Icon - Top Right */}
           <Pressable
             onPress={() => {
               Haptic.selectionAsync();
-              // Toggle like state here
             }}
             className="absolute top-3 right-3 w-7 h-7 bg-white/20 rounded-full items-center justify-center"
           >
@@ -204,7 +197,6 @@ export default function WardrobeScreen() {
         </ScrollView>
 
         <View className="pb-6">
-          {/* Statistics Cards */}
           <View className="flex-row justify-between mb-8">
             <View className="bg-zinc-900/60 rounded-2xl p-5 flex-1 mr-2">
               <Text className="text-3xl font-bold text-white text-center mb-1">
@@ -232,7 +224,6 @@ export default function WardrobeScreen() {
             </View>
           </View>
 
-          {/* Wardrobe Items Grid */}
           {isLoading ? (
             <View className="flex-1 items-center justify-center py-20">
               <ActivityIndicator size="large" color="white" />
@@ -270,7 +261,6 @@ export default function WardrobeScreen() {
         />
       </ScrollView>
 
-      {/* Floating Add Button */}
       <Pressable
         onPress={handleAddCloth}
         className="absolute bottom-6 right-5 w-14 h-14 bg-white rounded-full items-center justify-center shadow-lg active:scale-95"
