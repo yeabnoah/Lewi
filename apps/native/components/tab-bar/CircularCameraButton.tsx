@@ -123,7 +123,7 @@ export function CircularCameraButton({
 
       {/* Camera Modal */}
       <Modal
-        visible={showCameraModal}
+        visible={showCameraModal} 
         transparent={true}
         animationType="slide"
         onRequestClose={closeCameraModal}

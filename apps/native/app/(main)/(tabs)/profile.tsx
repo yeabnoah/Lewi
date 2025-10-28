@@ -18,7 +18,7 @@ import {
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
 import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Image, Modal, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -27,6 +27,23 @@ export default function Profile() {
   const router = useRouter();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   const { data: session } = authClient.useSession();
+
+  const dicebearPlaceholder = useMemo(() => {
+    const seed =
+      session?.user?.id || session?.user?.email || session?.user?.name || "guest";
+    // Use a PNG endpoint to avoid SVG support issues in React Native
+    // Using 'avataaars' style for a modern, professional look
+    return `https://api.dicebear.com/8.x/avataaars/png?seed=${encodeURIComponent(
+      seed
+    )}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf&radius=50`;
+  }, [session?.user?.id, session?.user?.email, session?.user?.name]);
+
+  const [avatarUri, setAvatarUri] = useState<string | null>(null);
+
+  useEffect(() => {
+    const initial = session?.user?.image ?? dicebearPlaceholder;
+    setAvatarUri(initial);
+  }, [session?.user?.image, dicebearPlaceholder]);
 
   const handleLogout = async () => {
     setShowLogoutModal(false);
@@ -66,17 +83,19 @@ export default function Profile() {
           <View className="flex-row gap-4">
             <View className="relative h-20 w-20">
               <Image
-                source={require("@/assets/images/outfit.jpg")}
+                source={
+                  avatarUri
+                    ? { uri: avatarUri }
+                    : require("@/assets/images/outfit.jpg")
+                }
                 className="h-20 w-20 rounded-full"
                 resizeMode="cover"
+                onError={() => {
+                  if (avatarUri !== dicebearPlaceholder) {
+                    setAvatarUri(dicebearPlaceholder);
+                  }
+                }}
               />
-              <View className="absolute -bottom-1 -right-1 h-8 w-8 items-center justify-center rounded-full bg-white/10">
-                <HugeiconsIcon
-                  icon={AiGenerativeIcon}
-                  size={16}
-                  color={isDarkColorScheme ? "#FFFFFF" : "#0A0A0A"}
-                />
-              </View>
             </View>
             <View className="flex-1">
               <Text className="text-lg font-semibold text-white">
@@ -92,8 +111,7 @@ export default function Profile() {
             <Pressable
               className="h-8 w-8 items-center justify-center rounded-full bg-white/10"
               onPress={() => {
-                // TODO: Navigate to edit profile screen
-                console.log("Edit profile pressed");
+                router.push("/(main)/edit-profile");
               }}
             >
               <HugeiconsIcon
