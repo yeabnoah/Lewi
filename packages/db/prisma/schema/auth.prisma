@@ -1,26 +1,25 @@
 model User {
-  id            String    @id @map("_id")
-  name          String
-  email         String
-  emailVerified Boolean
-  image         String?
-  createdAt     DateTime
-  updatedAt     DateTime
-  wardrobe_items wardrobe_item[]
+  id                 String               @id @map("_id")
+  name               String
+  email              String               @unique
+  emailVerified      Boolean
+  image              String?
+  createdAt          DateTime
+  updatedAt          DateTime
+  accounts           Account[]
   outfit_suggestions outfit_suggestions[]
-  style_requests style_request[]
-  virtual_tryons virtual_tryon[]
-  sessions      Session[]
-  accounts      Account[]
+  sessions           Session[]
+  style_requests     style_request[]
+  virtual_tryons     virtual_tryon[]
+  wardrobe_items     wardrobe_item[]
 
-  @@unique([email])
   @@map("user")
 }
 
 model Session {
   id        String   @id @map("_id")
   expiresAt DateTime
-  token     String
+  token     String   @unique
   createdAt DateTime
   updatedAt DateTime
   ipAddress String?
@@ -28,7 +27,6 @@ model Session {
   userId    String
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([token])
   @@map("session")
 }
 
@@ -37,7 +35,6 @@ model Account {
   accountId             String
   providerId            String
   userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
   accessToken           String?
   refreshToken          String?
   idToken               String?
@@ -47,6 +44,7 @@ model Account {
   password              String?
   createdAt             DateTime
   updatedAt             DateTime
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("account")
 }
@@ -61,5 +59,3 @@ model Verification {
 
   @@map("verification")
 }
-
-

@@ -173,7 +173,6 @@ export type outfit_suggestionsWhereInput = {
   userId?: Prisma.StringFilter<"outfit_suggestions"> | string
   createdAt?: Prisma.DateTimeFilter<"outfit_suggestions"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"outfit_suggestions"> | Date | string
-  suggestions?: Prisma.Wardrobe_itemListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
@@ -182,7 +181,6 @@ export type outfit_suggestionsOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  suggestions?: Prisma.wardrobe_itemOrderByRelationAggregateInput
   user?: Prisma.UserOrderByWithRelationInput
 }
 
@@ -194,7 +192,6 @@ export type outfit_suggestionsWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"outfit_suggestions"> | string
   createdAt?: Prisma.DateTimeFilter<"outfit_suggestions"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"outfit_suggestions"> | Date | string
-  suggestions?: Prisma.Wardrobe_itemListRelationFilter
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }, "id">
 
@@ -222,7 +219,6 @@ export type outfit_suggestionsCreateInput = {
   id?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  suggestions?: Prisma.wardrobe_itemCreateNestedManyWithoutOutfit_suggestionsInput
   user: Prisma.UserCreateNestedOneWithoutOutfit_suggestionsInput
 }
 
@@ -231,14 +227,12 @@ export type outfit_suggestionsUncheckedCreateInput = {
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  suggestions?: Prisma.wardrobe_itemUncheckedCreateNestedManyWithoutOutfit_suggestionsInput
 }
 
 export type outfit_suggestionsUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  suggestions?: Prisma.wardrobe_itemUpdateManyWithoutOutfit_suggestionsNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutOutfit_suggestionsNestedInput
 }
 
@@ -247,7 +241,6 @@ export type outfit_suggestionsUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  suggestions?: Prisma.wardrobe_itemUncheckedUpdateManyWithoutOutfit_suggestionsNestedInput
 }
 
 export type outfit_suggestionsCreateManyInput = {
@@ -278,11 +271,6 @@ export type Outfit_suggestionsListRelationFilter = {
 
 export type outfit_suggestionsOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
-}
-
-export type Outfit_suggestionsNullableScalarRelationFilter = {
-  is?: Prisma.outfit_suggestionsWhereInput | null
-  isNot?: Prisma.outfit_suggestionsWhereInput | null
 }
 
 export type outfit_suggestionsCountOrderByAggregateInput = {
@@ -348,34 +336,16 @@ export type outfit_suggestionsUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.outfit_suggestionsScalarWhereInput | Prisma.outfit_suggestionsScalarWhereInput[]
 }
 
-export type outfit_suggestionsCreateNestedOneWithoutSuggestionsInput = {
-  create?: Prisma.XOR<Prisma.outfit_suggestionsCreateWithoutSuggestionsInput, Prisma.outfit_suggestionsUncheckedCreateWithoutSuggestionsInput>
-  connectOrCreate?: Prisma.outfit_suggestionsCreateOrConnectWithoutSuggestionsInput
-  connect?: Prisma.outfit_suggestionsWhereUniqueInput
-}
-
-export type outfit_suggestionsUpdateOneWithoutSuggestionsNestedInput = {
-  create?: Prisma.XOR<Prisma.outfit_suggestionsCreateWithoutSuggestionsInput, Prisma.outfit_suggestionsUncheckedCreateWithoutSuggestionsInput>
-  connectOrCreate?: Prisma.outfit_suggestionsCreateOrConnectWithoutSuggestionsInput
-  upsert?: Prisma.outfit_suggestionsUpsertWithoutSuggestionsInput
-  disconnect?: Prisma.outfit_suggestionsWhereInput | boolean
-  delete?: Prisma.outfit_suggestionsWhereInput | boolean
-  connect?: Prisma.outfit_suggestionsWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.outfit_suggestionsUpdateToOneWithWhereWithoutSuggestionsInput, Prisma.outfit_suggestionsUpdateWithoutSuggestionsInput>, Prisma.outfit_suggestionsUncheckedUpdateWithoutSuggestionsInput>
-}
-
 export type outfit_suggestionsCreateWithoutUserInput = {
   id?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  suggestions?: Prisma.wardrobe_itemCreateNestedManyWithoutOutfit_suggestionsInput
 }
 
 export type outfit_suggestionsUncheckedCreateWithoutUserInput = {
   id?: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  suggestions?: Prisma.wardrobe_itemUncheckedCreateNestedManyWithoutOutfit_suggestionsInput
 }
 
 export type outfit_suggestionsCreateOrConnectWithoutUserInput = {
@@ -414,50 +384,6 @@ export type outfit_suggestionsScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"outfit_suggestions"> | Date | string
 }
 
-export type outfit_suggestionsCreateWithoutSuggestionsInput = {
-  id?: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutOutfit_suggestionsInput
-}
-
-export type outfit_suggestionsUncheckedCreateWithoutSuggestionsInput = {
-  id?: string
-  userId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type outfit_suggestionsCreateOrConnectWithoutSuggestionsInput = {
-  where: Prisma.outfit_suggestionsWhereUniqueInput
-  create: Prisma.XOR<Prisma.outfit_suggestionsCreateWithoutSuggestionsInput, Prisma.outfit_suggestionsUncheckedCreateWithoutSuggestionsInput>
-}
-
-export type outfit_suggestionsUpsertWithoutSuggestionsInput = {
-  update: Prisma.XOR<Prisma.outfit_suggestionsUpdateWithoutSuggestionsInput, Prisma.outfit_suggestionsUncheckedUpdateWithoutSuggestionsInput>
-  create: Prisma.XOR<Prisma.outfit_suggestionsCreateWithoutSuggestionsInput, Prisma.outfit_suggestionsUncheckedCreateWithoutSuggestionsInput>
-  where?: Prisma.outfit_suggestionsWhereInput
-}
-
-export type outfit_suggestionsUpdateToOneWithWhereWithoutSuggestionsInput = {
-  where?: Prisma.outfit_suggestionsWhereInput
-  data: Prisma.XOR<Prisma.outfit_suggestionsUpdateWithoutSuggestionsInput, Prisma.outfit_suggestionsUncheckedUpdateWithoutSuggestionsInput>
-}
-
-export type outfit_suggestionsUpdateWithoutSuggestionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutOutfit_suggestionsNestedInput
-}
-
-export type outfit_suggestionsUncheckedUpdateWithoutSuggestionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
 export type outfit_suggestionsCreateManyUserInput = {
   id?: string
   createdAt?: Date | string
@@ -468,14 +394,12 @@ export type outfit_suggestionsUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  suggestions?: Prisma.wardrobe_itemUpdateManyWithoutOutfit_suggestionsNestedInput
 }
 
 export type outfit_suggestionsUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  suggestions?: Prisma.wardrobe_itemUncheckedUpdateManyWithoutOutfit_suggestionsNestedInput
 }
 
 export type outfit_suggestionsUncheckedUpdateManyWithoutUserInput = {
@@ -485,44 +409,13 @@ export type outfit_suggestionsUncheckedUpdateManyWithoutUserInput = {
 }
 
 
-/**
- * Count Type Outfit_suggestionsCountOutputType
- */
-
-export type Outfit_suggestionsCountOutputType = {
-  suggestions: number
-}
-
-export type Outfit_suggestionsCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  suggestions?: boolean | Outfit_suggestionsCountOutputTypeCountSuggestionsArgs
-}
-
-/**
- * Outfit_suggestionsCountOutputType without action
- */
-export type Outfit_suggestionsCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Outfit_suggestionsCountOutputType
-   */
-  select?: Prisma.Outfit_suggestionsCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * Outfit_suggestionsCountOutputType without action
- */
-export type Outfit_suggestionsCountOutputTypeCountSuggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.wardrobe_itemWhereInput
-}
-
 
 export type outfit_suggestionsSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  suggestions?: boolean | Prisma.outfit_suggestions$suggestionsArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  _count?: boolean | Prisma.Outfit_suggestionsCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["outfit_suggestions"]>
 
 export type outfit_suggestionsSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -550,9 +443,7 @@ export type outfit_suggestionsSelectScalar = {
 
 export type outfit_suggestionsOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "createdAt" | "updatedAt", ExtArgs["result"]["outfit_suggestions"]>
 export type outfit_suggestionsInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  suggestions?: boolean | Prisma.outfit_suggestions$suggestionsArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  _count?: boolean | Prisma.Outfit_suggestionsCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type outfit_suggestionsIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -564,7 +455,6 @@ export type outfit_suggestionsIncludeUpdateManyAndReturn<ExtArgs extends runtime
 export type $outfit_suggestionsPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "outfit_suggestions"
   objects: {
-    suggestions: Prisma.$wardrobe_itemPayload<ExtArgs>[]
     user: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -966,7 +856,6 @@ readonly fields: outfit_suggestionsFieldRefs;
  */
 export interface Prisma__outfit_suggestionsClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  suggestions<T extends Prisma.outfit_suggestions$suggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.outfit_suggestions$suggestionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$wardrobe_itemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1394,30 +1283,6 @@ export type outfit_suggestionsDeleteManyArgs<ExtArgs extends runtime.Types.Exten
    * Limit how many outfit_suggestions to delete.
    */
   limit?: number
-}
-
-/**
- * outfit_suggestions.suggestions
- */
-export type outfit_suggestions$suggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the wardrobe_item
-   */
-  select?: Prisma.wardrobe_itemSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the wardrobe_item
-   */
-  omit?: Prisma.wardrobe_itemOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.wardrobe_itemInclude<ExtArgs> | null
-  where?: Prisma.wardrobe_itemWhereInput
-  orderBy?: Prisma.wardrobe_itemOrderByWithRelationInput | Prisma.wardrobe_itemOrderByWithRelationInput[]
-  cursor?: Prisma.wardrobe_itemWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.Wardrobe_itemScalarFieldEnum | Prisma.Wardrobe_itemScalarFieldEnum[]
 }
 
 /**

@@ -31,7 +31,8 @@ export type Wardrobe_itemMinAggregateOutputType = {
   userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
-  outfit_suggestionsId: string | null
+  color: string | null
+  wardrobeCategory: $Enums.WardrobeCategory | null
 }
 
 export type Wardrobe_itemMaxAggregateOutputType = {
@@ -42,7 +43,8 @@ export type Wardrobe_itemMaxAggregateOutputType = {
   userId: string | null
   createdAt: Date | null
   updatedAt: Date | null
-  outfit_suggestionsId: string | null
+  color: string | null
+  wardrobeCategory: $Enums.WardrobeCategory | null
 }
 
 export type Wardrobe_itemCountAggregateOutputType = {
@@ -53,7 +55,8 @@ export type Wardrobe_itemCountAggregateOutputType = {
   userId: number
   createdAt: number
   updatedAt: number
-  outfit_suggestionsId: number
+  color: number
+  wardrobeCategory: number
   _all: number
 }
 
@@ -66,7 +69,8 @@ export type Wardrobe_itemMinAggregateInputType = {
   userId?: true
   createdAt?: true
   updatedAt?: true
-  outfit_suggestionsId?: true
+  color?: true
+  wardrobeCategory?: true
 }
 
 export type Wardrobe_itemMaxAggregateInputType = {
@@ -77,7 +81,8 @@ export type Wardrobe_itemMaxAggregateInputType = {
   userId?: true
   createdAt?: true
   updatedAt?: true
-  outfit_suggestionsId?: true
+  color?: true
+  wardrobeCategory?: true
 }
 
 export type Wardrobe_itemCountAggregateInputType = {
@@ -88,7 +93,8 @@ export type Wardrobe_itemCountAggregateInputType = {
   userId?: true
   createdAt?: true
   updatedAt?: true
-  outfit_suggestionsId?: true
+  color?: true
+  wardrobeCategory?: true
   _all?: true
 }
 
@@ -172,7 +178,8 @@ export type Wardrobe_itemGroupByOutputType = {
   userId: string
   createdAt: Date
   updatedAt: Date
-  outfit_suggestionsId: string | null
+  color: string
+  wardrobeCategory: $Enums.WardrobeCategory
   _count: Wardrobe_itemCountAggregateOutputType | null
   _min: Wardrobe_itemMinAggregateOutputType | null
   _max: Wardrobe_itemMaxAggregateOutputType | null
@@ -204,9 +211,9 @@ export type wardrobe_itemWhereInput = {
   userId?: Prisma.StringFilter<"wardrobe_item"> | string
   createdAt?: Prisma.DateTimeFilter<"wardrobe_item"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"wardrobe_item"> | Date | string
-  outfit_suggestionsId?: Prisma.StringNullableFilter<"wardrobe_item"> | string | null
+  color?: Prisma.StringFilter<"wardrobe_item"> | string
+  wardrobeCategory?: Prisma.EnumWardrobeCategoryFilter<"wardrobe_item"> | $Enums.WardrobeCategory
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  outfit_suggestions?: Prisma.XOR<Prisma.Outfit_suggestionsNullableScalarRelationFilter, Prisma.outfit_suggestionsWhereInput> | null
 }
 
 export type wardrobe_itemOrderByWithRelationInput = {
@@ -217,9 +224,9 @@ export type wardrobe_itemOrderByWithRelationInput = {
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  outfit_suggestionsId?: Prisma.SortOrderInput | Prisma.SortOrder
+  color?: Prisma.SortOrder
+  wardrobeCategory?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
-  outfit_suggestions?: Prisma.outfit_suggestionsOrderByWithRelationInput
 }
 
 export type wardrobe_itemWhereUniqueInput = Prisma.AtLeast<{
@@ -233,9 +240,9 @@ export type wardrobe_itemWhereUniqueInput = Prisma.AtLeast<{
   userId?: Prisma.StringFilter<"wardrobe_item"> | string
   createdAt?: Prisma.DateTimeFilter<"wardrobe_item"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"wardrobe_item"> | Date | string
-  outfit_suggestionsId?: Prisma.StringNullableFilter<"wardrobe_item"> | string | null
+  color?: Prisma.StringFilter<"wardrobe_item"> | string
+  wardrobeCategory?: Prisma.EnumWardrobeCategoryFilter<"wardrobe_item"> | $Enums.WardrobeCategory
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  outfit_suggestions?: Prisma.XOR<Prisma.Outfit_suggestionsNullableScalarRelationFilter, Prisma.outfit_suggestionsWhereInput> | null
 }, "id">
 
 export type wardrobe_itemOrderByWithAggregationInput = {
@@ -246,7 +253,8 @@ export type wardrobe_itemOrderByWithAggregationInput = {
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  outfit_suggestionsId?: Prisma.SortOrderInput | Prisma.SortOrder
+  color?: Prisma.SortOrder
+  wardrobeCategory?: Prisma.SortOrder
   _count?: Prisma.wardrobe_itemCountOrderByAggregateInput
   _max?: Prisma.wardrobe_itemMaxOrderByAggregateInput
   _min?: Prisma.wardrobe_itemMinOrderByAggregateInput
@@ -263,7 +271,8 @@ export type wardrobe_itemScalarWhereWithAggregatesInput = {
   userId?: Prisma.StringWithAggregatesFilter<"wardrobe_item"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"wardrobe_item"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"wardrobe_item"> | Date | string
-  outfit_suggestionsId?: Prisma.StringNullableWithAggregatesFilter<"wardrobe_item"> | string | null
+  color?: Prisma.StringWithAggregatesFilter<"wardrobe_item"> | string
+  wardrobeCategory?: Prisma.EnumWardrobeCategoryWithAggregatesFilter<"wardrobe_item"> | $Enums.WardrobeCategory
 }
 
 export type wardrobe_itemCreateInput = {
@@ -273,8 +282,9 @@ export type wardrobe_itemCreateInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
+  color: string
+  wardrobeCategory: $Enums.WardrobeCategory
   user: Prisma.UserCreateNestedOneWithoutWardrobe_itemsInput
-  outfit_suggestions?: Prisma.outfit_suggestionsCreateNestedOneWithoutSuggestionsInput
 }
 
 export type wardrobe_itemUncheckedCreateInput = {
@@ -285,7 +295,8 @@ export type wardrobe_itemUncheckedCreateInput = {
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  outfit_suggestionsId?: string | null
+  color: string
+  wardrobeCategory: $Enums.WardrobeCategory
 }
 
 export type wardrobe_itemUpdateInput = {
@@ -295,8 +306,9 @@ export type wardrobe_itemUpdateInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  wardrobeCategory?: Prisma.EnumWardrobeCategoryFieldUpdateOperationsInput | $Enums.WardrobeCategory
   user?: Prisma.UserUpdateOneRequiredWithoutWardrobe_itemsNestedInput
-  outfit_suggestions?: Prisma.outfit_suggestionsUpdateOneWithoutSuggestionsNestedInput
 }
 
 export type wardrobe_itemUncheckedUpdateInput = {
@@ -307,7 +319,8 @@ export type wardrobe_itemUncheckedUpdateInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  outfit_suggestionsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  wardrobeCategory?: Prisma.EnumWardrobeCategoryFieldUpdateOperationsInput | $Enums.WardrobeCategory
 }
 
 export type wardrobe_itemCreateManyInput = {
@@ -318,7 +331,8 @@ export type wardrobe_itemCreateManyInput = {
   userId: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  outfit_suggestionsId?: string | null
+  color: string
+  wardrobeCategory: $Enums.WardrobeCategory
 }
 
 export type wardrobe_itemUpdateManyMutationInput = {
@@ -328,6 +342,8 @@ export type wardrobe_itemUpdateManyMutationInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  wardrobeCategory?: Prisma.EnumWardrobeCategoryFieldUpdateOperationsInput | $Enums.WardrobeCategory
 }
 
 export type wardrobe_itemUncheckedUpdateManyInput = {
@@ -338,7 +354,8 @@ export type wardrobe_itemUncheckedUpdateManyInput = {
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  outfit_suggestionsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  wardrobeCategory?: Prisma.EnumWardrobeCategoryFieldUpdateOperationsInput | $Enums.WardrobeCategory
 }
 
 export type Wardrobe_itemListRelationFilter = {
@@ -359,7 +376,8 @@ export type wardrobe_itemCountOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  outfit_suggestionsId?: Prisma.SortOrder
+  color?: Prisma.SortOrder
+  wardrobeCategory?: Prisma.SortOrder
 }
 
 export type wardrobe_itemMaxOrderByAggregateInput = {
@@ -370,7 +388,8 @@ export type wardrobe_itemMaxOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  outfit_suggestionsId?: Prisma.SortOrder
+  color?: Prisma.SortOrder
+  wardrobeCategory?: Prisma.SortOrder
 }
 
 export type wardrobe_itemMinOrderByAggregateInput = {
@@ -381,7 +400,8 @@ export type wardrobe_itemMinOrderByAggregateInput = {
   userId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  outfit_suggestionsId?: Prisma.SortOrder
+  color?: Prisma.SortOrder
+  wardrobeCategory?: Prisma.SortOrder
 }
 
 export type wardrobe_itemCreateNestedManyWithoutUserInput = {
@@ -426,46 +446,8 @@ export type wardrobe_itemUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.wardrobe_itemScalarWhereInput | Prisma.wardrobe_itemScalarWhereInput[]
 }
 
-export type wardrobe_itemCreateNestedManyWithoutOutfit_suggestionsInput = {
-  create?: Prisma.XOR<Prisma.wardrobe_itemCreateWithoutOutfit_suggestionsInput, Prisma.wardrobe_itemUncheckedCreateWithoutOutfit_suggestionsInput> | Prisma.wardrobe_itemCreateWithoutOutfit_suggestionsInput[] | Prisma.wardrobe_itemUncheckedCreateWithoutOutfit_suggestionsInput[]
-  connectOrCreate?: Prisma.wardrobe_itemCreateOrConnectWithoutOutfit_suggestionsInput | Prisma.wardrobe_itemCreateOrConnectWithoutOutfit_suggestionsInput[]
-  createMany?: Prisma.wardrobe_itemCreateManyOutfit_suggestionsInputEnvelope
-  connect?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
-}
-
-export type wardrobe_itemUncheckedCreateNestedManyWithoutOutfit_suggestionsInput = {
-  create?: Prisma.XOR<Prisma.wardrobe_itemCreateWithoutOutfit_suggestionsInput, Prisma.wardrobe_itemUncheckedCreateWithoutOutfit_suggestionsInput> | Prisma.wardrobe_itemCreateWithoutOutfit_suggestionsInput[] | Prisma.wardrobe_itemUncheckedCreateWithoutOutfit_suggestionsInput[]
-  connectOrCreate?: Prisma.wardrobe_itemCreateOrConnectWithoutOutfit_suggestionsInput | Prisma.wardrobe_itemCreateOrConnectWithoutOutfit_suggestionsInput[]
-  createMany?: Prisma.wardrobe_itemCreateManyOutfit_suggestionsInputEnvelope
-  connect?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
-}
-
-export type wardrobe_itemUpdateManyWithoutOutfit_suggestionsNestedInput = {
-  create?: Prisma.XOR<Prisma.wardrobe_itemCreateWithoutOutfit_suggestionsInput, Prisma.wardrobe_itemUncheckedCreateWithoutOutfit_suggestionsInput> | Prisma.wardrobe_itemCreateWithoutOutfit_suggestionsInput[] | Prisma.wardrobe_itemUncheckedCreateWithoutOutfit_suggestionsInput[]
-  connectOrCreate?: Prisma.wardrobe_itemCreateOrConnectWithoutOutfit_suggestionsInput | Prisma.wardrobe_itemCreateOrConnectWithoutOutfit_suggestionsInput[]
-  upsert?: Prisma.wardrobe_itemUpsertWithWhereUniqueWithoutOutfit_suggestionsInput | Prisma.wardrobe_itemUpsertWithWhereUniqueWithoutOutfit_suggestionsInput[]
-  createMany?: Prisma.wardrobe_itemCreateManyOutfit_suggestionsInputEnvelope
-  set?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
-  disconnect?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
-  delete?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
-  connect?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
-  update?: Prisma.wardrobe_itemUpdateWithWhereUniqueWithoutOutfit_suggestionsInput | Prisma.wardrobe_itemUpdateWithWhereUniqueWithoutOutfit_suggestionsInput[]
-  updateMany?: Prisma.wardrobe_itemUpdateManyWithWhereWithoutOutfit_suggestionsInput | Prisma.wardrobe_itemUpdateManyWithWhereWithoutOutfit_suggestionsInput[]
-  deleteMany?: Prisma.wardrobe_itemScalarWhereInput | Prisma.wardrobe_itemScalarWhereInput[]
-}
-
-export type wardrobe_itemUncheckedUpdateManyWithoutOutfit_suggestionsNestedInput = {
-  create?: Prisma.XOR<Prisma.wardrobe_itemCreateWithoutOutfit_suggestionsInput, Prisma.wardrobe_itemUncheckedCreateWithoutOutfit_suggestionsInput> | Prisma.wardrobe_itemCreateWithoutOutfit_suggestionsInput[] | Prisma.wardrobe_itemUncheckedCreateWithoutOutfit_suggestionsInput[]
-  connectOrCreate?: Prisma.wardrobe_itemCreateOrConnectWithoutOutfit_suggestionsInput | Prisma.wardrobe_itemCreateOrConnectWithoutOutfit_suggestionsInput[]
-  upsert?: Prisma.wardrobe_itemUpsertWithWhereUniqueWithoutOutfit_suggestionsInput | Prisma.wardrobe_itemUpsertWithWhereUniqueWithoutOutfit_suggestionsInput[]
-  createMany?: Prisma.wardrobe_itemCreateManyOutfit_suggestionsInputEnvelope
-  set?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
-  disconnect?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
-  delete?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
-  connect?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
-  update?: Prisma.wardrobe_itemUpdateWithWhereUniqueWithoutOutfit_suggestionsInput | Prisma.wardrobe_itemUpdateWithWhereUniqueWithoutOutfit_suggestionsInput[]
-  updateMany?: Prisma.wardrobe_itemUpdateManyWithWhereWithoutOutfit_suggestionsInput | Prisma.wardrobe_itemUpdateManyWithWhereWithoutOutfit_suggestionsInput[]
-  deleteMany?: Prisma.wardrobe_itemScalarWhereInput | Prisma.wardrobe_itemScalarWhereInput[]
+export type EnumWardrobeCategoryFieldUpdateOperationsInput = {
+  set?: $Enums.WardrobeCategory
 }
 
 export type wardrobe_itemCreateWithoutUserInput = {
@@ -475,7 +457,8 @@ export type wardrobe_itemCreateWithoutUserInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  outfit_suggestions?: Prisma.outfit_suggestionsCreateNestedOneWithoutSuggestionsInput
+  color: string
+  wardrobeCategory: $Enums.WardrobeCategory
 }
 
 export type wardrobe_itemUncheckedCreateWithoutUserInput = {
@@ -485,7 +468,8 @@ export type wardrobe_itemUncheckedCreateWithoutUserInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  outfit_suggestionsId?: string | null
+  color: string
+  wardrobeCategory: $Enums.WardrobeCategory
 }
 
 export type wardrobe_itemCreateOrConnectWithoutUserInput = {
@@ -525,53 +509,8 @@ export type wardrobe_itemScalarWhereInput = {
   userId?: Prisma.StringFilter<"wardrobe_item"> | string
   createdAt?: Prisma.DateTimeFilter<"wardrobe_item"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"wardrobe_item"> | Date | string
-  outfit_suggestionsId?: Prisma.StringNullableFilter<"wardrobe_item"> | string | null
-}
-
-export type wardrobe_itemCreateWithoutOutfit_suggestionsInput = {
-  id?: string
-  name: string
-  description: string
-  imageUrl: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutWardrobe_itemsInput
-}
-
-export type wardrobe_itemUncheckedCreateWithoutOutfit_suggestionsInput = {
-  id?: string
-  name: string
-  description: string
-  imageUrl: string
-  userId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type wardrobe_itemCreateOrConnectWithoutOutfit_suggestionsInput = {
-  where: Prisma.wardrobe_itemWhereUniqueInput
-  create: Prisma.XOR<Prisma.wardrobe_itemCreateWithoutOutfit_suggestionsInput, Prisma.wardrobe_itemUncheckedCreateWithoutOutfit_suggestionsInput>
-}
-
-export type wardrobe_itemCreateManyOutfit_suggestionsInputEnvelope = {
-  data: Prisma.wardrobe_itemCreateManyOutfit_suggestionsInput | Prisma.wardrobe_itemCreateManyOutfit_suggestionsInput[]
-  skipDuplicates?: boolean
-}
-
-export type wardrobe_itemUpsertWithWhereUniqueWithoutOutfit_suggestionsInput = {
-  where: Prisma.wardrobe_itemWhereUniqueInput
-  update: Prisma.XOR<Prisma.wardrobe_itemUpdateWithoutOutfit_suggestionsInput, Prisma.wardrobe_itemUncheckedUpdateWithoutOutfit_suggestionsInput>
-  create: Prisma.XOR<Prisma.wardrobe_itemCreateWithoutOutfit_suggestionsInput, Prisma.wardrobe_itemUncheckedCreateWithoutOutfit_suggestionsInput>
-}
-
-export type wardrobe_itemUpdateWithWhereUniqueWithoutOutfit_suggestionsInput = {
-  where: Prisma.wardrobe_itemWhereUniqueInput
-  data: Prisma.XOR<Prisma.wardrobe_itemUpdateWithoutOutfit_suggestionsInput, Prisma.wardrobe_itemUncheckedUpdateWithoutOutfit_suggestionsInput>
-}
-
-export type wardrobe_itemUpdateManyWithWhereWithoutOutfit_suggestionsInput = {
-  where: Prisma.wardrobe_itemScalarWhereInput
-  data: Prisma.XOR<Prisma.wardrobe_itemUpdateManyMutationInput, Prisma.wardrobe_itemUncheckedUpdateManyWithoutOutfit_suggestionsInput>
+  color?: Prisma.StringFilter<"wardrobe_item"> | string
+  wardrobeCategory?: Prisma.EnumWardrobeCategoryFilter<"wardrobe_item"> | $Enums.WardrobeCategory
 }
 
 export type wardrobe_itemCreateManyUserInput = {
@@ -581,7 +520,8 @@ export type wardrobe_itemCreateManyUserInput = {
   imageUrl: string
   createdAt?: Date | string
   updatedAt?: Date | string
-  outfit_suggestionsId?: string | null
+  color: string
+  wardrobeCategory: $Enums.WardrobeCategory
 }
 
 export type wardrobe_itemUpdateWithoutUserInput = {
@@ -591,7 +531,8 @@ export type wardrobe_itemUpdateWithoutUserInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  outfit_suggestions?: Prisma.outfit_suggestionsUpdateOneWithoutSuggestionsNestedInput
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  wardrobeCategory?: Prisma.EnumWardrobeCategoryFieldUpdateOperationsInput | $Enums.WardrobeCategory
 }
 
 export type wardrobe_itemUncheckedUpdateWithoutUserInput = {
@@ -601,7 +542,8 @@ export type wardrobe_itemUncheckedUpdateWithoutUserInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  outfit_suggestionsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  wardrobeCategory?: Prisma.EnumWardrobeCategoryFieldUpdateOperationsInput | $Enums.WardrobeCategory
 }
 
 export type wardrobe_itemUncheckedUpdateManyWithoutUserInput = {
@@ -611,47 +553,8 @@ export type wardrobe_itemUncheckedUpdateManyWithoutUserInput = {
   imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  outfit_suggestionsId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-}
-
-export type wardrobe_itemCreateManyOutfit_suggestionsInput = {
-  id?: string
-  name: string
-  description: string
-  imageUrl: string
-  userId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type wardrobe_itemUpdateWithoutOutfit_suggestionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutWardrobe_itemsNestedInput
-}
-
-export type wardrobe_itemUncheckedUpdateWithoutOutfit_suggestionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type wardrobe_itemUncheckedUpdateManyWithoutOutfit_suggestionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  imageUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  color?: Prisma.StringFieldUpdateOperationsInput | string
+  wardrobeCategory?: Prisma.EnumWardrobeCategoryFieldUpdateOperationsInput | $Enums.WardrobeCategory
 }
 
 
@@ -664,9 +567,9 @@ export type wardrobe_itemSelect<ExtArgs extends runtime.Types.Extensions.Interna
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  outfit_suggestionsId?: boolean
+  color?: boolean
+  wardrobeCategory?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  outfit_suggestions?: boolean | Prisma.wardrobe_item$outfit_suggestionsArgs<ExtArgs>
 }, ExtArgs["result"]["wardrobe_item"]>
 
 export type wardrobe_itemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -677,9 +580,9 @@ export type wardrobe_itemSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  outfit_suggestionsId?: boolean
+  color?: boolean
+  wardrobeCategory?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  outfit_suggestions?: boolean | Prisma.wardrobe_item$outfit_suggestionsArgs<ExtArgs>
 }, ExtArgs["result"]["wardrobe_item"]>
 
 export type wardrobe_itemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -690,9 +593,9 @@ export type wardrobe_itemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  outfit_suggestionsId?: boolean
+  color?: boolean
+  wardrobeCategory?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  outfit_suggestions?: boolean | Prisma.wardrobe_item$outfit_suggestionsArgs<ExtArgs>
 }, ExtArgs["result"]["wardrobe_item"]>
 
 export type wardrobe_itemSelectScalar = {
@@ -703,28 +606,25 @@ export type wardrobe_itemSelectScalar = {
   userId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  outfit_suggestionsId?: boolean
+  color?: boolean
+  wardrobeCategory?: boolean
 }
 
-export type wardrobe_itemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "imageUrl" | "userId" | "createdAt" | "updatedAt" | "outfit_suggestionsId", ExtArgs["result"]["wardrobe_item"]>
+export type wardrobe_itemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "imageUrl" | "userId" | "createdAt" | "updatedAt" | "color" | "wardrobeCategory", ExtArgs["result"]["wardrobe_item"]>
 export type wardrobe_itemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  outfit_suggestions?: boolean | Prisma.wardrobe_item$outfit_suggestionsArgs<ExtArgs>
 }
 export type wardrobe_itemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  outfit_suggestions?: boolean | Prisma.wardrobe_item$outfit_suggestionsArgs<ExtArgs>
 }
 export type wardrobe_itemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  outfit_suggestions?: boolean | Prisma.wardrobe_item$outfit_suggestionsArgs<ExtArgs>
 }
 
 export type $wardrobe_itemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "wardrobe_item"
   objects: {
     user: Prisma.$UserPayload<ExtArgs>
-    outfit_suggestions: Prisma.$outfit_suggestionsPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -734,7 +634,8 @@ export type $wardrobe_itemPayload<ExtArgs extends runtime.Types.Extensions.Inter
     userId: string
     createdAt: Date
     updatedAt: Date
-    outfit_suggestionsId: string | null
+    color: string
+    wardrobeCategory: $Enums.WardrobeCategory
   }, ExtArgs["result"]["wardrobe_item"]>
   composites: {}
 }
@@ -1130,7 +1031,6 @@ readonly fields: wardrobe_itemFieldRefs;
 export interface Prisma__wardrobe_itemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  outfit_suggestions<T extends Prisma.wardrobe_item$outfit_suggestionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.wardrobe_item$outfit_suggestionsArgs<ExtArgs>>): Prisma.Prisma__outfit_suggestionsClient<runtime.Types.Result.GetResult<Prisma.$outfit_suggestionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1167,7 +1067,8 @@ export interface wardrobe_itemFieldRefs {
   readonly userId: Prisma.FieldRef<"wardrobe_item", 'String'>
   readonly createdAt: Prisma.FieldRef<"wardrobe_item", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"wardrobe_item", 'DateTime'>
-  readonly outfit_suggestionsId: Prisma.FieldRef<"wardrobe_item", 'String'>
+  readonly color: Prisma.FieldRef<"wardrobe_item", 'String'>
+  readonly wardrobeCategory: Prisma.FieldRef<"wardrobe_item", 'WardrobeCategory'>
 }
     
 
@@ -1561,25 +1462,6 @@ export type wardrobe_itemDeleteManyArgs<ExtArgs extends runtime.Types.Extensions
    * Limit how many wardrobe_items to delete.
    */
   limit?: number
-}
-
-/**
- * wardrobe_item.outfit_suggestions
- */
-export type wardrobe_item$outfit_suggestionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the outfit_suggestions
-   */
-  select?: Prisma.outfit_suggestionsSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the outfit_suggestions
-   */
-  omit?: Prisma.outfit_suggestionsOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.outfit_suggestionsInclude<ExtArgs> | null
-  where?: Prisma.outfit_suggestionsWhereInput
 }
 
 /**

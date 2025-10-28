@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@lewi/auth": "workspace:*",
+    "@lewi/db": "workspace:*",
     "@polar-sh/better-auth": "catalog:",
     "@prisma/client": "catalog:",
     "@tanstack/react-form": "^1.12.3",

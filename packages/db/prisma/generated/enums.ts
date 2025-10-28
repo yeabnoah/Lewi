@@ -8,7 +8,12 @@
 * 🟢 You can import this file directly.
 */
 
+export const WardrobeCategory = {
+  TOP: 'TOP',
+  BOTTOM: 'BOTTOM',
+  DRESS: 'DRESS',
+  OUTERWEAR: 'OUTERWEAR',
+  ACCESSORY: 'ACCESSORY'
+} as const
 
-
-// This file is empty because there are no enums in the schema.
-export {}
+export type WardrobeCategory = (typeof WardrobeCategory)[keyof typeof WardrobeCategory]

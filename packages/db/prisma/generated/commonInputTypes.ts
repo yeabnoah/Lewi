@@ -147,6 +147,23 @@ export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
 }
 
+export type EnumWardrobeCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.WardrobeCategory | Prisma.EnumWardrobeCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.WardrobeCategory[] | Prisma.ListEnumWardrobeCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WardrobeCategory[] | Prisma.ListEnumWardrobeCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWardrobeCategoryFilter<$PrismaModel> | $Enums.WardrobeCategory
+}
+
+export type EnumWardrobeCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.WardrobeCategory | Prisma.EnumWardrobeCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.WardrobeCategory[] | Prisma.ListEnumWardrobeCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WardrobeCategory[] | Prisma.ListEnumWardrobeCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWardrobeCategoryWithAggregatesFilter<$PrismaModel> | $Enums.WardrobeCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumWardrobeCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumWardrobeCategoryFilter<$PrismaModel>
+}
+
 export type NestedStringFilter<$PrismaModel = never> = {
   equals?: string | Prisma.StringFieldRefInput<$PrismaModel>
   in?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
@@ -292,6 +309,23 @@ export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
+}
+
+export type NestedEnumWardrobeCategoryFilter<$PrismaModel = never> = {
+  equals?: $Enums.WardrobeCategory | Prisma.EnumWardrobeCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.WardrobeCategory[] | Prisma.ListEnumWardrobeCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WardrobeCategory[] | Prisma.ListEnumWardrobeCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWardrobeCategoryFilter<$PrismaModel> | $Enums.WardrobeCategory
+}
+
+export type NestedEnumWardrobeCategoryWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.WardrobeCategory | Prisma.EnumWardrobeCategoryFieldRefInput<$PrismaModel>
+  in?: $Enums.WardrobeCategory[] | Prisma.ListEnumWardrobeCategoryFieldRefInput<$PrismaModel>
+  notIn?: $Enums.WardrobeCategory[] | Prisma.ListEnumWardrobeCategoryFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumWardrobeCategoryWithAggregatesFilter<$PrismaModel> | $Enums.WardrobeCategory
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumWardrobeCategoryFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumWardrobeCategoryFilter<$PrismaModel>
 }
 
 

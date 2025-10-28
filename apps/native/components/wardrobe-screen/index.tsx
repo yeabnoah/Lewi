@@ -1,6 +1,7 @@
 import { dummyWardrobe } from "@/components/dummy-data/dummy-wardrobe";
 import ImageModal from "@/components/home-screen/ImageModal";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 import {
   FilterHorizontalIcon,
   HeartAddIcon,
@@ -18,8 +19,11 @@ import {
   ScrollView,
   Text,
   View,
+  ActivityIndicator,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 export default function WardrobeScreen() {
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -28,10 +32,39 @@ export default function WardrobeScreen() {
 
   const categories = [
     { id: "all", name: "All" },
-    { id: "tops", name: "Tops" },
-    { id: "bottoms", name: "Bottoms" },
-    { id: "dresses", name: "Dresses" },
+    { id: "TOP", name: "Tops" },
+    { id: "BOTTOM", name: "Bottoms" },
+    { id: "DRESS", name: "Dresses" },
   ];
+
+  // Fetch wardrobe data using TanStack Query
+  const {
+    data: wardrobeItems = [],
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["wardrobe"],
+    queryFn: async () => {
+      const cookies = authClient.getCookie();
+      if (!cookies) {
+        throw new Error("Not authenticated");
+      }
+
+      const response = await axios.get(
+        `${process.env.EXPO_PUBLIC_CORS_ORIGIN!}/api/wardrobe`,
+        {
+          headers: {
+            'Cookie': cookies,
+          },
+        }
+      );
+
+      return response.data?.wardrobe || [];
+    },
+    retry: 1,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+  });
 
   const openImageModal = (imageSource: any) => {
     setSelectedImage(imageSource);
@@ -44,39 +77,31 @@ export default function WardrobeScreen() {
   };
 
   // Calculate statistics
-  const totalItems = dummyWardrobe.length;
+  const totalItems = wardrobeItems.length;
   const outfitsCreated = 42; // This would come from actual data
   const mostWorn = 8; // This would be calculated from actual usage data
 
   // Filter items based on selected category
   const filteredItems = useMemo(() => {
     if (selectedCategory === "all") {
-      return dummyWardrobe;
+      return wardrobeItems;
     }
-    return dummyWardrobe.filter((item) => item.category === selectedCategory);
-  }, [selectedCategory]);
+    return wardrobeItems.filter((item: any) => item.wardrobeCategory === selectedCategory);
+  }, [selectedCategory, wardrobeItems]);
 
   // Render individual wardrobe item
-  const renderWardrobeItem = ({
-    item,
-  }: {
-    item: (typeof dummyWardrobe)[0];
-  }) => (
+  const renderWardrobeItem = ({ item }: { item: any }) => (
     <View className="flex-1 mx-1 mb-4">
       <Pressable
         onPress={() => {
           Haptic.selectionAsync();
-          openImageModal(
-            typeof item.image === "string" ? { uri: item.image } : item.image
-          );
+          openImageModal({ uri: item.imageUrl });
         }}
         className="bg-zinc-900/60 rounded-2xl overflow-hidden"
       >
         <View className="relative">
           <Image
-            source={
-              typeof item.image === "string" ? { uri: item.image } : item.image
-            }
+            source={{ uri: item.imageUrl }}
             className="w-full h-48"
             resizeMode="cover"
           />
@@ -98,7 +123,7 @@ export default function WardrobeScreen() {
           <View className="flex-row items-center">
             <View className="w-2 h-2 bg-white/40 rounded-full mr-2" />
             <Text className="text-white/70 text-sm capitalize">
-              {item.category} • {item.color}
+              {item.wardrobeCategory?.toLowerCase()} • {item.color}
             </Text>
           </View>
         </View>
@@ -208,15 +233,34 @@ export default function WardrobeScreen() {
           </View>
 
           {/* Wardrobe Items Grid */}
-          <FlatList
-            data={filteredItems}
-            renderItem={renderWardrobeItem}
-            keyExtractor={(item) => item.id.toString()}
-            numColumns={2}
-            scrollEnabled={false}
-            contentContainerStyle={{ paddingBottom: 20 }}
-            columnWrapperStyle={{ justifyContent: "space-between" }}
-          />
+          {isLoading ? (
+            <View className="flex-1 items-center justify-center py-20">
+              <ActivityIndicator size="large" color="white" />
+              <Text className="text-white/60 mt-4">Loading wardrobe...</Text>
+            </View>
+          ) : error ? (
+            <View className="flex-1 items-center justify-center py-20">
+              <Text className="text-white/60 text-center mb-4">
+                {error?.message || "Failed to load wardrobe data"}
+              </Text>
+              <Pressable
+                onPress={() => refetch()}
+                className="bg-white px-6 py-3 rounded-xl"
+              >
+                <Text className="text-black font-semibold">Retry</Text>
+              </Pressable>
+            </View>
+          ) : (
+            <FlatList
+              data={filteredItems}
+              renderItem={renderWardrobeItem}
+              keyExtractor={(item) => item.id.toString()}
+              numColumns={2}
+              scrollEnabled={false}
+              contentContainerStyle={{ paddingBottom: 20 }}
+              columnWrapperStyle={{ justifyContent: "space-between" }}
+            />
+          )}
         </View>
 
         <ImageModal

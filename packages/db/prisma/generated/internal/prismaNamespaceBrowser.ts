@@ -140,7 +140,8 @@ export const Wardrobe_itemScalarFieldEnum = {
   userId: 'userId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  outfit_suggestionsId: 'outfit_suggestionsId'
+  color: 'color',
+  wardrobeCategory: 'wardrobeCategory'
 } as const
 
 export type Wardrobe_itemScalarFieldEnum = (typeof Wardrobe_itemScalarFieldEnum)[keyof typeof Wardrobe_itemScalarFieldEnum]
