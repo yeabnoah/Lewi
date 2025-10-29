@@ -53,38 +53,38 @@ const OnboardingScreen = () => {
     }
   };
 
-  const onboardingData = [
-    {
-      id: 1,
-      title: "Discover Your Style",
-      subtitle: "AI-Powered Fashion",
-      description:
-        "Get personalized outfit recommendations that match your unique style and preferences",
-      image: require("@/assets/2.png"),
-      gradient: ["#667eea", "#764ba2"] as const,
-      icon: "👗",
-    },
-    {
-      id: 2,
-      title: "Smart Wardrobe",
-      subtitle: "Organize & Mix",
-      description:
-        "Digitally organize your clothes and discover endless outfit combinations",
-      image: require("@/assets/1.png"),
-      gradient: ["#f093fb", "#f5576c"] as const,
-      icon: "✨",
-    },
-    {
-      id: 3,
-      title: "Perfect Outfits",
-      subtitle: "Every Occasion",
-      description:
-        "Never wonder what to wear again. Get the perfect outfit for any event",
-      image: require("@/assets/images/shoes.jpg"),
-      gradient: ["#4facfe", "#00f2fe"] as const,
-      icon: "🎯",
-    },
-  ];
+  // const onboardingData = [
+  //   {
+  //     id: 1,
+  //     title: "Discover Your Style",
+  //     subtitle: "AI-Powered Fashion",
+  //     description:
+  //       "Get personalized outfit recommendations that match your unique style and preferences",
+  //     image: require("@/assets/2.png"),
+  //     gradient: ["#667eea", "#764ba2"] as const,
+  //     icon: "👗",
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Smart Wardrobe",
+  //     subtitle: "Organize & Mix",
+  //     description:
+  //       "Digitally organize your clothes and discover endless outfit combinations",
+  //     image: require("@/assets/1.png"),
+  //     gradient: ["#f093fb", "#f5576c"] as const,
+  //     icon: "✨",
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Perfect Outfits",
+  //     subtitle: "Every Occasion",
+  //     description:
+  //       "Never wonder what to wear again. Get the perfect outfit for any event",
+  //     image: require("@/assets/images/shoes.jpg"),
+  //     gradient: ["#4facfe", "#00f2fe"] as const,
+  //     icon: "🎯",
+  //   },
+  // ];
 
   return (
     <View className="flex-1">
@@ -107,8 +107,8 @@ const OnboardingScreen = () => {
           </TouchableOpacity>
         </View>
 
-        {/* Main Content */}
-        <ScrollView
+        
+        {/* <ScrollView
           ref={scrollViewRef}
           horizontal
           pagingEnabled
@@ -128,7 +128,7 @@ const OnboardingScreen = () => {
                   />
                 </View>
 
-                {/* Text Content */}
+
                 <View className="items-center px-4">
                   <Text className="text-xl text-white/60 font-medium mb-2 text-center">
                     {item.subtitle}
@@ -143,7 +143,7 @@ const OnboardingScreen = () => {
               </View>
             </View>
           ))}
-        </ScrollView>
+        </ScrollView> */}
 
         {/* Bottom Section */}
         <View className="px-6 pb-8">
