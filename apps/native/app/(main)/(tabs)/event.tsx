@@ -26,9 +26,16 @@ export default function Events() {
   };
 
   return (
-    <SafeAreaView className="flex-1 mx-[2vw]">
-      {/* Sticky Header */}
-      <View className="px-4 pt-[3%] backdrop-blur-sm">
+    <SafeAreaView className="flex-1 mx-[1vw]" edges={['top']}>
+      {/* Sticky Header with curved bottom edge */}
+      <View 
+        className="px-4 pt-[3%] pb-6 overflow-hidden"
+        style={{
+          borderBottomLeftRadius: 28,
+          borderBottomRightRadius: 28,
+          backgroundColor: 'transparent',
+        }}
+      >
         <View className="flex-row items-center justify-between mb-3">
           <View>
             {/* <Text className="text-white/60 text-sm font-medium ">Planner</Text> */}
@@ -91,7 +98,7 @@ export default function Events() {
 
       {/* Scrollable Content */}
       <ScrollView
-        className="flex-1 px-4"
+        className="flex-1 px-[2.5vw]"
         contentContainerStyle={{ paddingBottom: 100 }}
         showsVerticalScrollIndicator={true}
         bounces={true}

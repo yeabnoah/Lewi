@@ -26,11 +26,12 @@ import {
   Text,
   View,
 } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function WardrobeScreen() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [isExpanded, setIsExpanded] = useState(false);
+  const insets = useSafeAreaInsets();
   
   // Animation values
   const cameraOpacity = useRef(new Animated.Value(0)).current;
@@ -189,11 +190,15 @@ export default function WardrobeScreen() {
             <HugeiconsIcon icon={HeartAddIcon} color="#9CA3AF" size={16} />
           </Pressable>
         </View>
-        <View className="p-4">
-          <Text className="text-white font-semibold text-base mb-1">
+        <View className="p-4" style={{ minHeight: 65 }}>
+          <Text 
+            className="text-white font-semibold text-base mb-1"
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
             {item.name}
           </Text>
-          <View className="flex-row items-center">
+          <View className="flex-row items-center mt-1">
             <View className="w-2 h-2 bg-white/40 rounded-full mr-2" />
             <Text className="text-white/70 text-sm capitalize">
               {item.wardrobeCategory?.toLowerCase()} • {item.color}
@@ -205,7 +210,7 @@ export default function WardrobeScreen() {
   );
 
   return (
-    <SafeAreaView className="flex-1 mx-[2vw]">
+    <SafeAreaView className="flex-1 mx-[1vw]" edges={['top']}>
       {/* Sticky Header */}
       <View className="px-5 py-4 pt-[3%] backdrop-blur-sm">
         <View className="flex-row items-center justify-between ">
@@ -230,7 +235,7 @@ export default function WardrobeScreen() {
 
       {/* Scrollable Content */}
       <ScrollView
-        className="flex-1 px-5"
+        className="flex-1 px-[2.5vw]"
         contentContainerStyle={{ paddingBottom: 20 }}
         refreshControl={
           <RefreshControl
@@ -344,7 +349,12 @@ export default function WardrobeScreen() {
       </ScrollView>
 
       {/* Expandable FAB Group */}
-      <View className="absolute bottom-6 right-5 items-end">
+      <View 
+        className="absolute right-5 items-end"
+        style={{ 
+          bottom: Math.max(insets.bottom, 8) + 80, // Tab bar height (~65) + padding (16) + spacing
+        }}
+      >
         {/* Camera Button */}
         <Animated.View
           style={{

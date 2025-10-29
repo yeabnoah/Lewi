@@ -1,4 +1,5 @@
 import { AnimatedTabIcon, CircularCameraButton } from "@/components/tab-bar";
+import { TabBarBackground } from "@/components/tab-bar/TabBarBackground";
 import { useColorScheme } from "@/lib/use-color-scheme";
 import {
   ClothesIcon,
@@ -7,10 +8,12 @@ import {
   User02Icon,
 } from "@hugeicons/core-free-icons";
 import { Tabs, useRouter } from "expo-router";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function TabLayout() {
   const { isDarkColorScheme } = useColorScheme();
   const router = useRouter();
+  const insets = useSafeAreaInsets();
 
   return (
     <Tabs
@@ -21,14 +24,18 @@ export default function TabLayout() {
         tabBarActiveTintColor: isDarkColorScheme ? "#DBFE01" : "#DBFE01",
         tabBarInactiveTintColor: isDarkColorScheme ? "gray" : "gray",
 
+        tabBarBackground: () => <TabBarBackground />,
+        
         tabBarStyle: {
-          shadowColor: "transparent",
-          shadowOpacity: 0,
-          shadowOffset: { width: 0, height: 0 },
-          shadowRadius: 0,
+          position: "absolute",
           borderTopWidth: 0,
           backgroundColor: "transparent",
-          borderTopColor: "hsl(0 0% 10%)",
+          paddingTop: 16,
+          paddingBottom: Math.max(insets.bottom, 8),
+          height: undefined,
+          minHeight: 65,
+          elevation: 0,
+          shadowOpacity: 0,
         },
         tabBarHideOnKeyboard: true,
         animation: "shift",

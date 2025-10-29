@@ -64,7 +64,7 @@ export default function Profile() {
  
 
   return (
-    <SafeAreaView className="flex-1 mx-[2vw]">
+    <SafeAreaView className="flex-1 mx-[2vw]" edges={['top']}>
       <View className="px-4 py-3 pt-[3%] backdrop-blur-sm">
         <View className="flex-row items-center justify-between">
           <Text className="text-2xl font-bold text-white">Profile</Text>
