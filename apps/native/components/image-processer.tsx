@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import { View, TextInput, ScrollView, Alert } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import { GoogleGenerativeAI, HarmBlockThreshold, HarmCategory } from '@google/generative-ai';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import * as FileSystem from 'expo-file-system/legacy';
-
-// Replace with your actual Gemini API Key or load from environment variables
-const API_KEY = process.env.EXPO_PUBLIC_GOOGLE_GEMINI_API_KEY || 'TODO';
+import { supabase } from '@/lib/supabaseClient';
+import axios from 'axios';
+import { useMutation } from '@tanstack/react-query';
+import { authClient } from '@/lib/auth-client';
 
 interface ImageAnalysisResult {
   name: string;
   description: string;
+  colors: string;
+  type: string;
 }
 
 interface ImageProcessorProps {
@@ -25,6 +27,34 @@ export default function ImageProcessor({ onResult }: ImageProcessorProps) {
   const [loading, setLoading] = useState(false);
   const [showName, setShowName] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
+  const [showColors, setShowColors] = useState(false);
+  const [showType, setShowType] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+
+  const API_BASE =
+  process.env.EXPO_PUBLIC_CORS_ORIGIN
+    ? process.env.EXPO_PUBLIC_CORS_ORIGIN
+    : 'http://localhost:3001';
+
+  const analyzeImageMutation = useMutation({
+    mutationFn: async (payload: { imageBase64: string }) => {
+      const cookies = authClient.getCookie();
+      if (!cookies) {
+        throw new Error('Not authenticated');
+      }
+      const res = await axios.post(
+        `${API_BASE}/api/gemini-analyze`,
+        { imageBase64: payload.imageBase64 },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Cookie': cookies,
+          },
+        }
+      );
+      return res.data as ImageAnalysisResult;
+    },
+  });
 
   const pickImage = async () => {
     try {
@@ -54,80 +84,54 @@ export default function ImageProcessor({ onResult }: ImageProcessorProps) {
     setAnalysisResult(null);
     setShowName(false);
     setShowDescription(false);
+    setShowColors(false);
+    setShowType(false);
 
     try {
-      // Convert image to base64 using legacy FileSystem API
+      if (!API_BASE) {
+        throw new Error('API base URL is not configured. Set EXPO_PUBLIC_WEB_API_BASE.');
+      }
+
+      // 1) Upload to Supabase (mirrors edit-profile flow)
+      setIsUploading(true);
+      const fileName = `analysis-${Date.now()}.jpg`;
+      const filePath = `uploads/${fileName}`;
+
+      const fetchResponse = await fetch(imageUri);
+      const arrayBuffer = await fetchResponse.arrayBuffer();
+      const fileBuffer = new Uint8Array(arrayBuffer);
+
+      const { error: uploadError } = await supabase.storage
+        .from('lewi-bucket')
+        .upload(filePath, fileBuffer, {
+          contentType: 'image/jpeg',
+          upsert: false,
+        });
+
+      if (uploadError) {
+        throw new Error(uploadError.message);
+      }
+
+      const { data: publicUrlData } = supabase.storage
+        .from('lewi-bucket')
+        .getPublicUrl(filePath);
+
+      // 2) Read base64 for backend analysis
       const base64Image = await FileSystem.readAsStringAsync(imageUri, {
         encoding: FileSystem.EncodingType.Base64,
       });
 
-      // Initialize the Gemini API
-      const genAI = new GoogleGenerativeAI(API_KEY);
-      const model = genAI.getGenerativeModel({ 
-        model: 'gemini-2.0-flash-exp',
-      });
-
-      // Call the API with structured prompt for JSON response
-      const structuredPrompt = `Analyze this image and return this exact format as JSON:
-
-{
-  "name": "name to explain the image",
-  "description": "describe the image"
-}
-
-Return ONLY the JSON object, no additional text or explanation.`;
-
-      const result = await model.generateContent({
-        contents: [
-          {
-            role: 'user',
-            parts: [
-              {
-                inlineData: {
-                  mimeType: 'image/jpeg',
-                  data: base64Image,
-                },
-              },
-              {
-                text: structuredPrompt,
-              },
-            ],
-          },
-        ],
-        safetySettings: [
-          {
-            category: HarmCategory.HARM_CATEGORY_HARASSMENT,
-            threshold: HarmBlockThreshold.BLOCK_ONLY_HIGH,
-          },
-        ],
-      });
-
-      const text = result.response.text();
-      
-      // Try to parse the JSON response
-      try {
-        const jsonResponse = JSON.parse(text);
-        setAnalysisResult(jsonResponse);
-        setResponse(''); // Clear raw response since we have structured data
-        
-        if (onResult) {
-          onResult(jsonResponse);
-        }
-      } catch (parseError) {
-        // If JSON parsing fails, show the raw response
-        setResponse(`Raw response: ${text}`);
-        setAnalysisResult(null);
-        console.warn('Failed to parse JSON response:', parseError);
-        
-        if (onResult) {
-          onResult({ name: 'Parse Error', description: text });
-        }
-      }
+      // 3) Call backend route for analysis via TanStack Query + Axios with Cookie header
+      const jsonResponse = await analyzeImageMutation.mutateAsync({ imageBase64: base64Image });
+      setAnalysisResult(jsonResponse);
+      setResponse('');
+      if (onResult) onResult(jsonResponse);
     } catch (error) {
       console.error('Error processing image:', error);
       Alert.alert('Error', 'Failed to process image. Check your API key and try again.');
       setResponse('Error: ' + (error as Error).message);
     } finally {
+      setIsUploading(false);
       setLoading(false);
     }
   };
@@ -155,10 +159,16 @@ Return ONLY the JSON object, no additional text or explanation.`;
       {/* Process Button */}
       <Button 
         onPress={processImage} 
-        disabled={loading || !imageUri}
+        disabled={loading || isUploading || analyzeImageMutation.isPending || !imageUri}
         className="mb-4"
       >
-        <Text>{loading ? 'Analyzing...' : 'Analyze Image'}</Text>
+        <Text>
+          {loading || analyzeImageMutation.isPending
+            ? 'Analyzing...'
+            : isUploading
+            ? 'Uploading...'
+            : 'Analyze Image'}
+        </Text>
       </Button>
 
       {/* Analysis Result */}
@@ -188,6 +198,24 @@ Return ONLY the JSON object, no additional text or explanation.`;
                   {showDescription ? 'Hide Description' : 'Show Description'}
                 </Text>
               </Button>
+
+              <Button 
+                onPress={() => setShowColors(!showColors)}
+                className="bg-blue-500 hover:bg-blue-600"
+              >
+                <Text className="text-white font-semibold">
+                  {showColors ? 'Hide Color' : 'Show Color'}
+                </Text>
+              </Button>
+
+              <Button 
+                onPress={() => setShowType(!showType)}
+                className="bg-amber-500 hover:bg-amber-600"
+              >
+                <Text className="text-white font-semibold">
+                  {showType ? 'Hide Type' : 'Show Type'}
+                </Text>
+              </Button>
             </View>
             
             {/* Display Results */}
@@ -213,6 +241,28 @@ Return ONLY the JSON object, no additional text or explanation.`;
                   </Text>
                 </View>
               )}
+
+              {showColors && (
+                <View className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                  <Text className="text-sm font-semibold text-blue-700 dark:text-blue-300 mb-2">
+                    🎨 Color:
+                  </Text>
+                  <Text className="text-base text-blue-900 dark:text-blue-100">
+                    {analysisResult.colors}
+                  </Text>
+                </View>
+              )}
+
+              {showType && (
+                <View className="p-3 bg-amber-50 dark:bg-amber-900/20 rounded-lg border border-amber-200 dark:border-amber-800">
+                  <Text className="text-sm font-semibold text-amber-700 dark:text-amber-300 mb-2">
+                    🧩 Type:
+                  </Text>
+                  <Text className="text-base text-amber-900 dark:text-amber-100">
+                    {analysisResult.type}
+                  </Text>
+                </View>
+              )}
             </View>
           </View>
         </View>
@@ -226,15 +276,6 @@ Return ONLY the JSON object, no additional text or explanation.`;
           </Text>
           <Text className="text-gray-900 dark:text-gray-100 text-sm">
             {response}
-          </Text>
-        </View>
-      )}
-
-      {/* API Key Warning */}
-      {API_KEY === 'TODO' && (
-        <View className="mt-4 p-3 bg-yellow-100 dark:bg-yellow-900 rounded-lg">
-          <Text className="text-yellow-800 dark:text-yellow-200">
-            ⚠️ Please set your Google Gemini API key in the EXPO_PUBLIC_GOOGLE_GEMINI_API_KEY environment variable
           </Text>
         </View>
       )}

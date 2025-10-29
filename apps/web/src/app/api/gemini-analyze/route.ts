@@ -23,18 +23,20 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const structuredPrompt = `You are a JSON API. Analyze this image and return a JSON object with exactly this structure:
+    const structuredPrompt = `You are a fashion expert and a JSON API. Analyze this cloth image and return a JSON object with exactly this structure:
 
 {
-  "name": "a concise name identifying the image",
-  "description": "a detailed description of the image content"
+  "name": "a concise name identifying the cloth",
+  "description": "a detailed description of the cloth content",
+  "colors": "one dominant color of the cloth",
+  "type": "the type of the cloth "tops", "bottoms", "dresses", "outerwear", "accessories""
 }
 
 CRITICAL: Return ONLY the raw JSON object. No markdown, no backticks, no code blocks, no explanations, no additional text whatsoever. Just the pure JSON object.`;
 
     // Use LangChain for better error handling
     const vision = new ChatGoogleGenerativeAI({
-      model: 'gemini-1.5-flash',
+      model: 'gemini-2.0-flash-exp',
       apiKey: API_KEY,
       safetySettings: [
         {
@@ -82,7 +84,7 @@ CRITICAL: Return ONLY the raw JSON object. No markdown, no backticks, no code bl
     const jsonResponse = JSON.parse(cleanedText);
 
     // Validate structure
-    if (!jsonResponse.name || !jsonResponse.description) {
+    if (!jsonResponse.name || !jsonResponse.description || !jsonResponse.colors || !jsonResponse.type) {
       return NextResponse.json(
         { error: 'Invalid response format' },
         { status: 500 }

@@ -10,32 +10,71 @@ import { HugeiconsIcon } from "@hugeicons/react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { CameraView, useCameraPermissions } from "expo-camera";
+import * as FileSystem from 'expo-file-system/legacy';
 import * as Haptic from "expo-haptics";
 import { router } from "expo-router";
 import { useRef, useState } from "react";
-import { Alert, Image, Pressable, Text, View } from "react-native";
+import { Alert, Image, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+
+interface ImageAnalysisResult {
+  name: string;
+  description: string;
+  colors: string;
+  type: string;
+}
 
 export default function AddClothScreen() {
   const { isDarkColorScheme } = useColorScheme();
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [flashOn, setFlashOn] = useState(false);
   const [frontCamera, setFrontCamera] = useState(false);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [isUploading, setIsUploading] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
+  const [analysisResult, setAnalysisResult] = useState<ImageAnalysisResult | null>(null);
+  const [uploadedImageUrl, setUploadedImageUrl] = useState<string | null>(null);
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
   const queryClient = useQueryClient();
 
+  const API_BASE =
+    process.env.EXPO_PUBLIC_CORS_ORIGIN
+      ? process.env.EXPO_PUBLIC_CORS_ORIGIN
+      : 'http://localhost:3001';
+
+  // Mutation for analyzing image
+  const analyzeImageMutation = useMutation({
+    mutationFn: async (payload: { imageBase64: string }) => {
+      const cookies = authClient.getCookie();
+      if (!cookies) {
+        throw new Error('Not authenticated');
+      }
+      const res = await axios.post(
+        `${API_BASE}/api/gemini-analyze`,
+        { imageBase64: payload.imageBase64 },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Cookie': cookies,
+          },
+        }
+      );
+      return res.data as ImageAnalysisResult;
+    },
+  });
+
   // Mutation for uploading wardrobe item
   const uploadWardrobeItemMutation = useMutation({
-    mutationFn: async (imageUrl: string) => {
+    mutationFn: async (payload: { imageUrl: string; name: string; description: string; colors: string; type: string }) => {
       const cookies = authClient.getCookie();
       if (!cookies) {
         throw new Error("Not authenticated");
       }
 
       const response = await axios.post(
-        `${process.env.EXPO_PUBLIC_CORS_ORIGIN!}/api/wardrobe`,
-        { imageUrl },
+        `${API_BASE}/api/wardrobe`,
+        payload,
         {
           headers: {
             'Cookie': cookies,
@@ -47,7 +86,7 @@ export default function AddClothScreen() {
     onSuccess: () => {
       // Invalidate and refetch wardrobe data
       queryClient.invalidateQueries({ queryKey: ["wardrobe"] });
-      Alert.alert("Image uploaded successfully", "The image has been uploaded successfully");
+      Alert.alert("Success", "Your item has been added to your wardrobe!");
       router.back();
     },
     onError: (error) => {
@@ -77,6 +116,29 @@ export default function AddClothScreen() {
   const handleRetake = () => {
     Haptic.selectionAsync();
     setCapturedImage(null);
+    setShowPreview(false);
+    setAnalysisResult(null);
+    setUploadedImageUrl(null);
+  };
+
+  const handleBackFromPreview = () => {
+    Haptic.selectionAsync();
+    setShowPreview(false);
+    setAnalysisResult(null);
+    setUploadedImageUrl(null);
+  };
+
+  const handleSave = () => {
+    if (!analysisResult || !uploadedImageUrl) return;
+    Haptic.impactAsync(Haptic.ImpactFeedbackStyle.Medium);
+    
+    uploadWardrobeItemMutation.mutate({
+      imageUrl: uploadedImageUrl,
+      name: analysisResult.name,
+      description: analysisResult.description,
+      colors: analysisResult.colors,
+      type: analysisResult.type,
+    });
   };
 
   const handleToggleFlash = () => {
@@ -94,6 +156,8 @@ export default function AddClothScreen() {
     Haptic.impactAsync(Haptic.ImpactFeedbackStyle.Medium);
 
     try {
+      // Step 1: Upload image to Supabase
+      setIsUploading(true);
       const fileName = `${Date.now()}.jpg`;
       const filePath = `uploads/${fileName}`;
 
@@ -110,6 +174,8 @@ export default function AddClothScreen() {
 
       if (error) {
         console.error("Upload failed:", error.message);
+        Alert.alert("Upload failed", "We couldn't upload the image. Please try again.");
+        setIsUploading(false);
         return;
       }
 
@@ -117,14 +183,40 @@ export default function AddClothScreen() {
         .from("lewi-bucket")
         .getPublicUrl(filePath);
       
-      if (data?.publicUrl) {
-        console.log("Uploaded image URL:", data.publicUrl);
-        // Use mutation to upload wardrobe item
-        uploadWardrobeItemMutation.mutate(data.publicUrl);
+      if (!data?.publicUrl) {
+        Alert.alert("Error", "Failed to get image URL");
+        setIsUploading(false);
+        return;
       }
+
+      // Step 2: Read image as base64 for analysis
+      setIsUploading(false);
+      setIsAnalyzing(true);
+      const base64Image = await FileSystem.readAsStringAsync(capturedImage, {
+        encoding: FileSystem.EncodingType.Base64,
+      });
+
+      // Step 3: Analyze image using Gemini
+      const analysisResult = await analyzeImageMutation.mutateAsync({ 
+        imageBase64: base64Image 
+      });
+
+      setIsAnalyzing(false);
+
+      // Step 4: Show preview with analyzed data
+      setAnalysisResult(analysisResult);
+      setUploadedImageUrl(data.publicUrl);
+      setShowPreview(true);
     } catch (err) {
-      console.error("Unexpected upload error:", err);
-      Alert.alert("Upload failed", "We couldn't upload the image. Please try again.");
+      console.error("Error in analyze flow:", err);
+      setIsUploading(false);
+      setIsAnalyzing(false);
+      Alert.alert(
+        "Error", 
+        err instanceof Error 
+          ? err.message 
+          : "Failed to analyze and upload the image. Please try again."
+      );
     }
   };
 
@@ -176,7 +268,113 @@ export default function AddClothScreen() {
 
       {/* Camera View */}
       <View className="flex-1">
-        {capturedImage ? (
+        {showPreview && analysisResult && uploadedImageUrl && capturedImage ? (
+          // Full Screen Preview Page
+          <View className="flex-1 mx-[2vw]" edges={['top', 'bottom']}>
+            {/* Header */}
+            <View className="px-4 pt-[3%] pb-4">
+              <Pressable
+                onPress={handleBackFromPreview}
+                className="flex-row items-center"
+              >
+                <HugeiconsIcon icon={ArrowLeftIcon} color="#DBFE01" size={24} />
+                <Text className="text-white text-lg font-semibold ml-2">
+                  Review & Save
+                </Text>
+              </Pressable>
+            </View>
+
+            {/* Content Container */}
+            <View className="flex-1 px-2">
+              {/* Image Section */}
+              <View className="w-full rounded-2xl overflow-hidden mb-4" style={{ height: 280 }}>
+                <Image
+                  source={{ uri: capturedImage }}
+                  className="w-full h-full"
+                  resizeMode="cover"
+                />
+              </View>
+
+              {/* Analysis Results Card */}
+              <View className="bg-zinc-900/60 rounded-2xl p-5 mb-4 flex-1">
+                <Text className="text-2xl font-bold text-white mb-5">
+                  Analysis Results
+                </Text>
+                
+                <View className="gap-5">
+                  {/* Name */}
+                  <View className="pb-4 border-b border-white/10">
+                    <Text className="text-white/70 text-xs font-medium mb-2 uppercase tracking-wider">
+                      Name
+                    </Text>
+                    <Text className="text-white text-lg font-semibold">
+                      {analysisResult.name}
+                    </Text>
+                  </View>
+
+                  {/* Description */}
+                  <View className="pb-4 border-b border-white/10">
+                    <Text className="text-white/70 text-xs font-medium mb-2 uppercase tracking-wider">
+                      Description
+                    </Text>
+                    <Text className="text-white text-base leading-5">
+                      {analysisResult.description}
+                    </Text>
+                  </View>
+
+                  {/* Color & Type Row */}
+                  <View className="flex-row gap-4">
+                    <View className="flex-1">
+                      <Text className="text-white/70 text-xs font-medium mb-2 uppercase tracking-wider">
+                        Color
+                      </Text>
+                      <Text className="text-white text-base font-semibold capitalize">
+                        {analysisResult.colors}
+                      </Text>
+                    </View>
+                    <View className="flex-1">
+                      <Text className="text-white/70 text-xs font-medium mb-2 uppercase tracking-wider">
+                        Category
+                      </Text>
+                      <Text className="text-white text-base font-semibold capitalize">
+                        {analysisResult.type}
+                      </Text>
+                    </View>
+                  </View>
+                </View>
+              </View>
+
+              {/* Action Buttons */}
+              <View className="flex-row gap-3 pb-4">
+                <Pressable
+                  onPress={handleBackFromPreview}
+                  className="flex-1 h-12 rounded-2xl items-center justify-center bg-white/10 active:bg-white/15"
+                >
+                  <Text className="text-white font-semibold text-base">
+                    Edit
+                  </Text>
+                </Pressable>
+
+                <Pressable
+                  onPress={handleSave}
+                  disabled={uploadWardrobeItemMutation.isPending}
+                  className="flex-1 h-12 rounded-2xl items-center justify-center bg-lewi active:bg-lewi/90"
+                >
+                  <Text className="text-black font-bold text-base">
+                    {uploadWardrobeItemMutation.isPending ? "Saving..." : "Save"}
+                  </Text>
+                </Pressable>
+              </View>
+            </View>
+
+            {/* Loading Overlay */}
+            {uploadWardrobeItemMutation.isPending && (
+              <View className="absolute top-0 left-0 right-0 bottom-0 items-center justify-center bg-black/60">
+                <Text className="text-white text-base">Saving to wardrobe...</Text>
+              </View>
+            )}
+          </View>
+        ) : capturedImage ? (
           <View className="flex-1 bg-black">
             <Image
               source={{ uri: capturedImage }}
@@ -202,11 +400,17 @@ export default function AddClothScreen() {
               <View className="items-center gap-4 flex-row justify-between">
                 <Pressable
                   onPress={handleAnalyze}
-                  disabled={uploadWardrobeItemMutation.isPending}
+                  disabled={uploadWardrobeItemMutation.isPending || isUploading || isAnalyzing || analyzeImageMutation.isPending}
                   className="w-1/2 max-w-xs h-12 rounded-2xl items-center justify-center bg-lewi active:bg-lewi/90 shadow-lg shadow-black/20"
                 >
                   <Text className="text-black font-bold text-lg">
-                    {uploadWardrobeItemMutation.isPending ? "Uploading..." : "Analyze"}
+                    {isAnalyzing || analyzeImageMutation.isPending
+                      ? "Analyzing..."
+                      : isUploading
+                      ? "Uploading..."
+                      : uploadWardrobeItemMutation.isPending
+                      ? "Saving..."
+                      : "Analyze"}
                   </Text>
                 </Pressable>
 
@@ -220,9 +424,13 @@ export default function AddClothScreen() {
                 </Pressable>
               </View>
 
-              {uploadWardrobeItemMutation.isPending && (
+              {(isUploading || isAnalyzing || analyzeImageMutation.isPending) && (
                 <View className="absolute top-0 left-0 right-0 bottom-0 items-center justify-center bg-black/60">
-                  <Text className="text-white text-base">Uploading image...</Text>
+                  <Text className="text-white text-base">
+                    {isAnalyzing || analyzeImageMutation.isPending
+                      ? "Analyzing image..."
+                      : "Uploading image..."}
+                  </Text>
                 </View>
               )}
             </View>

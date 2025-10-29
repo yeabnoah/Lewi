@@ -1,4 +1,4 @@
-import ImageProcessor from "@/components/image-processer";
+
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { authClient } from "@/lib/auth-client";
@@ -7,7 +7,6 @@ import { Ionicons } from "@expo/vector-icons";
 
 
 import {
-  AiGenerativeIcon,
   ArrowRight01Icon,
   Chart01Icon,
   Edit01Icon,
@@ -15,7 +14,7 @@ import {
   LogoutIcon,
   Notification01Icon,
   Shield01Icon,
-  User02Icon,
+  User02Icon
 } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
 import { useRouter } from "expo-router";
@@ -66,7 +65,7 @@ export default function Profile() {
 
   return (
     <SafeAreaView className="flex-1 mx-[2vw]">
-      {/* <View className="px-4 py-3 pt-[3%] backdrop-blur-sm">
+      <View className="px-4 py-3 pt-[3%] backdrop-blur-sm">
         <View className="flex-row items-center justify-between">
           <Text className="text-2xl font-bold text-white">Profile</Text>
         </View>
@@ -346,10 +345,8 @@ export default function Profile() {
             </View>
           </View>
         </Modal>
-      </ScrollView> */}
+      </ScrollView>
 
-
-    <ImageProcessor />
     </SafeAreaView>
   );
 }
