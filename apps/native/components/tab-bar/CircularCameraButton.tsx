@@ -63,8 +63,11 @@ export function CircularCameraButton({
 
   const handleCameraPress = () => {
     Haptic.impactAsync(Haptic.ImpactFeedbackStyle.Medium);
-    // Navigate to add-cloth screen
-    router.push("/(main)/add-cloth");
+    // Navigate to add-cloth screen with camera source
+    router.push({
+      pathname: "/(main)/add-cloth",
+      params: { source: "camera" },
+    });
     // Also call the onPress prop if provided
     if (onPress) {
       onPress();

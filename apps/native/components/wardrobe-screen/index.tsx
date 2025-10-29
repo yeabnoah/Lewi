@@ -2,7 +2,10 @@ import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import {
   AddIcon,
+  Cancel01Icon,
+  Camera01Icon,
   FilterHorizontalIcon,
+  FolderIcon,
   HeartAddIcon,
   SearchIcon,
 } from "@hugeicons/core-free-icons";
@@ -11,8 +14,9 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import * as Haptic from "expo-haptics";
 import { router } from "expo-router";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
+  Animated,
   ActivityIndicator,
   FlatList,
   Image,
@@ -26,6 +30,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function WardrobeScreen() {
   const [selectedCategory, setSelectedCategory] = useState("all");
+  const [isExpanded, setIsExpanded] = useState(false);
+  
+  // Animation values
+  const cameraOpacity = useRef(new Animated.Value(0)).current;
+  const galleryOpacity = useRef(new Animated.Value(0)).current;
+  const cameraTranslateY = useRef(new Animated.Value(0)).current;
+  const galleryTranslateY = useRef(new Animated.Value(0)).current;
 
   const categories = [
     { id: "all", name: "All" },
@@ -63,9 +74,72 @@ export default function WardrobeScreen() {
     staleTime: 5 * 60 * 1000, 
   });
 
-  const handleAddCloth = () => {
+  useEffect(() => {
+    if (isExpanded) {
+      // Expand animation - all buttons appear simultaneously
+      Animated.parallel([
+        Animated.timing(cameraOpacity, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.spring(cameraTranslateY, {
+          toValue: 30,
+          tension: 50,
+          friction: 7,
+          useNativeDriver: true,
+        }),
+        Animated.timing(galleryOpacity, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.spring(galleryTranslateY, {
+          toValue: -60,
+          tension: 50,
+          friction: 7,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    } else {
+      // Collapse animation
+      Animated.parallel([
+        Animated.timing(cameraOpacity, {
+          toValue: 0,
+          duration: 150,
+          useNativeDriver: true,
+        }),
+        Animated.timing(cameraTranslateY, {
+          toValue: 0,
+          duration: 150,
+          useNativeDriver: true,
+        }),
+        Animated.timing(galleryOpacity, {
+          toValue: 0,
+          duration: 150,
+          useNativeDriver: true,
+        }),
+        Animated.timing(galleryTranslateY, {
+          toValue: 0,
+          duration: 150,
+          useNativeDriver: true,
+        }),
+      ]).start();
+    }
+  }, [isExpanded, cameraOpacity, galleryOpacity, cameraTranslateY, galleryTranslateY]);
+
+  const handleToggleExpand = () => {
     Haptic.impactAsync(Haptic.ImpactFeedbackStyle.Medium);
-    router.push("/(main)/add-cloth");
+    setIsExpanded(!isExpanded);
+  };
+
+  const handleSourceSelection = (source: "camera" | "gallery") => {
+    Haptic.selectionAsync();
+    setIsExpanded(false);
+    router.push({
+      pathname: "/(main)/add-cloth",
+      params: { source },
+    });
   };
 
   const onRefresh = async () => {
@@ -269,19 +343,75 @@ export default function WardrobeScreen() {
         </View>
       </ScrollView>
 
-      <Pressable
-        onPress={handleAddCloth}
-        className="absolute bottom-6 right-5 w-14 h-14 bg-white rounded-full items-center justify-center shadow-lg active:scale-95"
-        style={{
-          shadowColor: "#000",
-          shadowOffset: { width: 0, height: 4 },
-          shadowOpacity: 0.3,
-          shadowRadius: 8,
-          elevation: 8,
-        }}
-      >
-        <HugeiconsIcon icon={AddIcon} size={24} color="#000" />
-      </Pressable>
+      {/* Expandable FAB Group */}
+      <View className="absolute bottom-6 right-5 items-end">
+        {/* Camera Button */}
+        <Animated.View
+          style={{
+            opacity: cameraOpacity,
+            transform: [{ translateY: cameraTranslateY }],
+            marginBottom: 0,
+          }}
+          pointerEvents={isExpanded ? "auto" : "none"}
+        >
+          <Pressable
+            onPress={() => handleSourceSelection("camera")}
+            className="w-12 h-12 bg-white rounded-full items-center justify-center shadow-lg active:scale-95"
+            style={{
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.3,
+              shadowRadius: 4,
+              elevation: 5,
+            }}
+          >
+            <HugeiconsIcon icon={Camera01Icon} size={20} color="#000" />
+          </Pressable>
+        </Animated.View>
+
+        {/* Gallery Button */}
+        <Animated.View
+          style={{
+            opacity: galleryOpacity,
+            transform: [{ translateY: galleryTranslateY }],
+            marginBottom: 0,
+          }}
+          pointerEvents={isExpanded ? "auto" : "none"}
+        >
+          <Pressable
+            onPress={() => handleSourceSelection("gallery")}
+            className="w-12 h-12 bg-white rounded-full items-center justify-center shadow-lg active:scale-95"
+            style={{
+              shadowColor: "#000",
+              shadowOffset: { width: 0, height: 2 },
+              shadowOpacity: 0.3,
+              shadowRadius: 4,
+              elevation: 5,
+            }}
+          >
+            <HugeiconsIcon icon={FolderIcon} size={20} color="#000" />
+          </Pressable>
+        </Animated.View>
+
+        {/* Main Add/Close Button */}
+        <Pressable
+          onPress={handleToggleExpand}
+          className="w-14 h-14 bg-white rounded-full items-center justify-center shadow-lg active:scale-95"
+          style={{
+            shadowColor: "#000",
+            shadowOffset: { width: 0, height: 4 },
+            shadowOpacity: 0.3,
+            shadowRadius: 8,
+            elevation: 8,
+          }}
+        >
+          <HugeiconsIcon
+            icon={isExpanded ? Cancel01Icon : AddIcon}
+            size={24}
+            color="#000"
+          />
+        </Pressable>
+      </View>
     </SafeAreaView>
   );
 }

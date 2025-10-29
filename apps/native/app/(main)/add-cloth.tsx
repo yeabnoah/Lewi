@@ -10,10 +10,11 @@ import { HugeiconsIcon } from "@hugeicons/react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { CameraView, useCameraPermissions } from "expo-camera";
+import * as ImagePicker from "expo-image-picker";
 import * as FileSystem from 'expo-file-system/legacy';
 import * as Haptic from "expo-haptics";
-import { router } from "expo-router";
-import { useRef, useState } from "react";
+import { router, useLocalSearchParams } from "expo-router";
+import { useEffect, useRef, useState } from "react";
 import { Alert, Image, Pressable, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -26,6 +27,9 @@ interface ImageAnalysisResult {
 
 export default function AddClothScreen() {
   const { isDarkColorScheme } = useColorScheme();
+  const params = useLocalSearchParams();
+  const source = (params.source as string) || "camera"; // Default to camera if not specified
+  
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [flashOn, setFlashOn] = useState(false);
   const [frontCamera, setFrontCamera] = useState(false);
@@ -37,6 +41,58 @@ export default function AddClothScreen() {
   const [permission, requestPermission] = useCameraPermissions();
   const cameraRef = useRef<CameraView>(null);
   const queryClient = useQueryClient();
+
+  const handlePickImage = async () => {
+    try {
+      const result = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ['images'],
+        allowsEditing: true,
+        quality: 0.8,
+        presentationStyle: ImagePicker.UIImagePickerPresentationStyle.FULL_SCREEN,
+      });
+
+      if (!result.canceled && result.assets[0]) {
+        setCapturedImage(result.assets[0].uri);
+      } else if (result.canceled) {
+        // User canceled, go back
+        router.back();
+      }
+    } catch (error) {
+      console.error("Error picking image:", error);
+      Alert.alert("Error", "Failed to pick image. Please try again.");
+      router.back();
+    }
+  };
+
+  // Request media library permissions for gallery
+  useEffect(() => {
+    if (source === "gallery") {
+      (async () => {
+        const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (status !== 'granted') {
+          Alert.alert(
+            "Permission Required",
+            "We need permission to access your photo library to select images.",
+            [
+              { text: "Cancel", onPress: () => router.back() },
+              { text: "Grant Permission", onPress: async () => {
+                const result = await ImagePicker.requestMediaLibraryPermissionsAsync();
+                if (result.status !== 'granted') {
+                  router.back();
+                } else {
+                  handlePickImage();
+                }
+              }},
+            ]
+          );
+        } else {
+          // Auto-open image picker when gallery source is selected
+          handlePickImage();
+        }
+      })();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [source]);
 
   const API_BASE =
     process.env.EXPO_PUBLIC_CORS_ORIGIN
@@ -220,24 +276,27 @@ export default function AddClothScreen() {
     }
   };
 
-  if (!permission) {
-    return <View />;
-  }
+  // Only check camera permissions if source is camera
+  if (source === "camera") {
+    if (!permission) {
+      return <View />;
+    }
 
-  if (!permission.granted) {
-    return (
-      <SafeAreaView className="flex-1 bg-black items-center justify-center px-6">
-        <Text className="text-white text-lg text-center mb-4">
-          We need your permission to use the camera
-        </Text>
-        <Pressable
-          onPress={requestPermission}
-          className="bg-lewi px-6 py-3 rounded-xl"
-        >
-          <Text className="text-black font-semibold">Grant Permission</Text>
-        </Pressable>
-      </SafeAreaView>
-    );
+    if (!permission.granted) {
+      return (
+        <SafeAreaView className="flex-1 bg-black items-center justify-center px-6">
+          <Text className="text-white text-lg text-center mb-4">
+            We need your permission to use the camera
+          </Text>
+          <Pressable
+            onPress={requestPermission}
+            className="bg-lewi px-6 py-3 rounded-xl"
+          >
+            <Text className="text-black font-semibold">Grant Permission</Text>
+          </Pressable>
+        </SafeAreaView>
+      );
+    }
   }
 
   return (
@@ -259,7 +318,9 @@ export default function AddClothScreen() {
               <Text className="text-white/80 text-sm font-medium mb-1">
                 Add to Collection
               </Text>
-              <Text className="text-2xl font-bold text-white">Capture Item</Text>
+              <Text className="text-2xl font-bold text-white">
+                {source === "camera" ? "Capture Item" : "Select Item"}
+              </Text>
             </View>
             <View className="w-11" />
           </View>
@@ -270,7 +331,7 @@ export default function AddClothScreen() {
       <View className="flex-1">
         {showPreview && analysisResult && uploadedImageUrl && capturedImage ? (
           // Full Screen Preview Page
-          <View className="flex-1 mx-[2vw]" edges={['top', 'bottom']}>
+          <View className="flex-1 mx-[2vw]">
             {/* Header */}
             <View className="px-4 pt-[3%] pb-4">
               <Pressable
@@ -435,8 +496,8 @@ export default function AddClothScreen() {
               )}
             </View>
           </View>
-        ) : (
-          // Real Camera Preview
+        ) : source === "camera" ? (
+          // Real Camera Preview (only for camera source)
           <CameraView
             ref={cameraRef}
             style={{ flex: 1 }}
@@ -483,6 +544,13 @@ export default function AddClothScreen() {
               </View>
             </View>
           </CameraView>
+        ) : (
+          // Gallery source - show loading or placeholder
+          <View className="flex-1 bg-black items-center justify-center">
+            <Text className="text-white/60 text-base">
+              Selecting image from gallery...
+            </Text>
+          </View>
         )}
       </View>
     </SafeAreaView>
