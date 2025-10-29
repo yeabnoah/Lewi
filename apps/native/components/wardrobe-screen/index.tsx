@@ -1,4 +1,3 @@
-import ImageModal from "@/components/home-screen/ImageModal";
 import { Input } from "@/components/ui/input";
 import { authClient } from "@/lib/auth-client";
 import {
@@ -18,6 +17,7 @@ import {
   FlatList,
   Image,
   Pressable,
+  RefreshControl,
   ScrollView,
   Text,
   View,
@@ -26,8 +26,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function WardrobeScreen() {
   const [selectedCategory, setSelectedCategory] = useState("all");
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<any>(null);
 
   const categories = [
     { id: "all", name: "All" },
@@ -41,6 +39,7 @@ export default function WardrobeScreen() {
     isLoading,
     error,
     refetch,
+    isFetching,
   } = useQuery({
     queryKey: ["wardrobe"],
     queryFn: async () => {
@@ -64,14 +63,14 @@ export default function WardrobeScreen() {
     staleTime: 5 * 60 * 1000, 
   });
 
-  const openImageModal = (imageSource: any) => {
-    setSelectedImage(imageSource);
-    setModalVisible(true);
-  };
-
   const handleAddCloth = () => {
     Haptic.impactAsync(Haptic.ImpactFeedbackStyle.Medium);
     router.push("/(main)/add-cloth");
+  };
+
+  const onRefresh = async () => {
+    Haptic.impactAsync(Haptic.ImpactFeedbackStyle.Light);
+    await refetch();
   };
 
   const totalItems = wardrobeItems.length;
@@ -85,13 +84,20 @@ export default function WardrobeScreen() {
     return wardrobeItems.filter((item: any) => item.wardrobeCategory === selectedCategory);
   }, [selectedCategory, wardrobeItems]);
 
+  const handleItemPress = (item: any) => {
+    Haptic.selectionAsync();
+    router.push({
+      pathname: "/(main)/wardrobe-details",
+      params: {
+        item: JSON.stringify(item),
+      },
+    });
+  };
+
   const renderWardrobeItem = ({ item }: { item: any }) => (
     <View className="flex-1 mx-1 mb-4">
       <Pressable
-        onPress={() => {
-          Haptic.selectionAsync();
-          openImageModal({ uri: item.imageUrl });
-        }}
+        onPress={() => handleItemPress(item)}
         className="bg-zinc-900/60 rounded-2xl overflow-hidden"
       >
         <View className="relative">
@@ -152,6 +158,14 @@ export default function WardrobeScreen() {
       <ScrollView
         className="flex-1 px-5"
         contentContainerStyle={{ paddingBottom: 20 }}
+        refreshControl={
+          <RefreshControl
+            refreshing={isFetching && !isLoading}
+            onRefresh={onRefresh}
+            tintColor="#DBFE01"
+            colors={["#DBFE01"]}
+          />
+        }
       >
         <View className="flex flex-row bg-zinc-900/60 rounded-2xl items-center px-4 mb-6">
           <HugeiconsIcon icon={SearchIcon} size={20} color="white" />
@@ -253,12 +267,6 @@ export default function WardrobeScreen() {
             />
           )}
         </View>
-
-        <ImageModal
-          visible={modalVisible}
-          selectedImage={selectedImage}
-          onClose={() => setModalVisible(false)}
-        />
       </ScrollView>
 
       <Pressable

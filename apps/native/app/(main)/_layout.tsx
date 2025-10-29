@@ -67,6 +67,14 @@ export default function MainLayout() {
           presentation: "modal",
         }}
       />
+      <Stack.Screen
+        name="wardrobe-details"
+        options={{
+          headerShown: false,
+          title: "Item Details",
+          animation: "slide_from_right",
+        }}
+      />
     </Stack>
   );
 }

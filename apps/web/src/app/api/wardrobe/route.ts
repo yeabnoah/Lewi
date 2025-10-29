@@ -69,3 +69,17 @@ export async function POST(request: NextRequest) {
 
   return NextResponse.json({ wardrobeItem: wardrobeItem }, { status: 200 });
 }
+
+export async function DELETE(request: NextRequest) {
+  const session = await auth.api.getSession({
+    headers: request.headers,
+  });
+  if (!session?.user) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
+  const { id } = await request.json();
+  await prisma.wardrobe_item.delete({ where: { id: id } });
+  return NextResponse.json({ message: "Item deleted successfully" }, { status: 200 });
+}
+

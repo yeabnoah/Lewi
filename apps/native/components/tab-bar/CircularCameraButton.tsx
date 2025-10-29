@@ -1,5 +1,6 @@
 import { AiGenerativeIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
+import * as Haptic from "expo-haptics";
 import { router } from "expo-router";
 import { useEffect, useRef } from "react";
 import { Animated, Text, TouchableOpacity, View } from "react-native";
@@ -61,7 +62,13 @@ export function CircularCameraButton({
   }, [focused, scaleAnim, pulseAnim]);
 
   const handleCameraPress = () => {
+    Haptic.impactAsync(Haptic.ImpactFeedbackStyle.Medium);
+    // Navigate to add-cloth screen
     router.push("/(main)/add-cloth");
+    // Also call the onPress prop if provided
+    if (onPress) {
+      onPress();
+    }
   };
 
   return (
