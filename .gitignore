@@ -48,3 +48,6 @@ coverage
 .cache
 tmp
 temp
+
+# Prisma generated query engines (binary files - too large)
+**/prisma/generated/libquery_engine*
