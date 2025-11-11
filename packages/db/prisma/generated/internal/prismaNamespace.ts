@@ -736,18 +736,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
           args: Prisma.wardrobe_itemFindManyArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$wardrobe_itemPayload>[]
         }
-        create: {
-          args: Prisma.wardrobe_itemCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$wardrobe_itemPayload>
-        }
-        createMany: {
-          args: Prisma.wardrobe_itemCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.wardrobe_itemCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$wardrobe_itemPayload>[]
-        }
         delete: {
           args: Prisma.wardrobe_itemDeleteArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$wardrobe_itemPayload>
@@ -767,10 +755,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         updateManyAndReturn: {
           args: Prisma.wardrobe_itemUpdateManyAndReturnArgs<ExtArgs>
           result: runtime.Types.Utils.PayloadToResult<Prisma.$wardrobe_itemPayload>[]
-        }
-        upsert: {
-          args: Prisma.wardrobe_itemUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$wardrobe_itemPayload>
         }
         aggregate: {
           args: Prisma.Wardrobe_itemAggregateArgs<ExtArgs>

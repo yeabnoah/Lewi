@@ -275,30 +275,6 @@ export type wardrobe_itemScalarWhereWithAggregatesInput = {
   wardrobeCategory?: Prisma.EnumWardrobeCategoryWithAggregatesFilter<"wardrobe_item"> | $Enums.WardrobeCategory
 }
 
-export type wardrobe_itemCreateInput = {
-  id?: string
-  name: string
-  description: string
-  imageUrl: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  color: string
-  wardrobeCategory: $Enums.WardrobeCategory
-  user: Prisma.UserCreateNestedOneWithoutWardrobe_itemsInput
-}
-
-export type wardrobe_itemUncheckedCreateInput = {
-  id?: string
-  name: string
-  description: string
-  imageUrl: string
-  userId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  color: string
-  wardrobeCategory: $Enums.WardrobeCategory
-}
-
 export type wardrobe_itemUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
@@ -321,18 +297,6 @@ export type wardrobe_itemUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   color?: Prisma.StringFieldUpdateOperationsInput | string
   wardrobeCategory?: Prisma.EnumWardrobeCategoryFieldUpdateOperationsInput | $Enums.WardrobeCategory
-}
-
-export type wardrobe_itemCreateManyInput = {
-  id?: string
-  name: string
-  description: string
-  imageUrl: string
-  userId: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  color: string
-  wardrobeCategory: $Enums.WardrobeCategory
 }
 
 export type wardrobe_itemUpdateManyMutationInput = {
@@ -405,24 +369,14 @@ export type wardrobe_itemMinOrderByAggregateInput = {
 }
 
 export type wardrobe_itemCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.wardrobe_itemCreateWithoutUserInput, Prisma.wardrobe_itemUncheckedCreateWithoutUserInput> | Prisma.wardrobe_itemCreateWithoutUserInput[] | Prisma.wardrobe_itemUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.wardrobe_itemCreateOrConnectWithoutUserInput | Prisma.wardrobe_itemCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.wardrobe_itemCreateManyUserInputEnvelope
   connect?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
 }
 
 export type wardrobe_itemUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.wardrobe_itemCreateWithoutUserInput, Prisma.wardrobe_itemUncheckedCreateWithoutUserInput> | Prisma.wardrobe_itemCreateWithoutUserInput[] | Prisma.wardrobe_itemUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.wardrobe_itemCreateOrConnectWithoutUserInput | Prisma.wardrobe_itemCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.wardrobe_itemCreateManyUserInputEnvelope
   connect?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
 }
 
 export type wardrobe_itemUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.wardrobe_itemCreateWithoutUserInput, Prisma.wardrobe_itemUncheckedCreateWithoutUserInput> | Prisma.wardrobe_itemCreateWithoutUserInput[] | Prisma.wardrobe_itemUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.wardrobe_itemCreateOrConnectWithoutUserInput | Prisma.wardrobe_itemCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.wardrobe_itemUpsertWithWhereUniqueWithoutUserInput | Prisma.wardrobe_itemUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.wardrobe_itemCreateManyUserInputEnvelope
   set?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
   disconnect?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
   delete?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
@@ -433,10 +387,6 @@ export type wardrobe_itemUpdateManyWithoutUserNestedInput = {
 }
 
 export type wardrobe_itemUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.wardrobe_itemCreateWithoutUserInput, Prisma.wardrobe_itemUncheckedCreateWithoutUserInput> | Prisma.wardrobe_itemCreateWithoutUserInput[] | Prisma.wardrobe_itemUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.wardrobe_itemCreateOrConnectWithoutUserInput | Prisma.wardrobe_itemCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.wardrobe_itemUpsertWithWhereUniqueWithoutUserInput | Prisma.wardrobe_itemUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.wardrobe_itemCreateManyUserInputEnvelope
   set?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
   disconnect?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
   delete?: Prisma.wardrobe_itemWhereUniqueInput | Prisma.wardrobe_itemWhereUniqueInput[]
@@ -448,44 +398,6 @@ export type wardrobe_itemUncheckedUpdateManyWithoutUserNestedInput = {
 
 export type EnumWardrobeCategoryFieldUpdateOperationsInput = {
   set?: $Enums.WardrobeCategory
-}
-
-export type wardrobe_itemCreateWithoutUserInput = {
-  id?: string
-  name: string
-  description: string
-  imageUrl: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  color: string
-  wardrobeCategory: $Enums.WardrobeCategory
-}
-
-export type wardrobe_itemUncheckedCreateWithoutUserInput = {
-  id?: string
-  name: string
-  description: string
-  imageUrl: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  color: string
-  wardrobeCategory: $Enums.WardrobeCategory
-}
-
-export type wardrobe_itemCreateOrConnectWithoutUserInput = {
-  where: Prisma.wardrobe_itemWhereUniqueInput
-  create: Prisma.XOR<Prisma.wardrobe_itemCreateWithoutUserInput, Prisma.wardrobe_itemUncheckedCreateWithoutUserInput>
-}
-
-export type wardrobe_itemCreateManyUserInputEnvelope = {
-  data: Prisma.wardrobe_itemCreateManyUserInput | Prisma.wardrobe_itemCreateManyUserInput[]
-  skipDuplicates?: boolean
-}
-
-export type wardrobe_itemUpsertWithWhereUniqueWithoutUserInput = {
-  where: Prisma.wardrobe_itemWhereUniqueInput
-  update: Prisma.XOR<Prisma.wardrobe_itemUpdateWithoutUserInput, Prisma.wardrobe_itemUncheckedUpdateWithoutUserInput>
-  create: Prisma.XOR<Prisma.wardrobe_itemCreateWithoutUserInput, Prisma.wardrobe_itemUncheckedCreateWithoutUserInput>
 }
 
 export type wardrobe_itemUpdateWithWhereUniqueWithoutUserInput = {
@@ -511,17 +423,6 @@ export type wardrobe_itemScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"wardrobe_item"> | Date | string
   color?: Prisma.StringFilter<"wardrobe_item"> | string
   wardrobeCategory?: Prisma.EnumWardrobeCategoryFilter<"wardrobe_item"> | $Enums.WardrobeCategory
-}
-
-export type wardrobe_itemCreateManyUserInput = {
-  id?: string
-  name: string
-  description: string
-  imageUrl: string
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  color: string
-  wardrobeCategory: $Enums.WardrobeCategory
 }
 
 export type wardrobe_itemUpdateWithoutUserInput = {
@@ -572,18 +473,6 @@ export type wardrobe_itemSelect<ExtArgs extends runtime.Types.Extensions.Interna
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["wardrobe_item"]>
 
-export type wardrobe_itemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  id?: boolean
-  name?: boolean
-  description?: boolean
-  imageUrl?: boolean
-  userId?: boolean
-  createdAt?: boolean
-  updatedAt?: boolean
-  color?: boolean
-  wardrobeCategory?: boolean
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-}, ExtArgs["result"]["wardrobe_item"]>
 
 export type wardrobe_itemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -612,9 +501,6 @@ export type wardrobe_itemSelectScalar = {
 
 export type wardrobe_itemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "description" | "imageUrl" | "userId" | "createdAt" | "updatedAt" | "color" | "wardrobeCategory", ExtArgs["result"]["wardrobe_item"]>
 export type wardrobe_itemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-}
-export type wardrobe_itemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type wardrobe_itemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -726,58 +612,6 @@ export interface wardrobe_itemDelegate<ExtArgs extends runtime.Types.Extensions.
   findMany<T extends wardrobe_itemFindManyArgs>(args?: Prisma.SelectSubset<T, wardrobe_itemFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$wardrobe_itemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
 
   /**
-   * Create a Wardrobe_item.
-   * @param {wardrobe_itemCreateArgs} args - Arguments to create a Wardrobe_item.
-   * @example
-   * // Create one Wardrobe_item
-   * const Wardrobe_item = await prisma.wardrobe_item.create({
-   *   data: {
-   *     // ... data to create a Wardrobe_item
-   *   }
-   * })
-   * 
-   */
-  create<T extends wardrobe_itemCreateArgs>(args: Prisma.SelectSubset<T, wardrobe_itemCreateArgs<ExtArgs>>): Prisma.Prisma__wardrobe_itemClient<runtime.Types.Result.GetResult<Prisma.$wardrobe_itemPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-  /**
-   * Create many Wardrobe_items.
-   * @param {wardrobe_itemCreateManyArgs} args - Arguments to create many Wardrobe_items.
-   * @example
-   * // Create many Wardrobe_items
-   * const wardrobe_item = await prisma.wardrobe_item.createMany({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   *     
-   */
-  createMany<T extends wardrobe_itemCreateManyArgs>(args?: Prisma.SelectSubset<T, wardrobe_itemCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<Prisma.BatchPayload>
-
-  /**
-   * Create many Wardrobe_items and returns the data saved in the database.
-   * @param {wardrobe_itemCreateManyAndReturnArgs} args - Arguments to create many Wardrobe_items.
-   * @example
-   * // Create many Wardrobe_items
-   * const wardrobe_item = await prisma.wardrobe_item.createManyAndReturn({
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * 
-   * // Create many Wardrobe_items and only return the `id`
-   * const wardrobe_itemWithIdOnly = await prisma.wardrobe_item.createManyAndReturn({
-   *   select: { id: true },
-   *   data: [
-   *     // ... provide data here
-   *   ]
-   * })
-   * Note, that providing `undefined` is treated as the value not being there.
-   * Read more here: https://pris.ly/d/null-undefined
-   * 
-   */
-  createManyAndReturn<T extends wardrobe_itemCreateManyAndReturnArgs>(args?: Prisma.SelectSubset<T, wardrobe_itemCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$wardrobe_itemPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-  /**
    * Delete a Wardrobe_item.
    * @param {wardrobe_itemDeleteArgs} args - Arguments to delete one Wardrobe_item.
    * @example
@@ -870,25 +704,6 @@ export interface wardrobe_itemDelegate<ExtArgs extends runtime.Types.Extensions.
    * 
    */
   updateManyAndReturn<T extends wardrobe_itemUpdateManyAndReturnArgs>(args: Prisma.SelectSubset<T, wardrobe_itemUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$wardrobe_itemPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-  /**
-   * Create or update one Wardrobe_item.
-   * @param {wardrobe_itemUpsertArgs} args - Arguments to update or create a Wardrobe_item.
-   * @example
-   * // Update or create a Wardrobe_item
-   * const wardrobe_item = await prisma.wardrobe_item.upsert({
-   *   create: {
-   *     // ... data to create a Wardrobe_item
-   *   },
-   *   update: {
-   *     // ... in case it already exists, update
-   *   },
-   *   where: {
-   *     // ... the filter for the Wardrobe_item we want to update
-   *   }
-   * })
-   */
-  upsert<T extends wardrobe_itemUpsertArgs>(args: Prisma.SelectSubset<T, wardrobe_itemUpsertArgs<ExtArgs>>): Prisma.Prisma__wardrobe_itemClient<runtime.Types.Result.GetResult<Prisma.$wardrobe_itemPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
 
 
   /**
@@ -1269,62 +1084,6 @@ export type wardrobe_itemFindManyArgs<ExtArgs extends runtime.Types.Extensions.I
 }
 
 /**
- * wardrobe_item create
- */
-export type wardrobe_itemCreateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the wardrobe_item
-   */
-  select?: Prisma.wardrobe_itemSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the wardrobe_item
-   */
-  omit?: Prisma.wardrobe_itemOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.wardrobe_itemInclude<ExtArgs> | null
-  /**
-   * The data needed to create a wardrobe_item.
-   */
-  data: Prisma.XOR<Prisma.wardrobe_itemCreateInput, Prisma.wardrobe_itemUncheckedCreateInput>
-}
-
-/**
- * wardrobe_item createMany
- */
-export type wardrobe_itemCreateManyArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * The data used to create many wardrobe_items.
-   */
-  data: Prisma.wardrobe_itemCreateManyInput | Prisma.wardrobe_itemCreateManyInput[]
-  skipDuplicates?: boolean
-}
-
-/**
- * wardrobe_item createManyAndReturn
- */
-export type wardrobe_itemCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the wardrobe_item
-   */
-  select?: Prisma.wardrobe_itemSelectCreateManyAndReturn<ExtArgs> | null
-  /**
-   * Omit specific fields from the wardrobe_item
-   */
-  omit?: Prisma.wardrobe_itemOmit<ExtArgs> | null
-  /**
-   * The data used to create many wardrobe_items.
-   */
-  data: Prisma.wardrobe_itemCreateManyInput | Prisma.wardrobe_itemCreateManyInput[]
-  skipDuplicates?: boolean
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.wardrobe_itemIncludeCreateManyAndReturn<ExtArgs> | null
-}
-
-/**
  * wardrobe_item update
  */
 export type wardrobe_itemUpdateArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1396,36 +1155,6 @@ export type wardrobe_itemUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.E
    * Choose, which related nodes to fetch as well
    */
   include?: Prisma.wardrobe_itemIncludeUpdateManyAndReturn<ExtArgs> | null
-}
-
-/**
- * wardrobe_item upsert
- */
-export type wardrobe_itemUpsertArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the wardrobe_item
-   */
-  select?: Prisma.wardrobe_itemSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the wardrobe_item
-   */
-  omit?: Prisma.wardrobe_itemOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.wardrobe_itemInclude<ExtArgs> | null
-  /**
-   * The filter to search for the wardrobe_item to update in case it exists.
-   */
-  where: Prisma.wardrobe_itemWhereUniqueInput
-  /**
-   * In case the wardrobe_item found by the `where` argument doesn't exist, create a new wardrobe_item with this data.
-   */
-  create: Prisma.XOR<Prisma.wardrobe_itemCreateInput, Prisma.wardrobe_itemUncheckedCreateInput>
-  /**
-   * In case the wardrobe_item was found with the provided `where` argument, update it with this data.
-   */
-  update: Prisma.XOR<Prisma.wardrobe_itemUpdateInput, Prisma.wardrobe_itemUncheckedUpdateInput>
 }
 
 /**
