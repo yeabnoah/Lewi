@@ -4,6 +4,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import * as FileSystem from 'expo-file-system/legacy';
+import { API_BASE_URL } from '@/lib/constants';
 import { supabase } from '@/lib/supabaseClient';
 import axios from 'axios';
 import { useMutation } from '@tanstack/react-query';
@@ -31,10 +32,7 @@ export default function ImageProcessor({ onResult }: ImageProcessorProps) {
   const [showType, setShowType] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
 
-  const API_BASE =
-  process.env.EXPO_PUBLIC_CORS_ORIGIN
-    ? process.env.EXPO_PUBLIC_CORS_ORIGIN
-    : 'http://localhost:3001';
+  const API_BASE = API_BASE_URL;
 
   const analyzeImageMutation = useMutation({
     mutationFn: async (payload: { imageBase64: string }) => {

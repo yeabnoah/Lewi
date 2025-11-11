@@ -5,6 +5,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = "postgresql://mac:nerd123@localhost:5432/lewi?schema=public"
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }

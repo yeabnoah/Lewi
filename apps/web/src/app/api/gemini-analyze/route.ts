@@ -2,6 +2,14 @@ import { NextRequest, NextResponse } from "next/server";
 import { HumanMessage } from '@langchain/core/messages';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { HarmBlockThreshold, HarmCategory } from '@google/generative-ai';
+import { vectorizeDB } from "@/app/functions/vectorizeDB";
+
+export interface wardrobeItemInterface {
+  name: string;
+  description: string;
+  colors: string;
+  type: string;
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -10,7 +18,8 @@ export async function POST(request: NextRequest) {
     console.log('Received request to analyze image');
     console.log('Image base64 length:', imageBase64?.length);
 
-    const API_KEY = process.env.EXPO_PUBLIC_GOOGLE_GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+    // const API_KEY = process.env.EXPO_PUBLIC_GOOGLE_GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+    const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API_KEY;
     
     console.log('API key present:', !!API_KEY);
     console.log('API Key length:', API_KEY?.length);
@@ -36,7 +45,8 @@ CRITICAL: Return ONLY the raw JSON object. No markdown, no backticks, no code bl
 
     // Use LangChain for better error handling
     const vision = new ChatGoogleGenerativeAI({
-      model: 'gemini-2.0-flash-exp',
+      model: 'gemini-2.0-flash',
+      apiVersion: "v1",
       apiKey: API_KEY,
       safetySettings: [
         {
@@ -81,7 +91,7 @@ CRITICAL: Return ONLY the raw JSON object. No markdown, no backticks, no code bl
       cleanedText = jsonMatch[0];
     }
 
-    const jsonResponse = JSON.parse(cleanedText);
+    const jsonResponse: wardrobeItemInterface = JSON.parse(cleanedText);
 
     // Validate structure
     if (!jsonResponse.name || !jsonResponse.description || !jsonResponse.colors || !jsonResponse.type) {
@@ -90,6 +100,9 @@ CRITICAL: Return ONLY the raw JSON object. No markdown, no backticks, no code bl
         { status: 500 }
       );
     }
+
+
+    const vectorizedOutput = await vectorizeDB(jsonResponse);
 
     return NextResponse.json(jsonResponse);
   } catch (error) {

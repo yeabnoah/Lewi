@@ -1,4 +1,5 @@
 import { authClient } from "@/lib/auth-client";
+import { API_BASE_URL } from "@/lib/constants";
 import { ArrowLeftIcon } from "@hugeicons/core-free-icons";
 import { HugeiconsIcon } from "@hugeicons/react-native";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -13,10 +14,7 @@ export default function WardrobeDetailsScreen() {
   const params = useLocalSearchParams();
   const queryClient = useQueryClient();
 
-  const API_BASE =
-    process.env.EXPO_PUBLIC_CORS_ORIGIN
-      ? process.env.EXPO_PUBLIC_CORS_ORIGIN
-      : 'http://localhost:3001';
+  const API_BASE = API_BASE_URL;
 
   // Parse the item data from params
   const item = params.item ? JSON.parse(params.item as string) : null;

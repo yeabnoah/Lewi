@@ -1,3 +1,10 @@
+// API Base URL configuration
+// For iOS/Android simulators, localhost doesn't work - you need your machine's local IP
+// To set this via environment variable: EXPO_PUBLIC_CORS_ORIGIN=http://YOUR_LOCAL_IP:3001
+// You can find your IP by running: ipconfig getifaddr en0 (macOS) or ipconfig (Windows)
+export const API_BASE_URL =
+  process.env.EXPO_PUBLIC_CORS_ORIGIN || "http://192.168.166.79:3001";
+
 export const NAV_THEME = {
   light: {
     background: "hsl(0 0% 98%)", // off-white, elegant

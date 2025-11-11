@@ -1,4 +1,5 @@
 import { authClient } from "@/lib/auth-client";
+import { API_BASE_URL } from "@/lib/constants";
 import { supabase } from "@/lib/supabaseClient";
 import { useColorScheme } from "@/lib/use-color-scheme";
 import {
@@ -94,10 +95,7 @@ export default function AddClothScreen() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [source]);
 
-  const API_BASE =
-    process.env.EXPO_PUBLIC_CORS_ORIGIN
-      ? process.env.EXPO_PUBLIC_CORS_ORIGIN
-      : 'http://localhost:3001';
+  const API_BASE = API_BASE_URL;
 
   // Mutation for analyzing image
   const analyzeImageMutation = useMutation({
