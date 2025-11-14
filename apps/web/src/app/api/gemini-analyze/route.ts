@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { HumanMessage } from '@langchain/core/messages';
 import { ChatGoogleGenerativeAI } from '@langchain/google-genai';
 import { HarmBlockThreshold, HarmCategory } from '@google/generative-ai';
-import { vectorizeDB } from "@/app/functions/vectorizeDB";
 
 export interface wardrobeItemInterface {
   name: string;
@@ -38,7 +37,7 @@ export async function POST(request: NextRequest) {
   "name": "a concise name identifying the cloth",
   "description": "a detailed description of the cloth content",
   "colors": "one dominant color of the cloth",
-  "type": "the type of the cloth "tops", "bottoms", "dresses", "outerwear", "accessories""
+  "type": "the type of the cloth "tops", "bottoms", "dresses", "outerwear", "shoes", "accessories""
 }
 
 CRITICAL: Return ONLY the raw JSON object. No markdown, no backticks, no code blocks, no explanations, no additional text whatsoever. Just the pure JSON object.`;
