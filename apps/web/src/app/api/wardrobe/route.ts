@@ -1,9 +1,9 @@
+import { getEmbedding, saveEmbedding } from "@/app/functions/vectorizeDB";
 import { auth } from "@lewi/auth";
 import prisma from "@lewi/db";
 import { NextRequest, NextResponse } from "next/server";
 import { WardrobeCategory } from "../../../../../../packages/db/prisma/generated/client";
 
-// Map API type strings to WardrobeCategory enum
 function mapTypeToCategory(type: string): WardrobeCategory {
   const normalizedType = type.toLowerCase().trim();
   
@@ -19,7 +19,6 @@ function mapTypeToCategory(type: string): WardrobeCategory {
     case "accessories":
       return WardrobeCategory.ACCESSORY;
     default:
-      // Default to TOP if type doesn't match
       return WardrobeCategory.TOP;
   }
 }
@@ -50,12 +49,12 @@ export async function POST(request: NextRequest) {
 
   const { imageUrl, name, description, colors, type } = await request.json();
 
-  // Validate required fields
   if (!imageUrl) {
     return NextResponse.json({ error: "imageUrl is required" }, { status: 400 });
   }
-
-  // Use analyzed data if provided, otherwise use defaults
+  
+  
+  
   const wardrobeItem = await prisma.wardrobe_item.create({
     data: {
       userId: session.user.id,
@@ -66,6 +65,18 @@ export async function POST(request: NextRequest) {
       wardrobeCategory: type ? mapTypeToCategory(type) : WardrobeCategory.TOP,
     }
   });
+
+
+  const vectorizedOutput = await getEmbedding({
+    name : name,
+    description : description,
+    colors : colors,
+    type : type
+  });
+
+  if (vectorizedOutput.length > 0) {
+    await saveEmbedding(vectorizedOutput, wardrobeItem.id);
+  }
 
   return NextResponse.json({ wardrobeItem: wardrobeItem }, { status: 200 });
 }

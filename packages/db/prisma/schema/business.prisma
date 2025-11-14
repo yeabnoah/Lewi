@@ -8,7 +8,7 @@ model wardrobe_item {
   updatedAt        DateTime                    @updatedAt
   color            String
   wardrobeCategory WardrobeCategory
-  embedding        Unsupported("vector(1536)")
+  embedding        Unsupported("vector(384)")? @default(dbgenerated("null"))
   user             User                        @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 

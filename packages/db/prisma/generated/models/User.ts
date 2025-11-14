@@ -439,6 +439,12 @@ export type UserUpdateOneRequiredWithoutAccountsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAccountsInput, Prisma.UserUpdateWithoutAccountsInput>, Prisma.UserUncheckedUpdateWithoutAccountsInput>
 }
 
+export type UserCreateNestedOneWithoutWardrobe_itemsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutWardrobe_itemsInput, Prisma.UserUncheckedCreateWithoutWardrobe_itemsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWardrobe_itemsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
 export type UserUpdateOneRequiredWithoutWardrobe_itemsNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutWardrobe_itemsInput, Prisma.UserUncheckedCreateWithoutWardrobe_itemsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutWardrobe_itemsInput

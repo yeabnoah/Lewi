@@ -11,36 +11,61 @@ const model = `https://router.huggingface.co/hf-inference/models/sentence-transf
 
 export async function getEmbedding(fetchedWardrobe: wardrobeItemInterface): Promise<number[]> {
     try {
-    const response = await fetch(model, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${process.env.HF_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ inputs: JSON.stringify(fetchedWardrobe) }),
-    });
-  
-        const data = await response.json();
-        // data is nested: [[...vector]]
-        if (Array.isArray(data) && Array.isArray(data[0])) {
-            return data[0] as number[];
-          } else {
-            console.error("Unexpected embedding response:", data);
+        console.log(`[getEmbedding] Generating embedding for: ${fetchedWardrobe.name}`);
+        const textInput = `${fetchedWardrobe.name}. ${fetchedWardrobe.description || ''} Color: ${fetchedWardrobe.colors || ''}. Type: ${fetchedWardrobe.type || ''}`.trim();
+        
+        const response = await fetch(model, {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${process.env.HF_API_KEY}`,
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ inputs: textInput }),
+        });
+
+        if (!response.ok) {
+            console.error(`[getEmbedding] API error: ${response.status} ${response.statusText}`);
             return [];
-          }
+        }
+
+        const data = await response.json();
+        let embedding: number[] = [];
+        
+        if (Array.isArray(data)) {
+            if (Array.isArray(data[0])) {
+                embedding = data[0] as number[];
+            } else if (typeof data[0] === 'number') {
+                embedding = data as number[];
+            }
+        }
+        
+        if (embedding.length > 0) {
+            console.log(`[getEmbedding] ✓ Successfully generated embedding (${embedding.length} dimensions) for: ${fetchedWardrobe.name}`);
+            return embedding;
+        } else {
+            console.error(`[getEmbedding] ✗ Unexpected embedding response for: ${fetchedWardrobe.name}`, data);
+            return [];
+        }
     } catch (error) {
-        console.error("Error getting embedding:", error);
+        console.error(`[getEmbedding] ✗ Error getting embedding for: ${fetchedWardrobe.name}`, error);
         return [];
     }
-  }
-  
-  // Save embedding in Supabase/Postgres
+}
+
   export async function saveEmbedding(vector: number[], wardrobeItemId: string) {
-    await prisma.$executeRaw`
-      UPDATE "wardrobe_item"
-      SET embedding = ${vector}::vector
-      WHERE id = ${wardrobeItemId}
-    `;
+    try {
+        console.log(`[saveEmbedding] Saving embedding to DB for item: ${wardrobeItemId}`);
+        const vectorString = `[${vector.join(',')}]`;
+        await prisma.$executeRawUnsafe(
+            `UPDATE "wardrobe_item" SET embedding = $1::vector WHERE id = $2`,
+            vectorString,
+            wardrobeItemId
+        );
+        console.log(`[saveEmbedding] ✓ Successfully saved embedding to DB for item: ${wardrobeItemId}`);
+    } catch (error) {
+        console.error(`[saveEmbedding] ✗ Failed to save embedding to DB for item: ${wardrobeItemId}`, error);
+        throw error;
+    }
   }
 
 

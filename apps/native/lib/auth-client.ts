@@ -11,7 +11,7 @@ const getServerURL = () => {
   }
   // Default to current network IP (update this if your IP changes)
   // You can find your IP by running: ipconfig getifaddr en0 (macOS) or ipconfig (Windows)
-  return "http://10.127.223.72:3001/api/auth";
+  return "http://192.168.1.3:3001/api/auth";
 };
 
 export const authClient = createAuthClient({

@@ -19,7 +19,7 @@ export async function POST(request: NextRequest) {
     console.log('Image base64 length:', imageBase64?.length);
 
     // const API_KEY = process.env.EXPO_PUBLIC_GOOGLE_GEMINI_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
-    const API_KEY = process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API_KEY;
+    const API_KEY = process.env.GOOGLE_API_KEY;
     
     console.log('API key present:', !!API_KEY);
     console.log('API Key length:', API_KEY?.length);
@@ -100,9 +100,6 @@ CRITICAL: Return ONLY the raw JSON object. No markdown, no backticks, no code bl
         { status: 500 }
       );
     }
-
-
-    const vectorizedOutput = await vectorizeDB(jsonResponse);
 
     return NextResponse.json(jsonResponse);
   } catch (error) {
