@@ -27,7 +27,7 @@ const formatInstructions = structuredOutputParser.getFormatInstructions();
 
 const escapedFormatInstructions = formatInstructions.replace(/\{/g, "{{").replace(/\}/g, "}}");
 
-const humanMessageTemplate = "User request: {userPrompt}\n\nReturn JSON matching this schema:\n" + escapedFormatInstructions;
+const humanMessageTemplate = "here is the User preference outfit: {userPrompt}\n\nReturn JSON matching this schema:\n" + escapedFormatInstructions;
 
 const prompt = ChatPromptTemplate.fromMessages([
   [

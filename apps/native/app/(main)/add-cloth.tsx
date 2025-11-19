@@ -1,3 +1,4 @@
+import ScannerUI from "@/components/scanner";
 import { authClient } from "@/lib/auth-client";
 import { API_BASE_URL } from "@/lib/constants";
 import { supabase } from "@/lib/supabaseClient";
@@ -12,7 +13,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import { CameraView, useCameraPermissions } from "expo-camera";
 import * as ImagePicker from "expo-image-picker";
-import * as FileSystem from 'expo-file-system/legacy';
+import * as FileSystem from "expo-file-system/legacy";
 import * as Haptic from "expo-haptics";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
@@ -117,6 +118,7 @@ export default function AddClothScreen() {
       return res.data as ImageAnalysisResult;
     },
   });
+  const isAnalyzingImage = isAnalyzing || analyzeImageMutation.isPending;
 
   // Mutation for uploading wardrobe item
   const uploadWardrobeItemMutation = useMutation({
@@ -459,11 +461,15 @@ export default function AddClothScreen() {
               <View className="items-center gap-4 flex-row justify-between">
                 <Pressable
                   onPress={handleAnalyze}
-                  disabled={uploadWardrobeItemMutation.isPending || isUploading || isAnalyzing || analyzeImageMutation.isPending}
+                  disabled={
+                    uploadWardrobeItemMutation.isPending ||
+                    isUploading ||
+                    isAnalyzingImage
+                  }
                   className="w-1/2 max-w-xs h-12 rounded-2xl items-center justify-center bg-lewi active:bg-lewi/90 shadow-lg shadow-black/20"
                 >
                   <Text className="text-black font-bold text-lg">
-                    {isAnalyzing || analyzeImageMutation.isPending
+                    {isAnalyzingImage
                       ? "Analyzing..."
                       : isUploading
                       ? "Uploading..."
@@ -483,13 +489,20 @@ export default function AddClothScreen() {
                 </Pressable>
               </View>
 
-              {(isUploading || isAnalyzing || analyzeImageMutation.isPending) && (
-                <View className="absolute top-0 left-0 right-0 bottom-0 items-center justify-center bg-black/60">
-                  <Text className="text-white text-base">
-                    {isAnalyzing || analyzeImageMutation.isPending
-                      ? "Analyzing image..."
-                      : "Uploading image..."}
-                  </Text>
+              {(isUploading || isAnalyzingImage) && (
+                <View className="absolute inset-0 bg-black/80">
+                  {isAnalyzingImage ? (
+                    <ScannerUI imageUri={capturedImage ?? undefined} />
+                  ) : (
+                    <View className="flex-1 items-center justify-center gap-6">
+                      <View className="w-24 h-24 rounded-full border border-white/15 items-center justify-center">
+                        <View className="w-16 h-16 rounded-full bg-white/15" />
+                      </View>
+                      <Text className="text-white/70 text-base">
+                        Uploading image...
+                      </Text>
+                    </View>
+                  )}
                 </View>
               )}
             </View>

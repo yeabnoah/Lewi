@@ -1,4 +1,5 @@
 
+import ScannerUI from "@/components/scanner";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { authClient } from "@/lib/auth-client";
@@ -367,6 +368,9 @@ export default function Profile() {
 
     </SafeAreaView>
 
+  );
+}
+
     // <SafeAreaView className=" flex flex-row items-center justify-center min-h-screen">
     //   <Button size="lg" className=" bg-lewi" onPress={() => {
     //     handleRandomButtonClick();
@@ -382,5 +386,5 @@ export default function Profile() {
     //     </View>
     //   )}
     // </SafeAreaView>
-  );
-}
+//   );
+// }

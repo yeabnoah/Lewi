@@ -35,9 +35,9 @@ export async function POST(request: NextRequest) {
 
 {
   "name": "a concise name identifying the cloth",
-  "description": "a detailed description of the cloth content",
+  "description": "a detailed description of the cloth content : also include the possible condiitions or senarios for the cloth to be worn in like gym, casual, formal, etc. you can mention more than one condition or scenario",
   "colors": "one dominant color of the cloth",
-  "type": "the type of the cloth "tops", "bottoms", "dresses", "outerwear", "shoes", "accessories""
+  "type": "the type of the cloth "tops", "bottoms", "dresses", "outerwear", "shoes", "accessories" or "other" if it doesn't fit into any of the categories"
 }
 
 CRITICAL: Return ONLY the raw JSON object. No markdown, no backticks, no code blocks, no explanations, no additional text whatsoever. Just the pure JSON object.`;
